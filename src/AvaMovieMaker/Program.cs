@@ -13,10 +13,6 @@ internal static class Program
     {
         Log.OpenFile(AppPaths.LogFile);
         Log.EchoToConsole = args.Contains("--verbose");
-        if (args.Contains("--smoke"))
-        {
-            return Smoke.Run(args);
-        }
 
         App.StartupPaths = args.Where(a => !a.StartsWith("--", StringComparison.Ordinal)).Select(Path.GetFullPath).ToList();
         App.FFmpegError = FFmpegRuntime.Check();
