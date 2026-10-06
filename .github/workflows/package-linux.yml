@@ -3,11 +3,15 @@ name: package-linux
 on:
   workflow_dispatch:
 
+permissions:
+  actions: read
+  contents: read
+
 jobs:
   ffmpeg:
-    uses: ./.github/workflows/ffmpeg-desktop.yml
+    uses: ./.github/workflows/ffmpeg-artifact.yml
     with:
-      targets: '["linux-x64"]'
+      target: linux-x64
 
   appimage:
     needs: ffmpeg
@@ -31,8 +35,10 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: ffmpeg-linux-x64
+          name: ${{ needs.ffmpeg.outputs.name }}
           path: tools/ffmpeg/out/linux-x64
+          run-id: ${{ needs.ffmpeg.outputs.run-id }}
+          github-token: ${{ github.token }}
 
       - name: Signing key
         env:

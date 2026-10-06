@@ -1,12 +1,16 @@
 name: ffmpeg-desktop
 
 on:
-  workflow_call:
-    inputs:
-      targets:
-        description: JSON list of the targets to build
-        type: string
-        default: '["linux-x64", "osx-arm64", "win-x64"]'
+  push:
+    branches: [main]
+    paths:
+      - tools/ffmpeg/versions.env
+      - tools/ffmpeg/components.sh
+      - tools/ffmpeg/build-desktop.sh
+      - tools/ffmpeg/check-payload.sh
+      - tools/ffmpeg/linux/**
+      - tools/linux/deps.sh
+      - tools/ffmpeg/recipe-key.sh
   workflow_dispatch:
     inputs:
       targets:
@@ -19,18 +23,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: ${{ fromJSON(inputs.targets) }}
-        include:
-          - target: linux-x64
-            runner: ubuntu-24.04
-            # glibc 2.35: the libraries build in Ubuntu 22.04.
-            container: ubuntu:22.04
-          - target: osx-arm64
-            runner: macos-latest
-          - target: win-x64
-            runner: windows-2022
-    runs-on: ${{ matrix.runner }}
-    container: ${{ matrix.container }}
+        target: ${{ fromJSON(inputs.targets || '["linux-x64", "osx-arm64", "win-x64"]') }}
+    # The runner and container follow the target (a matrix include would add every target as its own job). glibc 2.35:
+    # the Linux libraries build in Ubuntu 22.04.
+    runs-on: ${{ matrix.target == 'osx-arm64' && 'macos-latest' || matrix.target == 'win-x64' && 'windows-2022' || 'ubuntu-24.04' }}
+    container: ${{ matrix.target == 'linux-x64' && 'ubuntu:22.04' || '' }}
     defaults:
       run:
         shell: ${{ matrix.target == 'win-x64' && 'msys2 {0}' || 'bash' }}
@@ -64,11 +61,15 @@ jobs:
             mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-nasm mingw-w64-ucrt-x86_64-pkgconf
             mingw-w64-ucrt-x86_64-meson mingw-w64-ucrt-x86_64-ninja
 
+      - id: recipe
+        name: Recipe key
+        run: echo "key=$(bash tools/ffmpeg/recipe-key.sh)" >> "$GITHUB_OUTPUT"
+
       - id: cache
         uses: actions/cache@v4
         with:
           path: tools/ffmpeg/out/${{ matrix.target }}
-          key: ffmpeg-${{ matrix.target }}-${{ hashFiles('tools/ffmpeg/versions.env', 'tools/ffmpeg/components.sh', 'tools/ffmpeg/build-desktop.sh', 'tools/ffmpeg/check-payload.sh', 'tools/ffmpeg/linux/**', 'tools/linux/deps.sh') }}
+          key: ffmpeg-${{ matrix.target }}-${{ steps.recipe.outputs.key }}
 
       - name: Build
         if: steps.cache.outputs.cache-hit != 'true'
@@ -78,6 +79,6 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: ffmpeg-${{ matrix.target }}
+          name: ffmpeg-${{ matrix.target }}-${{ steps.recipe.outputs.key }}
           path: tools/ffmpeg/out/${{ matrix.target }}
-          retention-days: 7
+          retention-days: 90

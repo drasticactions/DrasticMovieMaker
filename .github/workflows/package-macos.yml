@@ -3,11 +3,15 @@ name: package-macos
 on:
   workflow_dispatch:
 
+permissions:
+  actions: read
+  contents: read
+
 jobs:
   ffmpeg:
-    uses: ./.github/workflows/ffmpeg-desktop.yml
+    uses: ./.github/workflows/ffmpeg-artifact.yml
     with:
-      targets: '["osx-arm64"]'
+      target: osx-arm64
 
   dmg:
     needs: ffmpeg
@@ -21,8 +25,10 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: ffmpeg-osx-arm64
+          name: ${{ needs.ffmpeg.outputs.name }}
           path: tools/ffmpeg/out/osx-arm64
+          run-id: ${{ needs.ffmpeg.outputs.run-id }}
+          github-token: ${{ github.token }}
 
       - name: Signing identity
         env:

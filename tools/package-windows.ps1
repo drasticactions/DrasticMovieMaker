@@ -2,7 +2,8 @@
 # <out>\AvaMovieMaker-<version>-win-x64.zip, holding the folder AvaMovieMaker-<version>-win-x64.
 # Run on Windows with the .NET SDK and Visual Studio Build Tools (NativeAOT links with their linker). The bundled
 # FFmpeg comes from tools\ffmpeg\out\win-x64 (tools/ffmpeg/build-desktop.sh win-x64 under MSYS2 UCRT64, or the
-# ffmpeg-win-x64 artifact). The zip writes nothing to the registry; README.txt explains Open With.
+# ffmpeg-desktop workflow's ffmpeg-win-x64-<recipe key> artifact). The zip writes nothing to the registry; README.txt
+# explains Open With.
 #
 # Signing hook, unsigned by default: with AMM_WINDOWS_CERT (a .pfx path) and AMM_WINDOWS_CERT_PASSWORD set, signtool
 # signs the exe and every DLL (SHA-256, RFC 3161 timestamp from AMM_WINDOWS_TIMESTAMP_URL, default DigiCert's).
@@ -19,7 +20,7 @@ $Out = (Resolve-Path $Out).Path
 $version = ([xml](Get-Content (Join-Path $root 'Directory.Build.props'))).Project.PropertyGroup.Version | Where-Object { $_ } | Select-Object -First 1
 $ffmpeg = Join-Path $root 'tools\ffmpeg\out\win-x64'
 if (-not (Test-Path (Join-Path $ffmpeg 'avformat-63.dll'))) {
-    throw "FFmpeg for win-x64 is not built: run tools/ffmpeg/build-desktop.sh win-x64 in an MSYS2 UCRT64 shell, or download the ffmpeg-win-x64 artifact into $ffmpeg."
+    throw "FFmpeg for win-x64 is not built: run tools/ffmpeg/build-desktop.sh win-x64 in an MSYS2 UCRT64 shell, or download the ffmpeg-desktop workflow's ffmpeg-win-x64-<recipe key> artifact into $ffmpeg."
 }
 
 # NativeAOT finds the linker through vcvarsall.bat, which in newer Visual Studio runs vswhere.exe from PATH. CI images

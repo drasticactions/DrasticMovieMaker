@@ -1,0 +1,45 @@
+name: ffmpeg-artifact
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        description: The desktop target, such as linux-x64
+        type: string
+        required: true
+    outputs:
+      name:
+        description: The artifact's name
+        value: ${{ jobs.find.outputs.name }}
+      run-id:
+        description: The workflow run that uploaded it
+        value: ${{ jobs.find.outputs.run-id }}
+
+jobs:
+  find:
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: read
+      contents: read
+    outputs:
+      name: ${{ steps.find.outputs.name }}
+      run-id: ${{ steps.find.outputs.run-id }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - id: find
+        name: Find the artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET: ${{ inputs.target }}
+        run: |
+          name="ffmpeg-$TARGET-$(tools/ffmpeg/recipe-key.sh)"
+          run_id=$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?name=$name&per_page=100" \
+            --jq '[.artifacts[] | select(.expired | not)] | max_by(.created_at) | .workflow_run.id // empty')
+          if [[ -z $run_id ]]; then
+            echo "::error::No $name artifact. Run the ffmpeg-desktop workflow for $TARGET on this branch first."
+            exit 1
+          fi
+          echo "Using $name from run $run_id."
+          echo "name=$name" >> "$GITHUB_OUTPUT"
+          echo "run-id=$run_id" >> "$GITHUB_OUTPUT"
