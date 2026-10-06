@@ -72,9 +72,9 @@
               </Grid>
             </DataTemplate>
             <DataTemplate DataType="vm:AnimationOption">
-              <Grid ColumnDefinitions="200,*">
+              <Grid ColumnDefinitions="200,*" Background="Transparent" ToolTip.Tip="{Binding Description}">
                 <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
-                <TextBlock Grid.Column="1" Text="{Binding Description}" TextTrimming="CharacterEllipsis" Margin="7,0,0,0" />
+                <TextBlock Grid.Column="1" Text="{Binding Description}" TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" Margin="7,0,0,0" />
               </Grid>
             </DataTemplate>
           </ListBox.DataTemplates>
