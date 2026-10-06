@@ -1,0 +1,186 @@
+// Shape wipes. Each shape is a field f(p) in 0..1: the progress at which a pixel turns from A to B.
+// Written for AvaMovieMaker. The shape numbers match WipeShape.cs.
+uniform shader a;
+uniform shader b;
+uniform float2 resolution;
+uniform float aspect;
+uniform float progress;
+uniform float softness;
+uniform int shape;
+uniform float reverse;
+uniform float2 flip;
+uniform float count;
+uniform float2 grid;
+uniform float variant;
+
+const float PI = 3.14159265;
+
+float gaugeCircle(float2 q) { return length(q); }
+
+// The smallest s with q inside s * shape. A bisection on an inside test finds it.
+bool insideEye(float2 q) {
+    // Two circular arcs meeting at (±0.5, 0).
+    float r = 0.6;
+    float c = sqrt(r * r - 0.25);
+    return length(float2(q.x, abs(q.y) + c)) <= r;
+}
+
+bool insideHeart(float2 q) {
+    float2 h = float2(q.x, -q.y + 0.1) * 1.25;
+    float a = h.x * h.x + h.y * h.y - 0.25;
+    return a * a * a - h.x * h.x * h.y * h.y * h.y * 0.3 <= 0.0;
+}
+
+bool insideKeyhole(float2 q) {
+    if (length(q - float2(0.0, -0.12)) <= 0.22) { return true; }
+    float y = q.y + 0.05;
+    return y >= 0.0 && y <= 0.42 && abs(q.x) <= 0.1 + y * 0.35;
+}
+
+bool insideStar(float2 q, float n) {
+    float ang = atan(q.x, -q.y);
+    float r = length(q);
+    float seg = 2.0 * PI / n;
+    float a2 = mod(ang + seg * 0.5, seg) - seg * 0.5;
+    // Radius of a star with outer 0.5 and inner 0.2 along this angle.
+    float t = abs(a2) / (seg * 0.5);
+    float outer = 0.5;
+    float inner = 0.2;
+    float2 p0 = float2(0.0, outer);
+    float2 p1 = float2(sin(seg * 0.5), cos(seg * 0.5)) * inner;
+    float2 dir = float2(sin(abs(a2)), cos(abs(a2)));
+    // Intersect the ray with the edge p0-p1.
+    float2 e = p1 - p0;
+    float den = dir.x * e.y - dir.y * e.x;
+    float s = (p0.x * e.y - p0.y * e.x) / den;
+    return r <= s;
+}
+
+bool insideIris(float2 q) {
+    // A six-blade aperture: a hexagon turned a little as it opens.
+    float ang = atan(q.y, q.x) + 0.3;
+    float seg = PI / 3.0;
+    float a2 = mod(ang, seg) - seg * 0.5;
+    return length(q) * cos(a2) <= 0.5;
+}
+
+bool inside(int s, float2 q) {
+    if (s == 12) { return insideEye(q); }
+    if (s == 13) { return insideHeart(q); }
+    if (s == 14) { return insideKeyhole(q); }
+    if (s == 17) { return insideIris(q); }
+    return insideStar(q, count);
+}
+
+float gauge(int s, float2 q) {
+    float lo = 0.0;
+    float hi = 8.0;
+    for (int i = 0; i < 18; i++) {
+        float mid = (lo + hi) * 0.5;
+        if (inside(s, q / mid)) { hi = mid; } else { lo = mid; }
+    }
+    return hi;
+}
+
+// The gauge of the frame corner, so the field reaches 1 exactly when the shape covers the frame.
+float cornerGauge(int s, float2 hs) {
+    float g = 0.0;
+    g = max(g, gauge(s, float2(hs.x, hs.y)));
+    g = max(g, gauge(s, float2(-hs.x, hs.y)));
+    g = max(g, gauge(s, float2(hs.x, -hs.y)));
+    g = max(g, gauge(s, float2(-hs.x, -hs.y)));
+    g = max(g, gauge(s, float2(0.0, hs.y)));
+    g = max(g, gauge(s, float2(0.0, -hs.y)));
+    g = max(g, gauge(s, float2(hs.x, 0.0)));
+    g = max(g, gauge(s, float2(-hs.x, 0.0)));
+    return g;
+}
+
+float field(float2 uv) {
+    float2 d = uv - 0.5;
+    float2 q = float2(d.x * aspect, d.y);
+    float2 hs = float2(0.5 * aspect, 0.5);
+    if (shape == 0) { return uv.x; }
+    if (shape == 1) { return uv.y; }
+    if (shape == 2) { return (uv.x + uv.y) * 0.5; }
+    if (shape == 3) { return abs(d.x) * 2.0; }
+    if (shape == 4) { return abs(d.y) * 2.0; }
+    if (shape == 5) { return max(abs(d.x), abs(d.y)) * 2.0; }
+    if (shape == 6) { return abs(d.x) + abs(d.y); }
+    if (shape == 7) { return min(abs(d.x - d.y), abs(d.x + d.y)) * 2.0; }
+    if (shape == 8) { return 0.5 * (abs(d.x) * 2.0) + 0.5 * (1.0 - abs(d.y) * 2.0); }
+    if (shape == 9) { return 0.5 * (abs(d.y) * 2.0) + 0.5 * (1.0 - abs(d.x) * 2.0); }
+    if (shape == 10) { return length(q) / length(hs); }
+    if (shape == 11) {
+        // A grid of circles: count columns, rows to keep them round (8 x 6 at 4:3).
+        float cols = max(1.0, count);
+        float rows = max(1.0, floor(cols / aspect + 0.5));
+        float2 cell = fract(uv * float2(cols, rows)) - 0.5;
+        float2 cq = float2(cell.x * aspect * rows / cols, cell.y);
+        return length(cq) / length(float2(0.5 * aspect * rows / cols, 0.5));
+    }
+    if (shape == 16) {
+        float2 cell = fract(uv * grid) - 0.5;
+        float2 cq = float2(cell.x * aspect * grid.y / grid.x, cell.y);
+        float2 ch = float2(0.5 * aspect * grid.y / grid.x, 0.5);
+        return gauge(15, cq) / cornerGauge(15, ch);
+    }
+    if (shape >= 12 && shape <= 17) { return gauge(shape, q) / cornerGauge(shape, hs); }
+    if (shape == 18) { return max(uv.x, uv.y); }
+    if (shape == 19) {
+        // Filled V: variant 0 down / up (flip), 1 left, 2 right.
+        if (variant == 1.0) { return ((1.0 - uv.x) + (0.5 - abs(d.y))) / 1.5; }
+        if (variant == 2.0) { return (uv.x + (0.5 - abs(d.y))) / 1.5; }
+        return (uv.y + (0.5 - abs(d.x))) / 1.5;
+    }
+    if (shape == 20) {
+        // Two fans hinged at the middle of the left and right edges, closing toward the center.
+        float2 hinge = float2(d.x < 0.0 ? -0.5 * aspect : 0.5 * aspect, 0.0);
+        float2 v = q - hinge;
+        return abs(atan(v.y, abs(v.x))) / (PI * 0.5);
+    }
+    if (shape == 21) { return abs(atan(q.x, -q.y)) / PI; }
+    if (shape == 22) {
+        float2 v = float2(q.x, uv.y - 1.0);
+        return abs(atan(v.x, -v.y)) / (PI * 0.5);
+    }
+    if (shape == 23) { return abs(atan(q.y, -q.x)) / PI; }
+    if (shape == 24) { return atan(abs(q.x), abs(q.y)) / (PI * 0.5); }
+    if (shape == 25) {
+        float2 v = float2(uv.x * aspect, 1.0 - uv.y);
+        return 1.0 - atan(v.y, v.x) / (PI * 0.5);
+    }
+    if (shape == 26) {
+        float ang = atan(q.x, -q.y) + PI;
+        return fract(ang * count / (2.0 * PI));
+    }
+    if (shape == 27) {
+        float tri = abs(fract(uv.y * count) - 0.5) * 2.0;
+        return uv.x * 0.9 + tri * 0.1;
+    }
+    if (shape == 28) {
+        float tri = abs(fract(uv.x * count) - 0.5) * 2.0;
+        return uv.y * 0.9 + tri * 0.1;
+    }
+    if (shape == 29) {
+        float2 cell = floor(uv * grid);
+        float parity = mod(cell.x + cell.y, 2.0);
+        return (fract(uv.x * grid.x) + parity) * 0.5;
+    }
+    return uv.x;
+}
+
+half4 main(float2 p) {
+    float2 uv = p / resolution;
+    if (flip.x > 0.5) { uv.x = 1.0 - uv.x; }
+    if (flip.y > 0.5) { uv.y = 1.0 - uv.y; }
+    float f = clamp(field(uv), 0.0, 1.0);
+    if (reverse > 0.5) { f = 1.0 - f; }
+    float m;
+    if (softness > 0.0) {
+        m = clamp((progress * (1.0 + softness) - f) / softness, 0.0, 1.0);
+    } else {
+        m = progress >= 1.0 ? 1.0 : step(f, progress);
+    }
+    return mix(a.eval(p), b.eval(p), half(m));
+}

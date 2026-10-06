@@ -1,0 +1,32 @@
+// Per-pixel color effects. op: 0 grayscale, 1 sepia, 2 brightness, 3 posterize, 4 threshold, 5 hue rotate, 6 fade.
+uniform shader src;
+uniform int op;
+uniform float amount;   // brightness step, posterize levels, hue angle (radians), fade level
+uniform float3 tint;    // fade color
+
+half4 main(float2 p) {
+    half4 c = src.eval(p);
+    float3 rgb = float3(c.rgb);
+    float y = dot(rgb, float3(0.299, 0.587, 0.114));
+    if (op == 0) {
+        rgb = float3(y);
+    } else if (op == 1) {
+        rgb = saturate(float3(dot(rgb, float3(0.393, 0.769, 0.189)), dot(rgb, float3(0.349, 0.686, 0.168)), dot(rgb, float3(0.272, 0.534, 0.131))));
+    } else if (op == 2) {
+        rgb = saturate(rgb + amount);
+    } else if (op == 3) {
+        float levels = max(2.0, amount);
+        rgb = floor(rgb * (levels - 1.0) + 0.5) / (levels - 1.0);
+    } else if (op == 4) {
+        rgb = float3(step(0.5, y));
+    } else if (op == 5) {
+        // Rotate hue about the gray axis.
+        float cs = cos(amount);
+        float sn = sin(amount);
+        float3 k = float3(0.57735);
+        rgb = saturate(rgb * cs + cross(k, rgb) * sn + k * dot(k, rgb) * (1.0 - cs));
+    } else if (op == 6) {
+        rgb = mix(tint, rgb, amount);
+    }
+    return half4(half3(rgb), c.a);
+}

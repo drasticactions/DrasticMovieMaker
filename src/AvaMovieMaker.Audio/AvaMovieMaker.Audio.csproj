@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaMovieMaker.Audio</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JAJ.Packages.MiniAudioEx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaMovieMaker.Media\AvaMovieMaker.Media.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaMovieMaker.Timeline.Tests" />
+    <InternalsVisibleTo Include="AvaMovieMaker.Media.Tests" />
+  </ItemGroup>
+
+</Project>

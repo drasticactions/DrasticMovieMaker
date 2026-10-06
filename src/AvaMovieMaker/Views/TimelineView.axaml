@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Shell"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             x:Class="AvaMovieMaker.Views.TimelineView"
+             x:DataType="vm:ShellViewModel">
+  <DockPanel>
+    <StackPanel DockPanel.Dock="Top" Classes="mm-toolbar" Orientation="Horizontal" Height="25" Margin="6,1,0,0" Spacing="6">
+      <Button Classes="mm-flat" Padding="4,0" AutomationProperties.Name="{x:Static str:Strings.TimelineTimelineViewName}">
+        <StackPanel Orientation="Horizontal" Spacing="6">
+          <TextBlock Text="{x:Static str:Strings.ShowTimeline}" VerticalAlignment="Center" />
+          <Path Data="M0,0 L7,0 L3.5,4 Z" Fill="Black" VerticalAlignment="Center" />
+        </StackPanel>
+        <Button.Flyout>
+          <MenuFlyout>
+            <MenuItem Header="{x:Static str:Strings.ShowStoryboard}" Command="{Binding ShowStoryboardViewCommand}" />
+            <MenuItem Header="{x:Static str:Strings.ShowTimeline}" Command="{Binding ShowTimelineViewCommand}" />
+          </MenuFlyout>
+        </Button.Flyout>
+      </Button>
+      <Button Command="{Binding Monitor.RewindCommand}" Classes="mm-flat" Padding="2" ToolTip.Tip="{Binding RewindBoardTip}" AutomationProperties.Name="{x:Static str:Strings.Rewind}">
+        <c:Glyph Kind="rewind" />
+      </Button>
+      <Button Command="{Binding Monitor.PlayProjectCommand}" Classes="mm-flat" Padding="2" ToolTip.Tip="{Binding PlayBoardTip}" AutomationProperties.Name="{x:Static str:Strings.Play}">
+        <c:Glyph Kind="{Binding PlayBoardGlyph}" />
+      </Button>
+      <Button Command="{Binding Timeline.ZoomInCommand}" Classes="mm-flat" Padding="2" ToolTip.Tip="{x:Static str:Strings.TimelineZoomInPageDown}" AutomationProperties.Name="{x:Static str:Strings.TimelineZoomInName}">
+        <c:Glyph Kind="zoom-in" />
+      </Button>
+      <Button Command="{Binding Timeline.ZoomOutCommand}" Classes="mm-flat" Padding="2" ToolTip.Tip="{x:Static str:Strings.TimelineZoomOutPageUp}" AutomationProperties.Name="{x:Static str:Strings.TimelineZoomOutName}">
+        <c:Glyph Kind="zoom-out" />
+      </Button>
+    </StackPanel>
+    <ScrollBar Name="HScroll" DockPanel.Dock="Bottom" Orientation="Horizontal" Height="17" Margin="114,0,0,0" />
+    <c:TimelineControl Name="Control" DataContext="{Binding Timeline}" />
+  </DockPanel>
+</UserControl>

@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Shell"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             xmlns:app="using:AvaMovieMaker"
+             x:Class="AvaMovieMaker.Views.CollectionsPaneView"
+             x:DataType="vm:ShellViewModel"
+             Width="{x:Static app:ShellMetrics.TasksWidth}"
+             Background="{DynamicResource MmPaneBrush}"
+             AutomationProperties.Name="{x:Static str:Strings.CollectionsPaneCollections}">
+  <DockPanel Margin="0,0,4,0">
+    <TextBlock DockPanel.Dock="Top" Text="{x:Static str:Strings.CollectionsPaneCollections}" Height="{x:Static app:ShellMetrics.TasksHeaderHeight}" Padding="6,8,0,0"
+               Foreground="{DynamicResource MmTasksHeaderTextBrush}" />
+    <TreeView Margin="6,4,0,0" Background="Transparent" BorderThickness="0" AutomationProperties.Name="{x:Static str:Strings.CollectionsPaneCollectionFoldersName}">
+      <TreeViewItem IsExpanded="True" IsSelected="True" Tapped="OnImportedMedia">
+        <TreeViewItem.Header>
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <c:Glyph Kind="collections" />
+            <TextBlock Text="{x:Static str:Strings.CollectionsPaneImportedMedia}" VerticalAlignment="Center" />
+          </StackPanel>
+        </TreeViewItem.Header>
+      </TreeViewItem>
+    </TreeView>
+  </DockPanel>
+</UserControl>

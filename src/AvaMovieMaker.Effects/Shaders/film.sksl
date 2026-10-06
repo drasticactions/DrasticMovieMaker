@@ -1,0 +1,67 @@
+// Film age and grain. Noise is seeded from the clip and the frame number, so that preview and export agree.
+uniform shader src;
+uniform float2 resolution;
+uniform int op;              // 0 film age, 1 film grain
+uniform float frame;
+uniform float seed;
+uniform float noiseAmount;   // grain strength
+uniform float splotches;     // splotch frequency
+uniform float lines;         // scratch line frequency
+uniform float lint;          // lint frequency
+uniform float levels;        // posterize levels
+uniform float2 shake;        // offset in pixels for this frame
+
+float hash(float2 v) {
+    return fract(sin(dot(v, float2(12.9898, 78.233)) + seed * 3.17) * 43758.5453);
+}
+
+float hash1(float v) { return hash(float2(v, v * 1.31)); }
+
+half4 main(float2 p) {
+    float scale = resolution.y / 480.0;
+    float2 q = p + shake;
+    float3 rgb = float3(src.eval(q).rgb);
+    float grainSize = op == 1 ? 1.5 : 2.0;
+    float n = hash(floor(p / (grainSize * scale)) + frame * 7.0) - 0.5;
+    if (op == 1) {
+        rgb = saturate(rgb + n * 0.16);
+        return half4(half3(rgb), 1.0);
+    }
+    // Faded, warm, posterized print.
+    float y = dot(rgb, float3(0.299, 0.587, 0.114));
+    float3 sepia = float3(y * 1.07, y * 0.94, y * 0.78);
+    rgb = mix(rgb, sepia, 0.85);
+    if (levels < 100.0) {
+        rgb = floor(rgb * (levels - 1.0) + 0.5) / (levels - 1.0);
+    }
+    rgb += n * noiseAmount * 0.25;
+    // Vertical scratches: a few columns per frame, chosen by the frame number.
+    for (int i = 0; i < 4; i++) {
+        float on = step(1.0 - lines, hash1(frame * 4.0 + float(i)));
+        float x = hash1(frame * 9.0 + float(i) * 13.0) * resolution.x;
+        float w = (0.6 + hash1(frame + float(i)) ) * scale;
+        float lineMask = on * (1.0 - smoothstep(0.0, w, abs(p.x - x)));
+        rgb = mix(rgb, float3(0.95, 0.92, 0.85), lineMask * 0.7);
+    }
+    // Splotches and lint: dark blobs and thin fibers.
+    for (int i = 0; i < 3; i++) {
+        float on = step(1.0 - splotches, hash1(frame * 3.0 + float(i) * 7.0 + 100.0));
+        float2 c = float2(hash1(frame + float(i) * 31.0), hash1(frame + float(i) * 57.0)) * resolution;
+        float r = (4.0 + hash1(frame * 2.0 + float(i)) * 10.0) * scale;
+        float m = on * (1.0 - smoothstep(r * 0.6, r, length(p - c)));
+        rgb = mix(rgb, float3(0.08), m * 0.8);
+        float lon = step(1.0 - lint, hash1(frame * 5.0 + float(i) * 11.0 + 200.0));
+        float2 lc = float2(hash1(frame + float(i) * 91.0), hash1(frame + float(i) * 37.0)) * resolution;
+        float ang = hash1(frame + float(i) * 17.0) * 6.2832;
+        float2 dir = float2(cos(ang), sin(ang));
+        float2 rel = p - lc;
+        float along = dot(rel, dir);
+        float across = abs(dot(rel, float2(-dir.y, dir.x)) + sin(along * 0.2) * 3.0 * scale);
+        float lm = lon * step(abs(along), 25.0 * scale) * (1.0 - smoothstep(0.0, 1.0 * scale, across));
+        rgb = mix(rgb, float3(0.05), lm * 0.8);
+    }
+    // Vignette.
+    float2 d = p / resolution - 0.5;
+    rgb *= 1.0 - dot(d, d) * 0.6;
+    return half4(half3(saturate(rgb)), 1.0);
+}

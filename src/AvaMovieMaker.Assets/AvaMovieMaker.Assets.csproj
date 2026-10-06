@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaMovieMaker.Assets</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\*.ttf" LogicalName="AvaMovieMaker.Assets.Fonts.%(Filename)%(Extension)" />
+    <AvaloniaResource Include="Icons\**" />
+  </ItemGroup>
+
+</Project>

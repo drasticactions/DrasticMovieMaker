@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Shell"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             x:Class="AvaMovieMaker.Views.StoryboardView"
+             x:DataType="vm:ShellViewModel">
+  <DockPanel>
+    <StackPanel DockPanel.Dock="Top" Classes="mm-toolbar" Orientation="Horizontal" Height="25" Margin="6,1,0,0" Spacing="6">
+      <Button Classes="mm-flat" Padding="4,0" AutomationProperties.Name="{x:Static str:Strings.StoryboardStoryboardViewName}">
+        <StackPanel Orientation="Horizontal" Spacing="6">
+          <TextBlock Text="{x:Static str:Strings.ShowStoryboard}" VerticalAlignment="Center" />
+          <Path Data="M0,0 L7,0 L3.5,4 Z" Fill="Black" VerticalAlignment="Center" />
+        </StackPanel>
+        <Button.Flyout>
+          <MenuFlyout>
+            <MenuItem Header="{x:Static str:Strings.ShowStoryboard}" Command="{Binding ShowStoryboardViewCommand}" />
+            <MenuItem Header="{x:Static str:Strings.ShowTimeline}" Command="{Binding ShowTimelineViewCommand}" />
+          </MenuFlyout>
+        </Button.Flyout>
+      </Button>
+      <Button Classes="mm-flat" Command="{Binding Monitor.RewindCommand}" Padding="2" ToolTip.Tip="{Binding RewindBoardTip}" AutomationProperties.Name="{x:Static str:Strings.StoryboardRewindStoryboardName}">
+        <c:Glyph Kind="rewind" />
+      </Button>
+      <Button Classes="mm-flat" Command="{Binding Monitor.PlayProjectCommand}" Padding="2" ToolTip.Tip="{Binding PlayBoardTip}" AutomationProperties.Name="{x:Static str:Strings.StoryboardPlayStoryboardName}">
+        <c:Glyph Kind="{Binding PlayBoardGlyph}" />
+      </Button>
+    </StackPanel>
+    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+      <c:StoryboardStrip Name="Strip" DataContext="{Binding Storyboard}" Margin="4,4,4,0" AutomationProperties.Name="{x:Static str:Strings.StoryboardStoryboardClipsName}" />
+    </ScrollViewer>
+  </DockPanel>
+</UserControl>

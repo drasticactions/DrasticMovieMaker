@@ -1,0 +1,83 @@
+name: ffmpeg-desktop
+
+on:
+  workflow_call:
+    inputs:
+      targets:
+        description: JSON list of the targets to build
+        type: string
+        default: '["linux-x64", "osx-arm64", "win-x64"]'
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: JSON list of the targets to build
+        type: string
+        default: '["linux-x64", "osx-arm64", "win-x64"]'
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJSON(inputs.targets) }}
+        include:
+          - target: linux-x64
+            runner: ubuntu-24.04
+            # glibc 2.35: the libraries build in Ubuntu 22.04.
+            container: ubuntu:22.04
+          - target: osx-arm64
+            runner: macos-latest
+          - target: win-x64
+            runner: windows-2022
+    runs-on: ${{ matrix.runner }}
+    container: ${{ matrix.container }}
+    defaults:
+      run:
+        shell: ${{ matrix.target == 'win-x64' && 'msys2 {0}' || 'bash' }}
+    steps:
+      - name: Linux packages
+        if: matrix.target == 'linux-x64'
+        shell: bash
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends git ca-certificates
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - uses: actions/checkout@v4
+
+      - name: Linux toolchain
+        if: matrix.target == 'linux-x64'
+        shell: bash
+        run: sh tools/linux/deps.sh
+
+      - name: macOS toolchain
+        if: matrix.target == 'osx-arm64'
+        run: brew install meson ninja pkgconf nasm
+
+      - name: MSYS2 UCRT64 toolchain
+        if: matrix.target == 'win-x64'
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          update: true
+          install: >-
+            git make diffutils tar xz
+            mingw-w64-ucrt-x86_64-toolchain mingw-w64-ucrt-x86_64-nasm mingw-w64-ucrt-x86_64-pkgconf
+            mingw-w64-ucrt-x86_64-meson mingw-w64-ucrt-x86_64-ninja
+
+      - id: cache
+        uses: actions/cache@v4
+        with:
+          path: tools/ffmpeg/out/${{ matrix.target }}
+          key: ffmpeg-${{ matrix.target }}-${{ hashFiles('tools/ffmpeg/versions.env', 'tools/ffmpeg/components.sh', 'tools/ffmpeg/build-desktop.sh', 'tools/ffmpeg/check-payload.sh', 'tools/ffmpeg/linux/**', 'tools/linux/deps.sh') }}
+
+      - name: Build
+        if: steps.cache.outputs.cache-hit != 'true'
+        env:
+          AMM_IN_CONTAINER: '1'
+        run: tools/ffmpeg/build-desktop.sh ${{ matrix.target }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ffmpeg-${{ matrix.target }}
+          path: tools/ffmpeg/out/${{ matrix.target }}
+          retention-days: 7

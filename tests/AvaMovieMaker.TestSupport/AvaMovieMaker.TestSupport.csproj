@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaMovieMaker.Core\AvaMovieMaker.Core.csproj" />
+  </ItemGroup>
+
+</Project>

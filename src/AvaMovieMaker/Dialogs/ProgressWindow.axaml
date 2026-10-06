@@ -1,0 +1,18 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:aw="https://github.com/avawpf"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Dialogs"
+             x:Class="AvaMovieMaker.Dialogs.ProgressWindow"
+             x:DataType="vm:ProgressViewModel"
+             aw:WindowSettings.Title="{Binding Title}" aw:WindowSettings.FrameKind="Dialog" aw:WindowSettings.CanResize="False" aw:WindowSettings.SizeToContent="WidthAndHeight"
+             aw:WindowSettings.WindowStartupLocation="CenterOwner" aw:WindowSettings.ShowInTaskbar="False">
+  <Canvas Width="434" Height="153">
+    <TextBlock Canvas.Left="12" Canvas.Top="26" Width="409" Text="{Binding Header}" TextTrimming="CharacterEllipsis" />
+    <ProgressBar Canvas.Left="12" Canvas.Top="54" Width="409" Height="26" Minimum="0" Maximum="100" Value="{Binding Value}"
+                 AutomationProperties.Name="{x:Static str:Strings.ProgressProgressName}" />
+    <TextBlock Canvas.Left="12" Canvas.Top="91" Width="287" Text="{Binding Status}" />
+    <TextBlock Canvas.Left="308" Canvas.Top="90" Width="113" Text="{Binding Percent}" TextAlignment="Right" />
+    <Button Canvas.Left="334" Canvas.Top="114" Width="87" Height="26" Content="{x:Static str:Strings.ButtonCancel}" IsCancel="True" Command="{Binding CancelCommand}" />
+  </Canvas>
+</UserControl>

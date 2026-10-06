@@ -1,0 +1,1994 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>AvaMovieMaker</value>
+  </data>
+  <data name="MenuFile" xml:space="preserve">
+    <value>_File</value>
+  </data>
+  <data name="MenuEdit" xml:space="preserve">
+    <value>_Edit</value>
+  </data>
+  <data name="MenuView" xml:space="preserve">
+    <value>_View</value>
+  </data>
+  <data name="MenuTools" xml:space="preserve">
+    <value>_Tools</value>
+  </data>
+  <data name="MenuClip" xml:space="preserve">
+    <value>_Clip</value>
+  </data>
+  <data name="MenuPlay" xml:space="preserve">
+    <value>_Play</value>
+  </data>
+  <data name="MenuHelp" xml:space="preserve">
+    <value>_Help</value>
+  </data>
+  <data name="NewProject" xml:space="preserve">
+    <value>_New Project</value>
+  </data>
+  <data name="OpenProject" xml:space="preserve">
+    <value>_Open Project...</value>
+  </data>
+  <data name="SaveProject" xml:space="preserve">
+    <value>_Save Project</value>
+  </data>
+  <data name="SaveProjectAs" xml:space="preserve">
+    <value>Save Project _As...</value>
+  </data>
+  <data name="PublishMovie" xml:space="preserve">
+    <value>Publish _Movie...</value>
+  </data>
+  <data name="ImportMediaItems" xml:space="preserve">
+    <value>_Import Media Items...</value>
+  </data>
+  <data name="ProjectProperties" xml:space="preserve">
+    <value>Project _Properties...</value>
+  </data>
+  <data name="RecentEmpty" xml:space="preserve">
+    <value>(Empty)</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>E_xit</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>_Undo</value>
+  </data>
+  <data name="Redo" xml:space="preserve">
+    <value>_Redo</value>
+  </data>
+  <data name="Cut" xml:space="preserve">
+    <value>Cu_t</value>
+  </data>
+  <data name="Copy" xml:space="preserve">
+    <value>_Copy</value>
+  </data>
+  <data name="Paste" xml:space="preserve">
+    <value>_Paste</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>R_emove</value>
+  </data>
+  <data name="EditTitle" xml:space="preserve">
+    <value>_Edit Title...</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select _All</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Re_name</value>
+  </data>
+  <data name="ClearTimeline" xml:space="preserve">
+    <value>C_lear Timeline</value>
+  </data>
+  <data name="BrowseForMissingFile" xml:space="preserve">
+    <value>_Browse for Missing File...</value>
+  </data>
+  <data name="Storyboard" xml:space="preserve">
+    <value>Sto_ryboard</value>
+  </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Ti_meline</value>
+  </data>
+  <data name="ZoomIn" xml:space="preserve">
+    <value>Zoom _In</value>
+  </data>
+  <data name="ZoomOut" xml:space="preserve">
+    <value>Zoom _Out</value>
+  </data>
+  <data name="ZoomToFit" xml:space="preserve">
+    <value>Zoom to _Fit</value>
+  </data>
+  <data name="PreviewMonitorSize" xml:space="preserve">
+    <value>_Preview Monitor Size</value>
+  </data>
+  <data name="MonitorSmall" xml:space="preserve">
+    <value>_Small (320x240)</value>
+  </data>
+  <data name="MonitorLarge" xml:space="preserve">
+    <value>_Large (640x480)</value>
+  </data>
+  <data name="FullScreen" xml:space="preserve">
+    <value>F_ull Screen</value>
+  </data>
+  <data name="Tasks" xml:space="preserve">
+    <value>Tas_ks</value>
+  </data>
+  <data name="Thumbnails" xml:space="preserve">
+    <value>T_humbnails</value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>_Details</value>
+  </data>
+  <data name="ArrangeIconsBy" xml:space="preserve">
+    <value>_Arrange Icons By</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>T_heme</value>
+  </data>
+  <data name="ThemeSystem" xml:space="preserve">
+    <value>_System</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>_Light</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>_Dark</value>
+  </data>
+  <data name="AutoMovie" xml:space="preserve">
+    <value>Auto_Movie...</value>
+  </data>
+  <data name="TitlesAndCredits" xml:space="preserve">
+    <value>_Titles and Credits...</value>
+  </data>
+  <data name="Effects" xml:space="preserve">
+    <value>_Effects</value>
+  </data>
+  <data name="Transitions" xml:space="preserve">
+    <value>T_ransitions</value>
+  </data>
+  <data name="CreateClips" xml:space="preserve">
+    <value>_Create Clips</value>
+  </data>
+  <data name="TakePicture" xml:space="preserve">
+    <value>Take _Picture from Preview...</value>
+  </data>
+  <data name="NarrateTimeline" xml:space="preserve">
+    <value>_Narrate Timeline...</value>
+  </data>
+  <data name="AudioLevels" xml:space="preserve">
+    <value>_Audio Levels...</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>_Options...</value>
+  </data>
+  <data name="AddToTimeline" xml:space="preserve">
+    <value>_Add to Timeline</value>
+  </data>
+  <data name="AddToStoryboard" xml:space="preserve">
+    <value>_Add to Storyboard</value>
+  </data>
+  <data name="Audio" xml:space="preserve">
+    <value>A_udio</value>
+  </data>
+  <data name="Mute" xml:space="preserve">
+    <value>_Mute</value>
+  </data>
+  <data name="FadeIn" xml:space="preserve">
+    <value>Fade _In</value>
+  </data>
+  <data name="FadeOut" xml:space="preserve">
+    <value>Fade _Out</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>_Volume...</value>
+  </data>
+  <data name="Video" xml:space="preserve">
+    <value>_Video</value>
+  </data>
+  <data name="VideoEffects" xml:space="preserve">
+    <value>E_ffects...</value>
+  </data>
+  <data name="TrimBeginning" xml:space="preserve">
+    <value>Trim _Beginning</value>
+  </data>
+  <data name="TrimEnd" xml:space="preserve">
+    <value>Trim _End</value>
+  </data>
+  <data name="ClearTrimPoints" xml:space="preserve">
+    <value>_Clear Trim Points</value>
+  </data>
+  <data name="Split" xml:space="preserve">
+    <value>Spli_t</value>
+  </data>
+  <data name="Combine" xml:space="preserve">
+    <value>Co_mbine</value>
+  </data>
+  <data name="NudgeLeft" xml:space="preserve">
+    <value>Nudge _Left</value>
+  </data>
+  <data name="NudgeRight" xml:space="preserve">
+    <value>Nudge _Right</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>_Properties</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>_Stop</value>
+  </data>
+  <data name="PlayTimeline" xml:space="preserve">
+    <value>_Play Timeline</value>
+  </data>
+  <data name="RewindTimeline" xml:space="preserve">
+    <value>_Rewind Timeline</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>_Back</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>_Forward</value>
+  </data>
+  <data name="PreviousFrame" xml:space="preserve">
+    <value>Pre_vious Frame</value>
+  </data>
+  <data name="NextFrame" xml:space="preserve">
+    <value>_Next Frame</value>
+  </data>
+  <data name="HelpTopics" xml:space="preserve">
+    <value>_Help Topics</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>_About AvaMovieMaker</value>
+  </data>
+  <data name="TaskImport" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="TaskEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="TaskPublishTo" xml:space="preserve">
+    <value>Publish to</value>
+  </data>
+  <data name="TaskVideos" xml:space="preserve">
+    <value>Videos</value>
+  </data>
+  <data name="TaskPictures" xml:space="preserve">
+    <value>Pictures</value>
+  </data>
+  <data name="TaskAudioOrMusic" xml:space="preserve">
+    <value>Audio or Music</value>
+  </data>
+  <data name="TaskImportedMedia" xml:space="preserve">
+    <value>Imported media</value>
+  </data>
+  <data name="TaskEffects" xml:space="preserve">
+    <value>Effects</value>
+  </data>
+  <data name="TaskTransitions" xml:space="preserve">
+    <value>Transitions</value>
+  </data>
+  <data name="TaskTitlesAndCredits" xml:space="preserve">
+    <value>Titles and credits</value>
+  </data>
+  <data name="TaskAutoMovie" xml:space="preserve">
+    <value>AutoMovie</value>
+  </data>
+  <data name="TaskThisComputer" xml:space="preserve">
+    <value>This computer</value>
+  </data>
+  <data name="TaskFromCamera" xml:space="preserve">
+    <value>From digital video camera</value>
+  </data>
+  <data name="TaskDvd" xml:space="preserve">
+    <value>DVD</value>
+  </data>
+  <data name="TaskRecordableCd" xml:space="preserve">
+    <value>Recordable CD</value>
+  </data>
+  <data name="TaskEmail" xml:space="preserve">
+    <value>E-mail</value>
+  </data>
+  <data name="TaskCamera" xml:space="preserve">
+    <value>Digital video camera</value>
+  </data>
+  <data name="ImportMedia" xml:space="preserve">
+    <value>Import Media</value>
+  </data>
+  <data name="Publish" xml:space="preserve">
+    <value>Publish Movie</value>
+  </data>
+  <data name="ImportedMedia" xml:space="preserve">
+    <value>Imported media</value>
+  </data>
+  <data name="ShowStoryboard" xml:space="preserve">
+    <value>Storyboard</value>
+  </data>
+  <data name="ShowTimeline" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="Narrate" xml:space="preserve">
+    <value>Narrate Timeline</value>
+  </data>
+  <data name="Rewind" xml:space="preserve">
+    <value>Rewind Timeline</value>
+  </data>
+  <data name="Play" xml:space="preserve">
+    <value>Play Timeline</value>
+  </data>
+  <data name="TrackVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="TrackTransition" xml:space="preserve">
+    <value>Transition</value>
+  </data>
+  <data name="TrackAudio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="TrackAudioMusic" xml:space="preserve">
+    <value>Audio/Music</value>
+  </data>
+  <data name="TrackTitleOverlay" xml:space="preserve">
+    <value>Title Overlay</value>
+  </data>
+  <data name="ColumnName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="ColumnDuration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="ColumnStartTime" xml:space="preserve">
+    <value>Start Time</value>
+  </data>
+  <data name="ColumnEndTime" xml:space="preserve">
+    <value>End Time</value>
+  </data>
+  <data name="ColumnDimensions" xml:space="preserve">
+    <value>Dimensions</value>
+  </data>
+  <data name="ColumnDateTaken" xml:space="preserve">
+    <value>Date Taken</value>
+  </data>
+  <data name="ColumnFileName" xml:space="preserve">
+    <value>File Name</value>
+  </data>
+  <data name="SortNameAndDate" xml:space="preserve">
+    <value>Name _and Date</value>
+  </data>
+  <data name="SortClipName" xml:space="preserve">
+    <value>_Clip Name</value>
+  </data>
+  <data name="SortDuration" xml:space="preserve">
+    <value>_Duration</value>
+  </data>
+  <data name="SortStartTime" xml:space="preserve">
+    <value>_Start Time</value>
+  </data>
+  <data name="SortEndTime" xml:space="preserve">
+    <value>_End Time</value>
+  </data>
+  <data name="SortDimensions" xml:space="preserve">
+    <value>D_imensions</value>
+  </data>
+  <data name="SortDateTaken" xml:space="preserve">
+    <value>Date _Taken</value>
+  </data>
+  <data name="SortFileName" xml:space="preserve">
+    <value>_File Name</value>
+  </data>
+  <data name="KindVideo" xml:space="preserve">
+    <value>Video</value>
+  </data>
+  <data name="KindAudio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="KindPicture" xml:space="preserve">
+    <value>Picture</value>
+  </data>
+  <data name="ImportMediaItemsTitle" xml:space="preserve">
+    <value>Import Media Items</value>
+  </data>
+  <data name="FilterAllMedia" xml:space="preserve">
+    <value>All Media Files</value>
+  </data>
+  <data name="FilterAudio" xml:space="preserve">
+    <value>Audio and Music Files</value>
+  </data>
+  <data name="FilterPicturesAndVideo" xml:space="preserve">
+    <value>Picture and Video Files</value>
+  </data>
+  <data name="FilterAllFiles" xml:space="preserve">
+    <value>All Files</value>
+  </data>
+  <data name="FilterPictures" xml:space="preserve">
+    <value>Picture Files</value>
+  </data>
+  <data name="ImportDialogTitle" xml:space="preserve">
+    <value>Import Media Items</value>
+  </data>
+  <data name="FilterProjects" xml:space="preserve">
+    <value>AvaMovieMaker Projects</value>
+  </data>
+  <data name="FilterMswmm" xml:space="preserve">
+    <value>Windows Movie Maker Projects</value>
+  </data>
+  <data name="FilterPackages" xml:space="preserve">
+    <value>AvaMovieMaker Project Packages</value>
+  </data>
+  <data name="PackageMissingMedia" xml:space="preserve">
+    <value>These files could not be found and were left out of the package:</value>
+  </data>
+  <data name="SoftwareRendering" xml:space="preserve">
+    <value>Software rendering</value>
+  </data>
+  <data name="SaveChangesPrompt" xml:space="preserve">
+    <value>Do you want to save the changes you made to the project {0}?</value>
+    <comment>61499</comment>
+  </data>
+  <data name="RecoverPrompt" xml:space="preserve">
+    <value>AvaMovieMaker found a project file that was saved automatically. Would you like to recover this file?</value>
+    <comment>61819</comment>
+  </data>
+  <data name="DefaultMovieName" xml:space="preserve">
+    <value>Movie</value>
+    <comment>63099</comment>
+  </data>
+  <data name="PublishNameExhausted" xml:space="preserve">
+    <value>Automatic file name creation has exceeded its limit. Please choose another name or location for your movie.</value>
+    <comment>587</comment>
+  </data>
+  <data name="PublishNameInvalid" xml:space="preserve">
+    <value>The name for the movie is not valid. The following characters cannot be used in the movie name: &lt; &gt; * ? / \ | ; + = [ ] ( ) " :</value>
+    <comment>after 0xC947008B</comment>
+  </data>
+  <data name="PublishReplacePrompt" xml:space="preserve">
+    <value>{0} already exists.
+Do you want to replace it?</value>
+  </data>
+  <data name="PublishCannotComplete" xml:space="preserve">
+    <value>Cannot complete Publish Movie</value>
+    <comment>638</comment>
+  </data>
+  <data name="PublishMissingSources" xml:space="preserve">
+    <value>This project contains source files that are missing or that have been modified after import. Your project cannot be published as a movie until the source files have been located or deleted from the project.</value>
+    <comment>63021</comment>
+  </data>
+  <data name="PublishEmpty" xml:space="preserve">
+    <value>Your project is empty. Please add clips to the storyboard/timeline.</value>
+    <comment>63082</comment>
+  </data>
+  <data name="PublishCancelPrompt" xml:space="preserve">
+    <value>Your movie has not been completely published.
+Are you sure you want to stop publishing your movie?</value>
+    <comment>61983</comment>
+  </data>
+  <data name="PublishCanceling" xml:space="preserve">
+    <value>Canceling publishing and removing the unfinished movie file. This may take a few minutes. Please wait...</value>
+    <comment>63106</comment>
+  </data>
+  <data name="MissingFilesPrompt" xml:space="preserve">
+    <value>{0} of the files in this project could not be found. Use Edit &gt; Browse for Missing File to point to them.</value>
+  </data>
+  <data name="ImportFailed" xml:space="preserve">
+    <value>{0} could not be imported. {1}</value>
+  </data>
+  <data name="ImportFailedNoReason" xml:space="preserve">
+    <value>{0} could not be imported.</value>
+  </data>
+  <data name="ImportNotFound" xml:space="preserve">
+    <value>The file "{0}" could not be found. Verify that the file has not been deleted, renamed, or moved, and then try again.</value>
+  </data>
+  <data name="ImportMissingCodec" xml:space="preserve">
+    <value>The file {0} cannot be imported because the codec required to play the file is not installed on your computer. If you have already tried to download and install the codec, close and restart AvaMovieMaker, and then try to import the file again.</value>
+  </data>
+  <data name="ImportNotSupported" xml:space="preserve">
+    <value>The file {0} is not a supported file type, and it cannot be imported into AvaMovieMaker.</value>
+  </data>
+  <data name="ImportEmpty" xml:space="preserve">
+    <value>The file {0} is an empty file.</value>
+  </data>
+  <data name="ImportFolders" xml:space="preserve">
+    <value>AvaMovieMaker cannot import folders.</value>
+  </data>
+  <data name="OverlayNeedsTimeline" xml:space="preserve">
+    <value>Overlay titles can only be added in the timeline view. The view has been switched from the storyboard view to the timeline view, and the overlay title has been added.</value>
+  </data>
+  <data name="AudioNeedsTimeline" xml:space="preserve">
+    <value>Audio clips can only be added in the timeline view. The view has been switched from the storyboard view to the timeline view, and the clips have been added.</value>
+  </data>
+  <data name="ProjectOver6Hours" xml:space="preserve">
+    <value>The current project is now longer than 6 hours. You can create a project that is longer than 6 hours, but it will take a long time to publish it as a movie.</value>
+  </data>
+  <data name="ProjectOver24Hours" xml:space="preserve">
+    <value>The duration of a project cannot be more than 24 hours. You can trim or split clips to reduce their length, or try using shorter clips.</value>
+  </data>
+  <data name="NarrationNeedsTimeline" xml:space="preserve">
+    <value>An audio narration can only be added in the timeline view. The view has been switched from the storyboard to the timeline.</value>
+  </data>
+  <data name="NarrationNoHardware" xml:space="preserve">
+    <value>Narration cannot be used because the required audio hardware cannot be found on your computer.</value>
+  </data>
+  <data name="NarrationInstructions" xml:space="preserve">
+    <value>Drag the playback indicator on the timeline to an empty point on the Audio/Music track, click Start Narration, and begin your narration.</value>
+  </data>
+  <data name="NarrationStartTip" xml:space="preserve">
+    <value>To enable narration, drag the playback indicator on the timeline to an empty point on the Audio/Music track.</value>
+  </data>
+  <data name="NarrationNoTempSpace" xml:space="preserve">
+    <value>There is not enough free hard disk space in the specified temporary storage location on drive {0} to record narration.
+Change the temporary storage location by choosing Options from the Tools menu, or free additional hard disk space.</value>
+  </data>
+  <data name="NarrationFileExists" xml:space="preserve">
+    <value>The file name is not valid or already exists. Please choose another name.</value>
+  </data>
+  <data name="NarrationNotValid" xml:space="preserve">
+    <value>The selected file is not valid or is corrupted.</value>
+  </data>
+  <data name="PictureNotSaved" xml:space="preserve">
+    <value>The picture was not saved correctly. Verify that you have write permissions for the specified location and that enough free disk space is available.</value>
+  </data>
+  <data name="NarrationSuffix" xml:space="preserve">
+    <value> Narration</value>
+  </data>
+  <data name="AutoMovieNotEnoughContent" xml:space="preserve">
+    <value>AutoMovie cannot continue because either no video clips or pictures are selected, the combined duration of the selected video clips or pictures is not at least 30 seconds, or one or more of the selected video files contains a codec that is not supported by AutoMovie.</value>
+  </data>
+  <data name="AutoMovieMusicTooShort" xml:space="preserve">
+    <value>AutoMovie cannot continue because the selected music must be longer than 30 seconds.</value>
+  </data>
+  <data name="AutoMovieMusicTooQuiet" xml:space="preserve">
+    <value>The volume of the selected music is too low.</value>
+  </data>
+  <data name="AutoMovieMusicFailed" xml:space="preserve">
+    <value>AutoMovie could not successfully analyze the selected music file or the music file was disconnected from the system during analysis.</value>
+  </data>
+  <data name="AutoMovieAnalyzeFailed" xml:space="preserve">
+    <value>AutoMovie could not successfully analyze the selected video and photo file(s) or at least one the files was disconnected from the system during analysis.</value>
+  </data>
+  <data name="AutoMovieNoUsableContent" xml:space="preserve">
+    <value>AutoMovie cannot continue because the selected video clips and pictures don't contain usable content of at least 30 seconds. AutoMovie cannot use video clips or pictures that are extremely overexposed, severely underexposed or badly out of focus.</value>
+  </data>
+  <data name="AutoMovieNeedsClips" xml:space="preserve">
+    <value>Select some imported media first, or import media to make an AutoMovie.</value>
+  </data>
+  <data name="AboutTitle" xml:space="preserve">
+    <value>Made by DrasticActions. Greetings from Tokyo.</value>
+  </data>
+  <data name="FFmpegMissingTitle" xml:space="preserve">
+    <value>FFmpeg is missing</value>
+  </data>
+  <data name="FontMissing" xml:space="preserve">
+    <value>The font "{0}" is not installed. Titles that use it show in Liberation Sans.</value>
+  </data>
+  <data name="ExportProjectPackage" xml:space="preserve">
+    <value>E_xport Project Package...</value>
+  </data>
+  <data name="ImportFromCamera" xml:space="preserve">
+    <value>Import from Digital _Video Camera...</value>
+  </data>
+  <data name="NewCollectionFolder" xml:space="preserve">
+    <value>New Collection _Folder</value>
+  </data>
+  <data name="StatusBar" xml:space="preserve">
+    <value>_Status Bar</value>
+  </data>
+  <data name="Collections" xml:space="preserve">
+    <value>_Collections</value>
+  </data>
+  <data name="RecentProject" xml:space="preserve">
+    <value>_{0} {1}</value>
+    <comment>{0} the number, {1} the project path without its extension.</comment>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+    <comment>The status bar when nothing else is shown.</comment>
+  </data>
+  <data name="PromptNewProject" xml:space="preserve">
+    <value>Creates a new blank project.</value>
+    <comment>Status bar text while the menu item is highlighted.</comment>
+  </data>
+  <data name="PromptOpenProject" xml:space="preserve">
+    <value>Opens an existing project.</value>
+  </data>
+  <data name="PromptSaveProject" xml:space="preserve">
+    <value>Saves the current project.</value>
+  </data>
+  <data name="PromptSaveProjectAs" xml:space="preserve">
+    <value>Saves the current project with a new name.</value>
+  </data>
+  <data name="PromptPublishMovie" xml:space="preserve">
+    <value>Publishes the project as a movie for others to watch.</value>
+  </data>
+  <data name="PromptImportFromCamera" xml:space="preserve">
+    <value>Imports video and audio from a digital video camera using Import Video.</value>
+  </data>
+  <data name="PromptImportMediaItems" xml:space="preserve">
+    <value>Imports media into folder.</value>
+  </data>
+  <data name="PromptNewCollectionFolder" xml:space="preserve">
+    <value>Creates a new folder.</value>
+  </data>
+  <data name="PromptProjectProperties" xml:space="preserve">
+    <value>Displays properties for the current project.</value>
+  </data>
+  <data name="PromptExit" xml:space="preserve">
+    <value>Saves changes if you want and quits AvaMovieMaker.</value>
+  </data>
+  <data name="PromptUndo" xml:space="preserve">
+    <value>Undoes the last action.</value>
+  </data>
+  <data name="PromptRedo" xml:space="preserve">
+    <value>Redoes the last undone action.</value>
+  </data>
+  <data name="PromptCut" xml:space="preserve">
+    <value>Cuts the selection and places it on the Clipboard.</value>
+  </data>
+  <data name="PromptCopy" xml:space="preserve">
+    <value>Copies the selection to the Clipboard.</value>
+  </data>
+  <data name="PromptPaste" xml:space="preserve">
+    <value>Inserts Clipboard contents.</value>
+  </data>
+  <data name="PromptRemove" xml:space="preserve">
+    <value>Removes the current selection.</value>
+  </data>
+  <data name="PromptEditTitle" xml:space="preserve">
+    <value>Edits the selected title.</value>
+  </data>
+  <data name="PromptSelectAll" xml:space="preserve">
+    <value>Selects all items in the current window or area.</value>
+  </data>
+  <data name="PromptRename" xml:space="preserve">
+    <value>Renames the selected item.</value>
+  </data>
+  <data name="PromptClearTimeline" xml:space="preserve">
+    <value>Removes all items on the storyboard or timeline.</value>
+  </data>
+  <data name="PromptBrowseForMissingFile" xml:space="preserve">
+    <value>Browses for missing files.</value>
+  </data>
+  <data name="PromptStoryboard" xml:space="preserve">
+    <value>Displays the storyboard.</value>
+  </data>
+  <data name="PromptTimeline" xml:space="preserve">
+    <value>Displays the timeline.</value>
+  </data>
+  <data name="PromptZoomIn" xml:space="preserve">
+    <value>Zooms in on the timeline.</value>
+  </data>
+  <data name="PromptZoomOut" xml:space="preserve">
+    <value>Zooms out on the timeline.</value>
+  </data>
+  <data name="PromptZoomToFit" xml:space="preserve">
+    <value>Automatically adjusts the zoom level of the timeline.</value>
+  </data>
+  <data name="PromptMonitorSmall" xml:space="preserve">
+    <value>Displays video in small preview monitor.</value>
+  </data>
+  <data name="PromptMonitorLarge" xml:space="preserve">
+    <value>Displays video in large preview monitor.</value>
+  </data>
+  <data name="PromptFullScreen" xml:space="preserve">
+    <value>Displays video in full screen during playback.</value>
+  </data>
+  <data name="PromptStatusBar" xml:space="preserve">
+    <value>Shows or hides the status bar.</value>
+  </data>
+  <data name="PromptTasks" xml:space="preserve">
+    <value>Shows or hides the Tasks pane.</value>
+  </data>
+  <data name="PromptCollections" xml:space="preserve">
+    <value>Shows or hides the Collections pane.</value>
+  </data>
+  <data name="PromptThumbnails" xml:space="preserve">
+    <value>Displays items using thumbnail view.</value>
+  </data>
+  <data name="PromptDetails" xml:space="preserve">
+    <value>Displays information about each item in the window.</value>
+  </data>
+  <data name="PromptSortNameAndDate" xml:space="preserve">
+    <value>Sorts items by filename and start time</value>
+  </data>
+  <data name="PromptSortClipName" xml:space="preserve">
+    <value>Sorts items by clip name.</value>
+  </data>
+  <data name="PromptSortDuration" xml:space="preserve">
+    <value>Sorts items by duration.</value>
+  </data>
+  <data name="PromptSortStartTime" xml:space="preserve">
+    <value>Sorts items by start time.</value>
+  </data>
+  <data name="PromptSortEndTime" xml:space="preserve">
+    <value>Sorts items by end time.</value>
+  </data>
+  <data name="PromptSortDimensions" xml:space="preserve">
+    <value>Sorts items by dimensions.</value>
+  </data>
+  <data name="PromptSortDateTaken" xml:space="preserve">
+    <value>Sorts items by date taken.</value>
+  </data>
+  <data name="PromptSortFileName" xml:space="preserve">
+    <value>Sorts items by the original file name.</value>
+  </data>
+  <data name="PromptAutoMovie" xml:space="preserve">
+    <value>Edits the movie automatically.</value>
+  </data>
+  <data name="PromptTitlesAndCredits" xml:space="preserve">
+    <value>Creates titles and credits.</value>
+  </data>
+  <data name="PromptEffects" xml:space="preserve">
+    <value>Displays available effects.</value>
+  </data>
+  <data name="PromptTransitions" xml:space="preserve">
+    <value>Displays available transitions.</value>
+  </data>
+  <data name="PromptCreateClips" xml:space="preserve">
+    <value>Creates clips from the video.</value>
+  </data>
+  <data name="PromptTakePicture" xml:space="preserve">
+    <value>Takes a picture of the current frame.</value>
+  </data>
+  <data name="PromptNarrateTimeline" xml:space="preserve">
+    <value>Records narration while previewing.</value>
+  </data>
+  <data name="PromptAudioLevels" xml:space="preserve">
+    <value>Displays audio levels.</value>
+  </data>
+  <data name="PromptOptions" xml:space="preserve">
+    <value>Displays options for AvaMovieMaker.</value>
+  </data>
+  <data name="PromptAddToTimeline" xml:space="preserve">
+    <value>Adds selection to the timeline or storyboard.</value>
+  </data>
+  <data name="PromptMute" xml:space="preserve">
+    <value>Mutes this clip.</value>
+  </data>
+  <data name="PromptAudioFadeIn" xml:space="preserve">
+    <value>Fades in audio volume.</value>
+  </data>
+  <data name="PromptAudioFadeOut" xml:space="preserve">
+    <value>Fades out audio volume.</value>
+  </data>
+  <data name="PromptVolume" xml:space="preserve">
+    <value>Adjusts the volume of the selected clip.</value>
+  </data>
+  <data name="PromptVideoEffects" xml:space="preserve">
+    <value>Edits the effects for the current selection.</value>
+  </data>
+  <data name="PromptVideoFadeIn" xml:space="preserve">
+    <value>Adds fade-in-from-black effect.</value>
+  </data>
+  <data name="PromptVideoFadeOut" xml:space="preserve">
+    <value>Adds fade-out-to-black effect.</value>
+  </data>
+  <data name="PromptTrimBeginning" xml:space="preserve">
+    <value>Sets the start trim point for clips.</value>
+  </data>
+  <data name="PromptTrimEnd" xml:space="preserve">
+    <value>Sets the end trim point for clips.</value>
+  </data>
+  <data name="PromptClearTrimPoints" xml:space="preserve">
+    <value>Resets trimmed video or audio clips to the original size.</value>
+  </data>
+  <data name="PromptSplit" xml:space="preserve">
+    <value>Splits the selection.</value>
+  </data>
+  <data name="PromptCombine" xml:space="preserve">
+    <value>Combines the current selection.</value>
+  </data>
+  <data name="PromptNudgeLeft" xml:space="preserve">
+    <value>Nudges the selected clip to the left.</value>
+  </data>
+  <data name="PromptNudgeRight" xml:space="preserve">
+    <value>Nudges the selected clip to the right.</value>
+  </data>
+  <data name="PromptProperties" xml:space="preserve">
+    <value>Displays the properties for the current selection.</value>
+  </data>
+  <data name="PromptPlayPauseClip" xml:space="preserve">
+    <value>Plays or pauses the current selection.</value>
+  </data>
+  <data name="PromptStop" xml:space="preserve">
+    <value>Stops the playback.</value>
+  </data>
+  <data name="PromptPlayTimeline" xml:space="preserve">
+    <value>Plays the timeline or storyboard.</value>
+  </data>
+  <data name="PromptRewindTimeline" xml:space="preserve">
+    <value>Rewinds the timeline or storyboard.</value>
+  </data>
+  <data name="PromptBack" xml:space="preserve">
+    <value>Skips back.</value>
+  </data>
+  <data name="PromptForward" xml:space="preserve">
+    <value>Skips forward.</value>
+  </data>
+  <data name="PromptPreviousFrame" xml:space="preserve">
+    <value>Goes to the previous frame.</value>
+  </data>
+  <data name="PromptNextFrame" xml:space="preserve">
+    <value>Goes to the next frame.</value>
+  </data>
+  <data name="PromptHelpTopics" xml:space="preserve">
+    <value>Opens Help.</value>
+  </data>
+  <data name="PromptAbout" xml:space="preserve">
+    <value>Displays program information, version number, and copyright.</value>
+  </data>
+  <data name="ContextClearStoryboard" xml:space="preserve">
+    <value>Cl_ear Storyboard</value>
+  </data>
+  <data name="ContextClearTimeline" xml:space="preserve">
+    <value>Cl_ear Timeline</value>
+  </data>
+  <data name="ContextEffects" xml:space="preserve">
+    <value>_Effects...</value>
+  </data>
+  <data name="ContextProperties" xml:space="preserve">
+    <value>P_roperties</value>
+  </data>
+  <data name="ContextRemove" xml:space="preserve">
+    <value>Re_move</value>
+  </data>
+  <data name="ContextRemoveEffect" xml:space="preserve">
+    <value>_Remove Effect</value>
+  </data>
+  <data name="ContextRemoveTransition" xml:space="preserve">
+    <value>_Remove Transition</value>
+  </data>
+  <data name="AudioLevelsWindowTitle" xml:space="preserve">
+    <value>Audio Levels</value>
+  </data>
+  <data name="AudioLevelsAudioLevelsName" xml:space="preserve">
+    <value>Audio levels</value>
+  </data>
+  <data name="AudioLevelsAudioFromVideo" xml:space="preserve">
+    <value>Audio from video</value>
+  </data>
+  <data name="ClipVolumeWindowTitle" xml:space="preserve">
+    <value>Audio Clip Volume</value>
+  </data>
+  <data name="ClipVolumeAdjustVolumeLevel" xml:space="preserve">
+    <value>Adjust volume level</value>
+  </data>
+  <data name="ClipVolumeVolumeName" xml:space="preserve">
+    <value>Volume</value>
+  </data>
+  <data name="ClipVolumeMuteClip" xml:space="preserve">
+    <value>_Mute clip</value>
+  </data>
+  <data name="ButtonOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ButtonCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ClipVolumeReset" xml:space="preserve">
+    <value>_Reset</value>
+  </data>
+  <data name="EffectsWindowTitle" xml:space="preserve">
+    <value>Add or Remove Effects</value>
+  </data>
+  <data name="EffectsAvailableEffects" xml:space="preserve">
+    <value>Available effects:</value>
+  </data>
+  <data name="EffectsAvailableEffectsName" xml:space="preserve">
+    <value>Available effects</value>
+  </data>
+  <data name="EffectsAdd" xml:space="preserve">
+    <value>_Add &gt;&gt;</value>
+  </data>
+  <data name="EffectsRemove" xml:space="preserve">
+    <value>&lt;&lt; _Remove</value>
+  </data>
+  <data name="EffectsDisplayedEffects" xml:space="preserve">
+    <value>Displayed effects:</value>
+  </data>
+  <data name="EffectsDisplayedEffectsName" xml:space="preserve">
+    <value>Displayed effects</value>
+  </data>
+  <data name="EffectsMoveUp" xml:space="preserve">
+    <value>Move _Up</value>
+  </data>
+  <data name="EffectsMoveDown" xml:space="preserve">
+    <value>Move _Down</value>
+  </data>
+  <data name="OptionsWindowTitle" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="OptionsGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ButtonRestoreAllDefaults" xml:space="preserve">
+    <value>_Restore All Defaults</value>
+  </data>
+  <data name="OptionsGeneralOptions" xml:space="preserve">
+    <value>General options</value>
+  </data>
+  <data name="OptionsTemporaryStorage" xml:space="preserve">
+    <value>Temporary storage:</value>
+  </data>
+  <data name="OptionsSystemTemporaryFolder" xml:space="preserve">
+    <value>(System temporary folder)</value>
+  </data>
+  <data name="OptionsTemporaryStorageName" xml:space="preserve">
+    <value>Temporary storage</value>
+  </data>
+  <data name="ButtonBrowse" xml:space="preserve">
+    <value>_Browse...</value>
+  </data>
+  <data name="OptionsOpenLastProjectOnStartup" xml:space="preserve">
+    <value>_Open last project on startup</value>
+  </data>
+  <data name="OptionsSaveAutoRecoverInfoEvery" xml:space="preserve">
+    <value>_Save AutoRecover info every:</value>
+  </data>
+  <data name="OptionsAutoRecoverMinutesName" xml:space="preserve">
+    <value>AutoRecover minutes</value>
+  </data>
+  <data name="UnitMinutes" xml:space="preserve">
+    <value>minutes</value>
+  </data>
+  <data name="OptionsDoNotIncludeTheTitleAuthor" xml:space="preserve">
+    <value>Do not include the title, author, copyright, rating, and comments information in the published movie file</value>
+  </data>
+  <data name="OptionsResetWarningDialogs" xml:space="preserve">
+    <value>Reset _Warning Dialogs</value>
+  </data>
+  <data name="OptionsClickThisButtonToSeeAny" xml:space="preserve">
+    <value>Click this button to see any previously hidden warning messages. Warning messages are hidden when you select the "Do not show this dialog again" check box.</value>
+  </data>
+  <data name="OptionsAdvanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="OptionsDefaultDurations" xml:space="preserve">
+    <value>Default durations</value>
+  </data>
+  <data name="OptionsADefaultDurationWillBeAssigned" xml:space="preserve">
+    <value>A default duration will be assigned to each picture or transition when it is added to the storyboard or timeline.</value>
+  </data>
+  <data name="OptionsPictureDuration" xml:space="preserve">
+    <value>_Picture duration:</value>
+  </data>
+  <data name="OptionsPictureDurationName" xml:space="preserve">
+    <value>Picture duration</value>
+  </data>
+  <data name="UnitSeconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="OptionsTransitionDuration" xml:space="preserve">
+    <value>_Transition duration:</value>
+  </data>
+  <data name="OptionsTransitionDurationName" xml:space="preserve">
+    <value>Transition duration</value>
+  </data>
+  <data name="OptionsVideoProperties" xml:space="preserve">
+    <value>Video properties</value>
+  </data>
+  <data name="OptionsTheVideoPropertiesDetermineHowVideo" xml:space="preserve">
+    <value>The video properties determine how video is previewed in the preview monitor.</value>
+  </data>
+  <data name="OptionsVideoFormat" xml:space="preserve">
+    <value>Video format:</value>
+  </data>
+  <data name="OptionsNTSC" xml:space="preserve">
+    <value>_NTSC</value>
+  </data>
+  <data name="OptionsPAL" xml:space="preserve">
+    <value>PA_L</value>
+  </data>
+  <data name="OptionsAspectRatio" xml:space="preserve">
+    <value>Aspect ratio:</value>
+  </data>
+  <data name="OptionsCompatibility" xml:space="preserve">
+    <value>Compatibility</value>
+  </data>
+  <data name="OptionsHardwareAcceleration" xml:space="preserve">
+    <value>Hardware acceleration</value>
+  </data>
+  <data name="OptionsVideoDriversCanOccasionallyCauseCompatibility" xml:space="preserve">
+    <value>Video drivers can occasionally cause compatibility problems. If video does not play or publish correctly, clear these check boxes to use the processor instead of the graphics card.</value>
+  </data>
+  <data name="OptionsUseTheGraphicsCardToDecode" xml:space="preserve">
+    <value>Use the graphics card to _decode video</value>
+  </data>
+  <data name="OptionsUseTheGraphicsCardToEncode" xml:space="preserve">
+    <value>Use the graphics card to _encode published movies</value>
+  </data>
+  <data name="OptionsAudioPlayback" xml:space="preserve">
+    <value>Audio playback</value>
+  </data>
+  <data name="OptionsPlayAudioThrough" xml:space="preserve">
+    <value>Play audio through:</value>
+  </data>
+  <data name="OptionsPlaybackDeviceName" xml:space="preserve">
+    <value>Playback device</value>
+  </data>
+  <data name="ProgressProgressName" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="ProjectPropertiesWindowTitle" xml:space="preserve">
+    <value>Project Properties</value>
+  </data>
+  <data name="ProjectPropertiesApply" xml:space="preserve">
+    <value>_Apply</value>
+  </data>
+  <data name="ProjectPropertiesGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ProjectPropertiesTitle" xml:space="preserve">
+    <value>_Title:</value>
+  </data>
+  <data name="ProjectPropertiesAuthor" xml:space="preserve">
+    <value>A_uthor:</value>
+  </data>
+  <data name="ProjectPropertiesDuration" xml:space="preserve">
+    <value>Duration:</value>
+  </data>
+  <data name="ProjectPropertiesCopyright" xml:space="preserve">
+    <value>_Copyright:</value>
+  </data>
+  <data name="ProjectPropertiesRating" xml:space="preserve">
+    <value>_Rating:</value>
+  </data>
+  <data name="ProjectPropertiesComments" xml:space="preserve">
+    <value>C_omments:</value>
+  </data>
+  <data name="PublishWizardWindowTitle" xml:space="preserve">
+    <value>Publish Movie</value>
+  </data>
+  <data name="PublishWizardBack" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="PublishWizardPublishForPlaybackOnYourComputer" xml:space="preserve">
+    <value>Publish for playback on your computer</value>
+  </data>
+  <data name="PublishWizardPublishForPlaybackOnYourDVD" xml:space="preserve">
+    <value>Publish for playback on your DVD player or computer</value>
+  </data>
+  <data name="PublishWizardPublishForPlaybackOnComputerOrDevice" xml:space="preserve">
+    <value>Publish for playback on your computer or a device that plays the files</value>
+  </data>
+  <data name="PublishWizardSendAsAnEMailAttachment" xml:space="preserve">
+    <value>Send as an e-mail attachment using your default e-mail program</value>
+  </data>
+  <data name="PublishWizardRecordToATapeInYour" xml:space="preserve">
+    <value>Record to a tape in your DV camera</value>
+  </data>
+  <data name="FileNameLabel" xml:space="preserve">
+    <value>File name:</value>
+  </data>
+  <data name="FileNameName" xml:space="preserve">
+    <value>File name</value>
+  </data>
+  <data name="PublishWizardPublishTo" xml:space="preserve">
+    <value>Publish to:</value>
+  </data>
+  <data name="PublishWizardBrowse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="PublishWizardTheSettingYouSelectDeterminesThe" xml:space="preserve">
+    <value>The setting you select determines the quality and file size of your movie:</value>
+  </data>
+  <data name="PublishWizardBestQualityForPlaybackOnMy" xml:space="preserve">
+    <value>Best quality for playback on my computer (recommended)</value>
+  </data>
+  <data name="PublishWizardCompressTo" xml:space="preserve">
+    <value>Compress to:</value>
+  </data>
+  <data name="PublishWizardCompressToName" xml:space="preserve">
+    <value>Compress to</value>
+  </data>
+  <data name="PublishWizardCompressUnitsName" xml:space="preserve">
+    <value>Compress units</value>
+  </data>
+  <data name="PublishWizardMoreSettings" xml:space="preserve">
+    <value>More settings:</value>
+  </data>
+  <data name="PublishWizardMoreSettingsName" xml:space="preserve">
+    <value>More settings</value>
+  </data>
+  <data name="PublishWizardMovieSettings" xml:space="preserve">
+    <value>Movie settings</value>
+  </data>
+  <data name="PublishWizardFileSize" xml:space="preserve">
+    <value>File size</value>
+  </data>
+  <data name="PublishWizardOptional" xml:space="preserve">
+    <value>Optional:</value>
+  </data>
+  <data name="PublishWizardPlayMovieWhenIClickFinish" xml:space="preserve">
+    <value>Play movie when I click Finish.</value>
+  </data>
+  <data name="PublishWizardToClosePublishMovieClickFinish" xml:space="preserve">
+    <value>To close Publish Movie, click Finish.</value>
+  </data>
+  <data name="AutoMovieDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="AutoMovieAutoMovieEditingStylesName" xml:space="preserve">
+    <value>AutoMovie editing styles</value>
+  </data>
+  <data name="AutoMovieMovieTitleName" xml:space="preserve">
+    <value>Movie title</value>
+  </data>
+  <data name="AutoMovieAudioAndMusicFiles" xml:space="preserve">
+    <value>Audio and music files:</value>
+  </data>
+  <data name="AutoMovieAudioAndMusicFilesName" xml:space="preserve">
+    <value>Audio and music files</value>
+  </data>
+  <data name="AutoMovieBrowse" xml:space="preserve">
+    <value>Browse...</value>
+  </data>
+  <data name="AutoMovieAudioLevels" xml:space="preserve">
+    <value>Audio levels:</value>
+  </data>
+  <data name="AutoMovieAudioFromVideo" xml:space="preserve">
+    <value>Audio from video</value>
+  </data>
+  <data name="AutoMovieAudioLevelsName" xml:space="preserve">
+    <value>Audio levels</value>
+  </data>
+  <data name="AutoMovieMoreOptions" xml:space="preserve">
+    <value>More options:</value>
+  </data>
+  <data name="AutoMovieSelectAnAutoMovieEditingStyle" xml:space="preserve">
+    <value>Select an AutoMovie editing style</value>
+  </data>
+  <data name="AutoMovieEnterATitleForTheMovie" xml:space="preserve">
+    <value>Enter a title for the movie</value>
+  </data>
+  <data name="AutoMovieSelectAudioOrBackgroundMusic" xml:space="preserve">
+    <value>Select audio or background music</value>
+  </data>
+  <data name="AutoMovieCreateAutoMovie" xml:space="preserve">
+    <value>Create AutoMovie</value>
+  </data>
+  <data name="CollectionsPaneCollections" xml:space="preserve">
+    <value>Collections</value>
+  </data>
+  <data name="CollectionsPaneCollectionFoldersName" xml:space="preserve">
+    <value>Collection folders</value>
+  </data>
+  <data name="CollectionsPaneImportedMedia" xml:space="preserve">
+    <value>Imported media</value>
+  </data>
+  <data name="ContentsTasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="ContentsCollections" xml:space="preserve">
+    <value>Collections</value>
+  </data>
+  <data name="ContentsContentsViewName" xml:space="preserve">
+    <value>Contents view</value>
+  </data>
+  <data name="ContentsImportedMedia" xml:space="preserve">
+    <value>Imported media</value>
+  </data>
+  <data name="ContentsChangeTheView" xml:space="preserve">
+    <value>Change the view</value>
+  </data>
+  <data name="ContentsViewsName" xml:space="preserve">
+    <value>Views</value>
+  </data>
+  <data name="ContentsClipListName" xml:space="preserve">
+    <value>Clip List</value>
+  </data>
+  <data name="ContentsCatalogName" xml:space="preserve">
+    <value>Catalog</value>
+  </data>
+  <data name="MonitorPreviewMonitorName" xml:space="preserve">
+    <value>Preview monitor</value>
+  </data>
+  <data name="MonitorPreviewVideoName" xml:space="preserve">
+    <value>Preview video</value>
+  </data>
+  <data name="MonitorTimeName" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="MonitorSeekBarName" xml:space="preserve">
+    <value>Seek bar</value>
+  </data>
+  <data name="MonitorSplit" xml:space="preserve">
+    <value>Split</value>
+  </data>
+  <data name="MonitorSplitTheClipIntoTwoClips" xml:space="preserve">
+    <value>Split the clip into two clips at the current frame (M)</value>
+  </data>
+  <data name="NarrationStartNarration" xml:space="preserve">
+    <value>Start Narration</value>
+  </data>
+  <data name="NarrationStopNarration" xml:space="preserve">
+    <value>Stop Narration</value>
+  </data>
+  <data name="NarrationInputLevel" xml:space="preserve">
+    <value>Input level:</value>
+  </data>
+  <data name="NarrationInputLevelName" xml:space="preserve">
+    <value>Input level</value>
+  </data>
+  <data name="NarrationInputLevelMeterName" xml:space="preserve">
+    <value>Input level meter</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="NarrationHowDoIAddNarration" xml:space="preserve">
+    <value>How do I add narration?</value>
+  </data>
+  <data name="NarrationNarrationCaptured" xml:space="preserve">
+    <value>Narration captured:</value>
+  </data>
+  <data name="NarrationAvailableTime" xml:space="preserve">
+    <value>Available time:</value>
+  </data>
+  <data name="NarrationLimitNarrationToAvailableFreeSpace" xml:space="preserve">
+    <value>Limit narration to available free space on Audio/Music track</value>
+  </data>
+  <data name="NarrationMuteSpeakers" xml:space="preserve">
+    <value>Mute speakers</value>
+  </data>
+  <data name="NarrationAudioDevice" xml:space="preserve">
+    <value>Audio device:</value>
+  </data>
+  <data name="NarrationAudioDeviceName" xml:space="preserve">
+    <value>Audio device</value>
+  </data>
+  <data name="ShellImportDigitalMediaFilesIntoYour" xml:space="preserve">
+    <value>Import digital media files into your collection</value>
+  </data>
+  <data name="ShellUndo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="ShellUndoCtrlZ" xml:space="preserve">
+    <value>Undo (Ctrl+Z)</value>
+  </data>
+  <data name="ShellUndoListName" xml:space="preserve">
+    <value>Undo list</value>
+  </data>
+  <data name="ShellRedo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="ShellRedoCtrlY" xml:space="preserve">
+    <value>Redo (Ctrl+Y)</value>
+  </data>
+  <data name="ShellRedoListName" xml:space="preserve">
+    <value>Redo list</value>
+  </data>
+  <data name="ShellMakeAMovieAutomaticallyFromThe" xml:space="preserve">
+    <value>Make a movie automatically from the selected media</value>
+  </data>
+  <data name="ShellPublishYourMovieToAFile" xml:space="preserve">
+    <value>Publish your movie to a file</value>
+  </data>
+  <data name="ShellStatusName" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="StoryboardStoryboardViewName" xml:space="preserve">
+    <value>Storyboard view</value>
+  </data>
+  <data name="StoryboardRewindStoryboardName" xml:space="preserve">
+    <value>Rewind Storyboard</value>
+  </data>
+  <data name="StoryboardPlayStoryboardName" xml:space="preserve">
+    <value>Play Storyboard</value>
+  </data>
+  <data name="StoryboardStoryboardClipsName" xml:space="preserve">
+    <value>Storyboard clips</value>
+  </data>
+  <data name="TasksPaneTasks" xml:space="preserve">
+    <value>Tasks</value>
+  </data>
+  <data name="TimelineTimelineViewName" xml:space="preserve">
+    <value>Timeline view</value>
+  </data>
+  <data name="TimelineZoomInPageDown" xml:space="preserve">
+    <value>Zoom In (Page Down)</value>
+  </data>
+  <data name="TimelineZoomInName" xml:space="preserve">
+    <value>Zoom In</value>
+  </data>
+  <data name="TimelineZoomOutPageUp" xml:space="preserve">
+    <value>Zoom Out (Page Up)</value>
+  </data>
+  <data name="TimelineZoomOutName" xml:space="preserve">
+    <value>Zoom Out</value>
+  </data>
+  <data name="TitleEditorTitlesName" xml:space="preserve">
+    <value>Titles</value>
+  </data>
+  <data name="TitleEditorTitleTextName" xml:space="preserve">
+    <value>Title text</value>
+  </data>
+  <data name="TitleEditorTitleSecondLineName" xml:space="preserve">
+    <value>Title second line</value>
+  </data>
+  <data name="TitleEditorCreditsTitleName" xml:space="preserve">
+    <value>Credits title</value>
+  </data>
+  <data name="TitleEditorCreditHeadingName" xml:space="preserve">
+    <value>Credit heading</value>
+  </data>
+  <data name="TitleEditorCreditNamesName" xml:space="preserve">
+    <value>Credit names</value>
+  </data>
+  <data name="TitleEditorAddAnotherLine" xml:space="preserve">
+    <value>Add another line</value>
+  </data>
+  <data name="TitleEditorClipName" xml:space="preserve">
+    <value>Clip Name</value>
+  </data>
+  <data name="TitleEditorComments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="TitleEditorTitleAnimationsName" xml:space="preserve">
+    <value>Title animations</value>
+  </data>
+  <data name="TitleEditorFont" xml:space="preserve">
+    <value>Font:</value>
+  </data>
+  <data name="TitleEditorFontName" xml:space="preserve">
+    <value>Font</value>
+  </data>
+  <data name="TitleEditorBold" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+  <data name="TitleEditorB" xml:space="preserve">
+    <value>B</value>
+  </data>
+  <data name="TitleEditorItalic" xml:space="preserve">
+    <value>Italic</value>
+  </data>
+  <data name="TitleEditorI" xml:space="preserve">
+    <value>I</value>
+  </data>
+  <data name="TitleEditorUnderline" xml:space="preserve">
+    <value>Underline</value>
+  </data>
+  <data name="TitleEditorU" xml:space="preserve">
+    <value>U</value>
+  </data>
+  <data name="TitleEditorColor" xml:space="preserve">
+    <value>Color:</value>
+  </data>
+  <data name="TitleEditorTextColorName" xml:space="preserve">
+    <value>Text color</value>
+  </data>
+  <data name="TitleEditorChangeTheTextColor" xml:space="preserve">
+    <value>Change the text color</value>
+  </data>
+  <data name="TitleEditorBackgroundColorName" xml:space="preserve">
+    <value>Background color</value>
+  </data>
+  <data name="TitleEditorChangeTheBackgroundColor" xml:space="preserve">
+    <value>Change the background color</value>
+  </data>
+  <data name="TitleEditorTransparency" xml:space="preserve">
+    <value>Transparency:</value>
+  </data>
+  <data name="TitleEditorTransparencyName" xml:space="preserve">
+    <value>Transparency</value>
+  </data>
+  <data name="TitleEditorSize" xml:space="preserve">
+    <value>Size:</value>
+  </data>
+  <data name="TitleEditorIncreaseTextSizeName" xml:space="preserve">
+    <value>Increase text size</value>
+  </data>
+  <data name="TitleEditorIncreaseTheTextSize" xml:space="preserve">
+    <value>Increase the text size</value>
+  </data>
+  <data name="TitleEditorDecreaseTextSizeName" xml:space="preserve">
+    <value>Decrease text size</value>
+  </data>
+  <data name="TitleEditorDecreaseTheTextSize" xml:space="preserve">
+    <value>Decrease the text size</value>
+  </data>
+  <data name="TitleEditorPosition" xml:space="preserve">
+    <value>Position:</value>
+  </data>
+  <data name="TitleEditorAlignLeftName" xml:space="preserve">
+    <value>Align left</value>
+  </data>
+  <data name="TitleEditorLeft" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="TitleEditorCenter" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="TitleEditorAlignRightName" xml:space="preserve">
+    <value>Align right</value>
+  </data>
+  <data name="TitleEditorRight" xml:space="preserve">
+    <value>Right</value>
+  </data>
+  <data name="TitleEditorMoreOptions" xml:space="preserve">
+    <value>More options:</value>
+  </data>
+  <data name="TitleEditorEditTheTitleText" xml:space="preserve">
+    <value>Edit the title text</value>
+  </data>
+  <data name="TitleEditorChangeTheTitleAnimation" xml:space="preserve">
+    <value>Change the title animation</value>
+  </data>
+  <data name="TitleEditorChangeTheTextFontAndColor" xml:space="preserve">
+    <value>Change the text font and color</value>
+  </data>
+  <data name="EnterTitleText" xml:space="preserve">
+    <value>Enter text for title</value>
+  </data>
+  <data name="AutoMovieHeadingMusic" xml:space="preserve">
+    <value>Add audio or background music</value>
+  </data>
+  <data name="AutoMovieHeadingStyle" xml:space="preserve">
+    <value>Select an AutoMovie editing style</value>
+  </data>
+  <data name="AutoMovieAnalyzingVideo" xml:space="preserve">
+    <value>Analyzing video and pictures...</value>
+  </data>
+  <data name="AutoMovieAnalyzingMusic" xml:space="preserve">
+    <value>Analyzing music...</value>
+  </data>
+  <data name="AutoMovieCreating" xml:space="preserve">
+    <value>Creating AutoMovie</value>
+  </data>
+  <data name="ContentToolTip" xml:space="preserve">
+    <value>{0}
+Duration: {1}</value>
+    <comment>{0} the clip name, {1} its duration.</comment>
+  </data>
+  <data name="PropertyType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="PropertyDuration" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="PropertyStartTime" xml:space="preserve">
+    <value>Start time</value>
+  </data>
+  <data name="PropertyEndTime" xml:space="preserve">
+    <value>End time</value>
+  </data>
+  <data name="PropertyDimensions" xml:space="preserve">
+    <value>Dimensions</value>
+  </data>
+  <data name="PropertyFrameRate" xml:space="preserve">
+    <value>Frame rate</value>
+  </data>
+  <data name="PropertyVideoCodec" xml:space="preserve">
+    <value>Video codec</value>
+  </data>
+  <data name="PropertyAudio" xml:space="preserve">
+    <value>Audio</value>
+  </data>
+  <data name="PropertySource" xml:space="preserve">
+    <value>Source</value>
+  </data>
+  <data name="PropertySize" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="PropertyDateTaken" xml:space="preserve">
+    <value>Date taken</value>
+  </data>
+  <data name="PropertyStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="Dimensions" xml:space="preserve">
+    <value>{0} x {1}</value>
+    <comment>{0} the width, {1} the height in pixels.</comment>
+  </data>
+  <data name="FrameRate" xml:space="preserve">
+    <value>{0:0.###} frames/second</value>
+  </data>
+  <data name="AudioFormat" xml:space="preserve">
+    <value>{0}, {1} Hz, {2} channels</value>
+    <comment>{0} the codec, {1} the sample rate, {2} the channel count.</comment>
+  </data>
+  <data name="AudioFormatOneChannel" xml:space="preserve">
+    <value>{0}, {1} Hz, {2} channel</value>
+    <comment>{0} the codec, {1} the sample rate, {2} the channel count (1).</comment>
+  </data>
+  <data name="SizeKilobytes" xml:space="preserve">
+    <value>{0:N0} KB</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>File not found</value>
+  </data>
+  <data name="DefaultDevice" xml:space="preserve">
+    <value>(Default)</value>
+  </data>
+  <data name="TooSoonToEstimate" xml:space="preserve">
+    <value>Too soon to estimate</value>
+  </data>
+  <data name="DaysRemaining" xml:space="preserve">
+    <value>{0} days remaining</value>
+  </data>
+  <data name="HoursRemaining" xml:space="preserve">
+    <value>{0} hours remaining</value>
+  </data>
+  <data name="MinutesRemaining" xml:space="preserve">
+    <value>{0} minutes remaining</value>
+  </data>
+  <data name="SecondsRemaining" xml:space="preserve">
+    <value>{0} seconds remaining</value>
+  </data>
+  <data name="HideOptions" xml:space="preserve">
+    <value>Hide options</value>
+  </data>
+  <data name="ShowOptions" xml:space="preserve">
+    <value>Show options</value>
+  </data>
+  <data name="PauseClip" xml:space="preserve">
+    <value>Pause _Clip</value>
+  </data>
+  <data name="PlayClip" xml:space="preserve">
+    <value>Play _Clip</value>
+  </data>
+  <data name="PauseTip" xml:space="preserve">
+    <value>Pause</value>
+  </data>
+  <data name="PlayTip" xml:space="preserve">
+    <value>Play</value>
+  </data>
+  <data name="NeedsEncoder" xml:space="preserve">
+    <value>Needs the FFmpeg encoder {0}.</value>
+  </data>
+  <data name="FolderVideos" xml:space="preserve">
+    <value>Videos</value>
+  </data>
+  <data name="FolderDesktop" xml:space="preserve">
+    <value>Desktop</value>
+  </data>
+  <data name="FolderHome" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="LabelAndValue" xml:space="preserve">
+    <value>{0}: {1}</value>
+    <comment>A label and its value on one line.</comment>
+  </data>
+  <data name="LabelAndValueBelow" xml:space="preserve">
+    <value>{0}:
+  {1}</value>
+    <comment>A label with its value indented on the next line.</comment>
+  </data>
+  <data name="PublishSizeVaries" xml:space="preserve">
+    <value>The movie file size will vary based on the content of the published movie.</value>
+  </data>
+  <data name="PublishHeadingWhere" xml:space="preserve">
+    <value>Where do you want to publish your movie?</value>
+  </data>
+  <data name="PublishHeadingName" xml:space="preserve">
+    <value>Name the movie you are publishing</value>
+  </data>
+  <data name="PublishHeadingSettings" xml:space="preserve">
+    <value>Choose the settings for your movie</value>
+  </data>
+  <data name="PublishHeadingProgress" xml:space="preserve">
+    <value>Publishing your movie...</value>
+  </data>
+  <data name="PublishHeadingDone" xml:space="preserve">
+    <value>Your movie has been published</value>
+  </data>
+  <data name="PublishHeadingFailed" xml:space="preserve">
+    <value>The movie could not be published</value>
+  </data>
+  <data name="ButtonPublish" xml:space="preserve">
+    <value>_Publish</value>
+  </data>
+  <data name="ButtonFinish" xml:space="preserve">
+    <value>_Finish</value>
+  </data>
+  <data name="ButtonNext" xml:space="preserve">
+    <value>_Next</value>
+  </data>
+  <data name="Unknown" xml:space="preserve">
+    <value>unknown</value>
+  </data>
+  <data name="PublishFileType" xml:space="preserve">
+    <value>File type</value>
+  </data>
+  <data name="PublishBitRate" xml:space="preserve">
+    <value>Bit rate</value>
+  </data>
+  <data name="PublishDisplaySize" xml:space="preserve">
+    <value>Display size</value>
+  </data>
+  <data name="PublishAspectRatio" xml:space="preserve">
+    <value>Aspect ratio</value>
+  </data>
+  <data name="PublishFramesPerSecond" xml:space="preserve">
+    <value>Frames per second</value>
+  </data>
+  <data name="PublishSpaceRequired" xml:space="preserve">
+    <value>Estimated space required</value>
+  </data>
+  <data name="PublishSpaceAvailable" xml:space="preserve">
+    <value>Estimated disk space available</value>
+  </data>
+  <data name="VariableBitRate" xml:space="preserve">
+    <value>Variable bit rate</value>
+  </data>
+  <data name="DisplaySize" xml:space="preserve">
+    <value>{0} x {1} pixels</value>
+    <comment>{0} the width, {1} the height.</comment>
+  </data>
+  <data name="SizeGigabytes" xml:space="preserve">
+    <value>{0:0.00} GB</value>
+  </data>
+  <data name="SizeMegabytes" xml:space="preserve">
+    <value>{0:0.00} MB</value>
+  </data>
+  <data name="PickPublishFolder" xml:space="preserve">
+    <value>Choose a folder for your movie</value>
+  </data>
+  <data name="PublishProgress" xml:space="preserve">
+    <value>{0:P0} complete, {1} remaining</value>
+    <comment>{0} the fraction done, {1} the time left.</comment>
+  </data>
+  <data name="DurationMinutesSeconds" xml:space="preserve">
+    <value>{0} min {1} s</value>
+  </data>
+  <data name="DurationSeconds" xml:space="preserve">
+    <value>{0} s</value>
+  </data>
+  <data name="ClearStoryboard" xml:space="preserve">
+    <value>C_lear Storyboard</value>
+  </data>
+  <data name="PlayStoryboard" xml:space="preserve">
+    <value>_Play Storyboard</value>
+  </data>
+  <data name="PauseStoryboard" xml:space="preserve">
+    <value>_Pause Storyboard</value>
+  </data>
+  <data name="PauseTimeline" xml:space="preserve">
+    <value>_Pause Timeline</value>
+  </data>
+  <data name="RewindStoryboard" xml:space="preserve">
+    <value>_Rewind Storyboard</value>
+  </data>
+  <data name="PlayStoryboardTip" xml:space="preserve">
+    <value>Play Storyboard (Ctrl+W)</value>
+  </data>
+  <data name="PauseStoryboardTip" xml:space="preserve">
+    <value>Pause Storyboard (Ctrl+W)</value>
+  </data>
+  <data name="PlayTimelineTip" xml:space="preserve">
+    <value>Play Timeline (Ctrl+W)</value>
+  </data>
+  <data name="PauseTimelineTip" xml:space="preserve">
+    <value>Pause Timeline (Ctrl+W)</value>
+  </data>
+  <data name="RewindStoryboardTip" xml:space="preserve">
+    <value>Rewind Storyboard (Ctrl+Q)</value>
+  </data>
+  <data name="RewindTimelineTip" xml:space="preserve">
+    <value>Rewind Timeline (Ctrl+Q)</value>
+  </data>
+  <data name="StoryboardCaption" xml:space="preserve">
+    <value>Storyboard: {0}</value>
+    <comment>The preview monitor caption; {0} the selected item.</comment>
+  </data>
+  <data name="TimelineCaption" xml:space="preserve">
+    <value>Timeline: {0}</value>
+    <comment>The preview monitor caption; {0} the selected item.</comment>
+  </data>
+  <data name="UntitledTitle" xml:space="preserve">
+    <value>Title</value>
+    <comment>The name of a title clip with no text.</comment>
+  </data>
+  <data name="UndoName" xml:space="preserve">
+    <value>_Undo {0}</value>
+    <comment>{0} the name of the action.</comment>
+  </data>
+  <data name="RedoName" xml:space="preserve">
+    <value>_Redo {0}</value>
+    <comment>{0} the name of the action.</comment>
+  </data>
+  <data name="UndoActionsOne" xml:space="preserve">
+    <value>Undo {0} Action</value>
+    <comment>The Undo list footer; {0} the count (1).</comment>
+  </data>
+  <data name="UndoActionsMany" xml:space="preserve">
+    <value>Undo {0} Actions</value>
+    <comment>The Undo list footer; {0} the count.</comment>
+  </data>
+  <data name="RedoActionsOne" xml:space="preserve">
+    <value>Redo {0} Action</value>
+    <comment>The Redo list footer; {0} the count (1).</comment>
+  </data>
+  <data name="RedoActionsMany" xml:space="preserve">
+    <value>Redo {0} Actions</value>
+    <comment>The Redo list footer; {0} the count.</comment>
+  </data>
+  <data name="NotAvailable" xml:space="preserve">
+    <value>{0} (not available)</value>
+    <comment>The accessible name of a grayed task; {0} the task.</comment>
+  </data>
+  <data name="TaskImportVideosName" xml:space="preserve">
+    <value>Import videos</value>
+  </data>
+  <data name="TaskImportPicturesName" xml:space="preserve">
+    <value>Import pictures</value>
+  </data>
+  <data name="TaskImportAudioName" xml:space="preserve">
+    <value>Import audio or music</value>
+  </data>
+  <data name="TaskShowImportedMediaName" xml:space="preserve">
+    <value>Show imported media</value>
+  </data>
+  <data name="TaskShowEffectsName" xml:space="preserve">
+    <value>Show effects</value>
+  </data>
+  <data name="TaskShowTransitionsName" xml:space="preserve">
+    <value>Show transitions</value>
+  </data>
+  <data name="TaskMakeTitlesName" xml:space="preserve">
+    <value>Make titles or credits</value>
+  </data>
+  <data name="TaskPublishToComputerName" xml:space="preserve">
+    <value>Publish to this computer</value>
+  </data>
+  <data name="Opening" xml:space="preserve">
+    <value>Opening {0}...</value>
+    <comment>{0} the file name.</comment>
+  </data>
+  <data name="PackageCannotOpen" xml:space="preserve">
+    <value>The project package cannot be opened. {0}</value>
+    <comment>{0} the reason.</comment>
+  </data>
+  <data name="Exporting" xml:space="preserve">
+    <value>Exporting {0}...</value>
+    <comment>{0} the file name.</comment>
+  </data>
+  <data name="PackageCannotWrite" xml:space="preserve">
+    <value>The project package cannot be written. {0}</value>
+    <comment>{0} the reason.</comment>
+  </data>
+  <data name="ProjectCannotOpen" xml:space="preserve">
+    <value>The project file cannot be opened. {0}</value>
+    <comment>{0} the reason.</comment>
+  </data>
+  <data name="PickMediaSearchFolder" xml:space="preserve">
+    <value>Choose a folder to search for the project's media files</value>
+  </data>
+  <data name="ImportNotFoundLine" xml:space="preserve">
+    <value>Not found: {0}</value>
+    <comment>{0} the path of a media file.</comment>
+  </data>
+  <data name="ImportReportIntro" xml:space="preserve">
+    <value>The project was imported with these changes:</value>
+  </data>
+  <data name="ImportReportTitle" xml:space="preserve">
+    <value>Import report</value>
+  </data>
+  <data name="MswmmCannotImport" xml:space="preserve">
+    <value>The Movie Maker project cannot be imported. {0}</value>
+    <comment>{0} the reason.</comment>
+  </data>
+  <data name="ProjectCannotSave" xml:space="preserve">
+    <value>The project could not be saved. {0}</value>
+    <comment>{0} the reason.</comment>
+  </data>
+  <data name="ImportingMany" xml:space="preserve">
+    <value>Importing {0} ({1} of {2})...</value>
+    <comment>{0} the file name, {1} its number, {2} the file count.</comment>
+  </data>
+  <data name="ImportingOne" xml:space="preserve">
+    <value>Importing {0}...</value>
+    <comment>{0} the file name.</comment>
+  </data>
+  <data name="FindFile" xml:space="preserve">
+    <value>Find {0}</value>
+    <comment>The title of the file picker for a missing file; {0} its name.</comment>
+  </data>
+  <data name="CreatingClips" xml:space="preserve">
+    <value>Creating clips for {0}...</value>
+    <comment>{0} the media name.</comment>
+  </data>
+  <data name="TitleGroupOneLine" xml:space="preserve">
+    <value>Titles, One Line</value>
+  </data>
+  <data name="TitleGroupTwoLines" xml:space="preserve">
+    <value>Titles, Two Lines</value>
+  </data>
+  <data name="TitleGroupCredits" xml:space="preserve">
+    <value>Credits</value>
+  </data>
+  <data name="TitleDone" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="TitleAdd" xml:space="preserve">
+    <value>Add Title</value>
+  </data>
+  <data name="TitleHeadingPlacement" xml:space="preserve">
+    <value>Where do you want to add a title?</value>
+  </data>
+  <data name="TitleHeadingAnimation" xml:space="preserve">
+    <value>Choose the title animation</value>
+  </data>
+  <data name="TitleHeadingFont" xml:space="preserve">
+    <value>Select title font and color</value>
+  </data>
+  <data name="PlacementAtBeginning" xml:space="preserve">
+    <value>Title at the beginning</value>
+  </data>
+  <data name="PlacementBeforeClip" xml:space="preserve">
+    <value>Title before the selected clip</value>
+  </data>
+  <data name="PlacementOnClip" xml:space="preserve">
+    <value>Title on the selected clip</value>
+  </data>
+  <data name="PlacementCreditsAtEnd" xml:space="preserve">
+    <value>Credits at the end</value>
+  </data>
+  <data name="HintDropTransition" xml:space="preserve">
+    <value>Drag a transition here to add it between the two video clips.</value>
+  </data>
+  <data name="HintDropVideo" xml:space="preserve">
+    <value>Drag a video clip or picture here to add it to your movie.</value>
+  </data>
+  <data name="HintDropEffect" xml:space="preserve">
+    <value>Drag an effect here to add it to this video clip.</value>
+  </data>
+  <data name="HintDropAudio" xml:space="preserve">
+    <value>Drag an audio clip here to add it to your movie.</value>
+  </data>
+  <data name="HintAddTitle" xml:space="preserve">
+    <value>To add a title, select Titles and Credits from the Tools menu.</value>
+  </data>
+  <data name="HintDragMedia" xml:space="preserve">
+    <value>Drag media here</value>
+  </data>
+  <data name="PreviousFrameTip" xml:space="preserve">
+    <value>Previous Frame</value>
+  </data>
+  <data name="NextFrameTip" xml:space="preserve">
+    <value>Next Frame</value>
+  </data>
+  <data name="AboutWindowTitle" xml:space="preserve">
+    <value>About {0}</value>
+    <comment>{0} the product name.</comment>
+  </data>
+  <data name="AboutVersion" xml:space="preserve">
+    <value>{0}
+Version {1}</value>
+    <comment>{0} the product name, {1} its version.</comment>
+  </data>
+  <data name="AboutLicense" xml:space="preserve">
+    <value>Released under the GNU General Public License, version 3 or later.</value>
+  </data>
+  <data name="AboutSystem" xml:space="preserve">
+    <value>FFmpeg: {0}
+Rendering: {1}</value>
+    <comment>{0} the FFmpeg version, {1} the renderer.</comment>
+  </data>
+  <data name="ButtonLicenses" xml:space="preserve">
+    <value>_Licenses...</value>
+  </data>
+  <data name="LicensesWindowTitle" xml:space="preserve">
+    <value>Licenses</value>
+  </data>
+  <data name="ClipPropertiesWindowTitle" xml:space="preserve">
+    <value>{0} Properties</value>
+    <comment>{0} the clip name.</comment>
+  </data>
+  <data name="ColumnProperty" xml:space="preserve">
+    <value>Property</value>
+  </data>
+  <data name="ColumnValue" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="TabGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="ColorWindowTitle" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="ColorBasicColors" xml:space="preserve">
+    <value>Basic colors:</value>
+  </data>
+  <data name="ColorCustomColors" xml:space="preserve">
+    <value>Custom colors:</value>
+  </data>
+  <data name="ColorDefineCustom" xml:space="preserve">
+    <value>Define Custom Colors &gt;&gt;</value>
+  </data>
+  <data name="ColorSolid" xml:space="preserve">
+    <value>Color|Solid</value>
+  </data>
+  <data name="ColorAddToCustom" xml:space="preserve">
+    <value>Add to Custom Colors</value>
+  </data>
+  <data name="ColorHue" xml:space="preserve">
+    <value>Hue:</value>
+  </data>
+  <data name="ColorRed" xml:space="preserve">
+    <value>Red:</value>
+  </data>
+  <data name="ColorSat" xml:space="preserve">
+    <value>Sat:</value>
+  </data>
+  <data name="ColorGreen" xml:space="preserve">
+    <value>Green:</value>
+  </data>
+  <data name="ColorLum" xml:space="preserve">
+    <value>Lum:</value>
+  </data>
+  <data name="ColorBlue" xml:space="preserve">
+    <value>Blue:</value>
+  </data>
+  <data name="FullScreenName" xml:space="preserve">
+    <value>Full screen</value>
+  </data>
+  <data name="FullScreenWindowTitle" xml:space="preserve">
+    <value>Full Screen</value>
+  </data>
+  <data name="DontShowAgain" xml:space="preserve">
+    <value>Do not show this dialog again</value>
+  </data>
+  <data name="ButtonYes" xml:space="preserve">
+    <value>_Yes</value>
+  </data>
+  <data name="ButtonNo" xml:space="preserve">
+    <value>_No</value>
+  </data>
+  <data name="MacAbout" xml:space="preserve">
+    <value>About AvaMovieMaker</value>
+    <comment>The macOS application menu.</comment>
+  </data>
+  <data name="MacSettings" xml:space="preserve">
+    <value>Settings…</value>
+    <comment>The macOS application menu.</comment>
+  </data>
+  <data name="MacQuit" xml:space="preserve">
+    <value>Quit AvaMovieMaker</value>
+    <comment>The macOS application menu.</comment>
+  </data>
+  <data name="OpenProjectTitle" xml:space="preserve">
+    <value>Open Project</value>
+  </data>
+  <data name="ImportMswmmTitle" xml:space="preserve">
+    <value>Import Movie Maker Project</value>
+  </data>
+  <data name="ExportPackageTitle" xml:space="preserve">
+    <value>Export Project Package</value>
+  </data>
+  <data name="SaveProjectAsTitle" xml:space="preserve">
+    <value>Save Project As</value>
+  </data>
+  <data name="SavePictureAsTitle" xml:space="preserve">
+    <value>Save Picture As</value>
+  </data>
+  <data name="SaveNarrationTitle" xml:space="preserve">
+    <value>Save Narration</value>
+  </data>
+  <data name="PickPackageMediaFolder" xml:space="preserve">
+    <value>Choose where to put the media of {0} (a folder named {0} is made there)</value>
+    <comment>{0} the project name.</comment>
+  </data>
+  <data name="FilterFlac" xml:space="preserve">
+    <value>FLAC Audio Files</value>
+  </data>
+  <data name="DropCopy" xml:space="preserve">
+    <value>_Copy</value>
+    <comment>The menu after a drag with the secondary button.</comment>
+  </data>
+  <data name="DropMove" xml:space="preserve">
+    <value>_Move</value>
+  </data>
+  <data name="UnknownRenderer" xml:space="preserve">
+    <value>Unknown</value>
+  </data>
+</root>

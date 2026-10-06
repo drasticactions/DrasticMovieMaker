@@ -1,0 +1,162 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:aw="https://github.com/avawpf"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Publish"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             x:Class="AvaMovieMaker.Dialogs.PublishWizardWindow"
+             x:DataType="vm:PublishWizardViewModel"
+             aw:WindowSettings.Title="{x:Static str:Strings.PublishWizardWindowTitle}" aw:WindowSettings.FrameKind="Dialog" aw:WindowSettings.CanResize="False" aw:WindowSettings.Width="838" aw:WindowSettings.Height="602" aw:WindowSettings.ShowFrameTitle="False" aw:WindowSettings.ShowFrameIcon="False"
+             aw:WindowSettings.WindowStartupLocation="CenterOwner" aw:WindowSettings.ShowInTaskbar="False">
+  <DockPanel>
+    <Border DockPanel.Dock="Top" Height="40" Background="{DynamicResource Aero.Invented.WindowFrame.Border.Background}">
+      <StackPanel Orientation="Horizontal" Spacing="8" Margin="8,0,0,0" VerticalAlignment="Center">
+        <Button Classes="mm-wizard-back" Command="{Binding BackCommand}" IsVisible="True" AutomationProperties.Name="{x:Static str:Strings.PublishWizardBack}" ToolTip.Tip="{x:Static str:Strings.PublishWizardBack}">
+          <c:Glyph Kind="wizard-back" />
+        </Button>
+        <c:Glyph Kind="publish" VerticalAlignment="Center" />
+        <TextBlock Text="{x:Static str:Strings.Publish}" VerticalAlignment="Center" />
+      </StackPanel>
+    </Border>
+    <Border DockPanel.Dock="Bottom" Background="#F0F0F0" BorderBrush="#DFDFDF" BorderThickness="0,1,0,0" Height="46">
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Spacing="10" Margin="0,0,18,0">
+        <Button Content="{Binding NextText}" Command="{Binding NextCommand}" MinWidth="66" IsDefault="True" />
+        <Button Content="{x:Static str:Strings.ButtonCancel}" Command="{Binding CancelCommand}" MinWidth="66" IsCancel="True" IsVisible="{Binding !IsFinishPage}" />
+      </StackPanel>
+    </Border>
+    <Border Background="White">
+      <Panel>
+      <StackPanel Margin="38,20,38,0">
+        <TextBlock Text="{Binding Heading}" FontSize="15" Foreground="#003399" Margin="0,0,0,22" />
+
+        <StackPanel IsVisible="{Binding IsWherePage}">
+          <Border BorderBrush="#828790" BorderThickness="1" Height="384" Margin="7,0,98,0">
+            <ListBox Name="Destinations" BorderThickness="0" SelectedIndex="0" DoubleTapped="OnDestinationDoubleTapped">
+              <ListBox.Styles>
+                <Style Selector="ListBoxItem">
+                  <Setter Property="Padding" Value="3,2,3,2" />
+                </Style>
+              </ListBox.Styles>
+              <ListBoxItem>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                  <c:Glyph Kind="computer" VerticalAlignment="Center" />
+                  <StackPanel>
+                    <TextBlock Text="{x:Static str:Strings.TaskThisComputer}" />
+                    <TextBlock Text="{x:Static str:Strings.PublishWizardPublishForPlaybackOnYourComputer}" Foreground="#6D6D6D" />
+                  </StackPanel>
+                </StackPanel>
+              </ListBoxItem>
+              <ListBoxItem IsEnabled="False">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                  <c:Glyph Kind="dvd" VerticalAlignment="Center" />
+                  <StackPanel>
+                    <TextBlock Text="{x:Static str:Strings.TaskDvd}" />
+                    <TextBlock Text="{x:Static str:Strings.PublishWizardPublishForPlaybackOnYourDVD}" Foreground="#6D6D6D" />
+                  </StackPanel>
+                </StackPanel>
+              </ListBoxItem>
+              <ListBoxItem IsEnabled="False">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                  <c:Glyph Kind="cd" VerticalAlignment="Center" />
+                  <StackPanel>
+                    <TextBlock Text="{x:Static str:Strings.TaskRecordableCd}" />
+                    <TextBlock Text="{x:Static str:Strings.PublishWizardPublishForPlaybackOnComputerOrDevice}" Foreground="#6D6D6D" />
+                  </StackPanel>
+                </StackPanel>
+              </ListBoxItem>
+              <ListBoxItem IsEnabled="False">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                  <c:Glyph Kind="email" VerticalAlignment="Center" />
+                  <StackPanel>
+                    <TextBlock Text="{x:Static str:Strings.TaskEmail}" />
+                    <TextBlock Text="{x:Static str:Strings.PublishWizardSendAsAnEMailAttachment}" Foreground="#6D6D6D" />
+                  </StackPanel>
+                </StackPanel>
+              </ListBoxItem>
+              <ListBoxItem IsEnabled="False">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                  <c:Glyph Kind="camera" VerticalAlignment="Center" />
+                  <StackPanel>
+                    <TextBlock Text="{x:Static str:Strings.TaskCamera}" />
+                    <TextBlock Text="{x:Static str:Strings.PublishWizardRecordToATapeInYour}" Foreground="#6D6D6D" />
+                  </StackPanel>
+                </StackPanel>
+              </ListBoxItem>
+            </ListBox>
+          </Border>
+        </StackPanel>
+
+        <Grid IsVisible="{Binding IsNamePage}" ColumnDefinitions="130,438,Auto" RowDefinitions="Auto,Auto,Auto" RowSpacing="24" Margin="0,8,0,0">
+          <Label Content="{x:Static str:Strings.FileNameLabel}" Target="NameBox" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,0" />
+          <TextBox Name="NameBox" Grid.Column="1" Text="{Binding FileName}" AutomationProperties.Name="{x:Static str:Strings.FileNameName}" />
+          <Label Grid.Row="1" Content="{x:Static str:Strings.PublishWizardPublishTo}" Target="FolderBox" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,0" />
+          <ComboBox Name="FolderBox" Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Folders}" SelectedItem="{Binding SelectedFolder}"
+                    HorizontalAlignment="Stretch" AutomationProperties.Name="{x:Static str:Strings.TaskPublishTo}">
+            <ComboBox.ItemTemplate>
+              <DataTemplate x:DataType="vm:PublishFolder">
+                <StackPanel Orientation="Horizontal" Spacing="5" ToolTip.Tip="{Binding Path}">
+                  <c:Glyph Kind="collections" />
+                  <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                </StackPanel>
+              </DataTemplate>
+            </ComboBox.ItemTemplate>
+          </ComboBox>
+          <Button Grid.Row="1" Grid.Column="2" Content="{x:Static str:Strings.PublishWizardBrowse}" Command="{Binding BrowseCommand}" Margin="12,0,0,0" MinWidth="66" />
+          <TextBlock Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding NameError}" IsVisible="{Binding NameError, Converter={x:Static ObjectConverters.IsNotNull}}"
+                     TextWrapping="Wrap" Foreground="#C00000" />
+        </Grid>
+
+        <StackPanel IsVisible="{Binding IsSettingsPage}" Spacing="12">
+          <TextBlock Text="{x:Static str:Strings.PublishWizardTheSettingYouSelectDeterminesThe}" Margin="7,0,0,6" />
+          <StackPanel Margin="26,0,0,0" Spacing="10">
+            <RadioButton GroupName="mode" Content="{x:Static str:Strings.PublishWizardBestQualityForPlaybackOnMy}" IsChecked="{Binding IsBest}" />
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <RadioButton GroupName="mode" Content="{x:Static str:Strings.PublishWizardCompressTo}" IsChecked="{Binding IsCompress}" Width="92" />
+              <NumericUpDown Value="{Binding CompressMegabytes}" Minimum="1" Maximum="100000" Increment="1" FormatString="0" Width="124"
+                             IsEnabled="{Binding IsCompress}" AutomationProperties.Name="{x:Static str:Strings.PublishWizardCompressToName}" />
+              <ComboBox ItemsSource="{Binding CompressUnits}" SelectedItem="{Binding CompressUnit}" Width="50" IsEnabled="{Binding IsCompress}"
+                        Margin="6,0,0,0" AutomationProperties.Name="{x:Static str:Strings.PublishWizardCompressUnitsName}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Spacing="6">
+              <RadioButton GroupName="mode" Content="{x:Static str:Strings.PublishWizardMoreSettings}" IsChecked="{Binding IsMore}" Width="92" />
+              <ComboBox ItemsSource="{Binding MoreProfiles}" SelectedItem="{Binding SelectedProfile}" Width="310" IsEnabled="{Binding IsMore}"
+                        AutomationProperties.Name="{x:Static str:Strings.PublishWizardMoreSettingsName}">
+                <ComboBox.ItemTemplate>
+                  <DataTemplate x:DataType="vm:ProfileOption">
+                    <TextBlock Text="{Binding Name}" IsEnabled="{Binding IsAvailable}" ToolTip.Tip="{Binding Reason}" />
+                  </DataTemplate>
+                </ComboBox.ItemTemplate>
+              </ComboBox>
+            </StackPanel>
+          </StackPanel>
+          <Grid ColumnDefinitions="314,12,314" Margin="7,124,0,0">
+            <GroupBox Header="{x:Static str:Strings.PublishWizardMovieSettings}">
+              <TextBlock Text="{Binding MovieSettingsText}" LineHeight="19" Margin="4" />
+            </GroupBox>
+            <GroupBox Grid.Column="2" Header="{x:Static str:Strings.PublishWizardFileSize}">
+              <TextBlock Text="{Binding FileSizeText}" LineHeight="19" Margin="4" TextWrapping="Wrap" />
+            </GroupBox>
+          </Grid>
+        </StackPanel>
+
+        <StackPanel IsVisible="{Binding IsProgressPage}" Spacing="10" Margin="7,0,0,0">
+          <ProgressBar Value="{Binding Progress}" Minimum="0" Maximum="100" Height="18" Width="560" HorizontalAlignment="Left" />
+          <TextBlock Text="{Binding ProgressText}" />
+        </StackPanel>
+
+        <StackPanel IsVisible="{Binding IsFinishPage}" Margin="7,0,0,0">
+          <StackPanel Spacing="6">
+            <TextBlock Text="{Binding Error}" IsVisible="{Binding Error, Converter={x:Static ObjectConverters.IsNotNull}}" TextWrapping="Wrap" Foreground="#A01010" />
+            <StackPanel Spacing="6" IsVisible="{Binding Error, Converter={x:Static ObjectConverters.IsNull}}">
+              <TextBlock Text="{x:Static str:Strings.PublishWizardOptional}" />
+              <CheckBox Content="{x:Static str:Strings.PublishWizardPlayMovieWhenIClickFinish}" IsChecked="{Binding PlayWhenFinished}" Margin="20,0,0,0" />
+            </StackPanel>
+          </StackPanel>
+        </StackPanel>
+      </StackPanel>
+
+      <TextBlock IsVisible="{Binding IsFinishPage}" Text="{x:Static str:Strings.PublishWizardToClosePublishMovieClickFinish}" VerticalAlignment="Bottom" Margin="45,0,0,41" />
+      </Panel>
+    </Border>
+  </DockPanel>
+</UserControl>

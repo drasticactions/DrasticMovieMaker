@@ -1,0 +1,609 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Effect3DRipple" xml:space="preserve">
+    <value>3D Ripple</value>
+  </data>
+  <data name="EffectBlur" xml:space="preserve">
+    <value>Blur</value>
+  </data>
+  <data name="EffectBrightnessDecrease" xml:space="preserve">
+    <value>Brightness, Decrease</value>
+  </data>
+  <data name="EffectBrightnessIncrease" xml:space="preserve">
+    <value>Brightness, Increase</value>
+  </data>
+  <data name="EffectEaseIn" xml:space="preserve">
+    <value>Ease In</value>
+  </data>
+  <data name="EffectEaseOut" xml:space="preserve">
+    <value>Ease Out</value>
+  </data>
+  <data name="EffectEdgeDetection" xml:space="preserve">
+    <value>Edge Detection</value>
+  </data>
+  <data name="EffectFadeInFromBlack" xml:space="preserve">
+    <value>Fade In, From Black</value>
+  </data>
+  <data name="EffectFadeInFromWhite" xml:space="preserve">
+    <value>Fade In, From White</value>
+  </data>
+  <data name="EffectFadeOutToBlack" xml:space="preserve">
+    <value>Fade Out, To Black</value>
+  </data>
+  <data name="EffectFadeOutToWhite" xml:space="preserve">
+    <value>Fade Out, To White</value>
+  </data>
+  <data name="EffectFilmAgeOld" xml:space="preserve">
+    <value>Film Age, Old</value>
+  </data>
+  <data name="EffectFilmAgeOlder" xml:space="preserve">
+    <value>Film Age, Older</value>
+  </data>
+  <data name="EffectFilmAgeOldest" xml:space="preserve">
+    <value>Film Age, Oldest</value>
+  </data>
+  <data name="EffectFilmGrain" xml:space="preserve">
+    <value>Film Grain</value>
+  </data>
+  <data name="EffectGrayscale" xml:space="preserve">
+    <value>Grayscale</value>
+  </data>
+  <data name="EffectHueCycle" xml:space="preserve">
+    <value>Hue, Cycles Entire Color Spectrum</value>
+  </data>
+  <data name="EffectMirrorHorizontal" xml:space="preserve">
+    <value>Mirror, Horizontal</value>
+  </data>
+  <data name="EffectMirrorVertical" xml:space="preserve">
+    <value>Mirror, Vertical</value>
+  </data>
+  <data name="EffectPanDownAndZoomOut" xml:space="preserve">
+    <value>Pan, Down and Zoom Out</value>
+  </data>
+  <data name="EffectPanLeftToRight" xml:space="preserve">
+    <value>Pan, Left to Right</value>
+  </data>
+  <data name="EffectPanUpperLeftToLowerRight" xml:space="preserve">
+    <value>Pan, Upper Left to Lower Right</value>
+  </data>
+  <data name="EffectPanUpperLeftToUpperRight" xml:space="preserve">
+    <value>Pan, Upper Left to Upper Right</value>
+  </data>
+  <data name="EffectPanUpperRightToUpperLeft" xml:space="preserve">
+    <value>Pan, Upper Right to Upper Left</value>
+  </data>
+  <data name="EffectPixelate" xml:space="preserve">
+    <value>Pixelate</value>
+  </data>
+  <data name="EffectPosterize" xml:space="preserve">
+    <value>Posterize</value>
+  </data>
+  <data name="EffectRotate90" xml:space="preserve">
+    <value>Rotate 90</value>
+  </data>
+  <data name="EffectRotate180" xml:space="preserve">
+    <value>Rotate 180</value>
+  </data>
+  <data name="EffectRotate270" xml:space="preserve">
+    <value>Rotate 270</value>
+  </data>
+  <data name="EffectSepiaTone" xml:space="preserve">
+    <value>Sepia Tone</value>
+  </data>
+  <data name="EffectSharpen" xml:space="preserve">
+    <value>Sharpen</value>
+  </data>
+  <data name="EffectSpin360" xml:space="preserve">
+    <value>Spin 360</value>
+  </data>
+  <data name="EffectThreshold" xml:space="preserve">
+    <value>Threshold</value>
+  </data>
+  <data name="EffectWarp" xml:space="preserve">
+    <value>Warp</value>
+  </data>
+  <data name="EffectWatercolor" xml:space="preserve">
+    <value>Watercolor</value>
+  </data>
+  <data name="EffectZoomFocusLowerLeft" xml:space="preserve">
+    <value>Zoom, Focus Lower Left</value>
+  </data>
+  <data name="EffectZoomFocusLowerRight" xml:space="preserve">
+    <value>Zoom, Focus Lower Right</value>
+  </data>
+  <data name="EffectZoomFocusUpperLeft" xml:space="preserve">
+    <value>Zoom, Focus Upper Left</value>
+  </data>
+  <data name="EffectZoomFocusUpperRight" xml:space="preserve">
+    <value>Zoom, Focus Upper Right</value>
+  </data>
+  <data name="EffectZoomInToLowerLeft" xml:space="preserve">
+    <value>Zoom In, to Lower Left</value>
+  </data>
+  <data name="EffectZoomInToLowerRight" xml:space="preserve">
+    <value>Zoom In, to Lower Right</value>
+  </data>
+  <data name="EffectZoomInToUpperLeft" xml:space="preserve">
+    <value>Zoom In, to Upper Left</value>
+  </data>
+  <data name="EffectZoomInToUpperRight" xml:space="preserve">
+    <value>Zoom In, to Upper Right</value>
+  </data>
+  <data name="EffectZoomOutFromLowerLeft" xml:space="preserve">
+    <value>Zoom Out, from Lower Left</value>
+  </data>
+  <data name="EffectZoomOutFromLowerRight" xml:space="preserve">
+    <value>Zoom Out, from Lower Right</value>
+  </data>
+  <data name="EffectZoomOutFromUpperLeft" xml:space="preserve">
+    <value>Zoom Out, from Upper Left</value>
+  </data>
+  <data name="EffectZoomOutFromUpperRight" xml:space="preserve">
+    <value>Zoom Out, from Upper Right</value>
+  </data>
+  <data name="EffectSlowDownHalf" xml:space="preserve">
+    <value>Slow Down, Half</value>
+  </data>
+  <data name="EffectSpeedUpDouble" xml:space="preserve">
+    <value>Speed Up, Double</value>
+  </data>
+  <data name="TransitionBarsHorizontal" xml:space="preserve">
+    <value>Bars, Horizontal</value>
+  </data>
+  <data name="TransitionBarsVertical" xml:space="preserve">
+    <value>Bars, Vertical</value>
+  </data>
+  <data name="TransitionBowTieHorizontal" xml:space="preserve">
+    <value>Bow Tie, Horizontal</value>
+  </data>
+  <data name="TransitionBowTieVertical" xml:space="preserve">
+    <value>Bow Tie, Vertical</value>
+  </data>
+  <data name="TransitionCheckerboardAcross" xml:space="preserve">
+    <value>Checkerboard, Across</value>
+  </data>
+  <data name="TransitionCircle" xml:space="preserve">
+    <value>Circle</value>
+  </data>
+  <data name="TransitionCircles" xml:space="preserve">
+    <value>Circles</value>
+  </data>
+  <data name="TransitionDiagonalBoxOut" xml:space="preserve">
+    <value>Diagonal, Box Out</value>
+  </data>
+  <data name="TransitionDiagonalCrossOut" xml:space="preserve">
+    <value>Diagonal, Cross Out</value>
+  </data>
+  <data name="TransitionDiagonalDownRight" xml:space="preserve">
+    <value>Diagonal, Down Right</value>
+  </data>
+  <data name="TransitionDiamond" xml:space="preserve">
+    <value>Diamond</value>
+  </data>
+  <data name="TransitionDissolve" xml:space="preserve">
+    <value>Dissolve</value>
+  </data>
+  <data name="TransitionDissolveRough" xml:space="preserve">
+    <value>Dissolve, Rough</value>
+  </data>
+  <data name="TransitionEye" xml:space="preserve">
+    <value>Eye</value>
+  </data>
+  <data name="TransitionFanIn" xml:space="preserve">
+    <value>Fan, In</value>
+  </data>
+  <data name="TransitionFanOut" xml:space="preserve">
+    <value>Fan, Out</value>
+  </data>
+  <data name="TransitionFanUp" xml:space="preserve">
+    <value>Fan, Up</value>
+  </data>
+  <data name="TransitionFilledVDown" xml:space="preserve">
+    <value>Filled V, Down</value>
+  </data>
+  <data name="TransitionFilledVLeft" xml:space="preserve">
+    <value>Filled V, Left</value>
+  </data>
+  <data name="TransitionFilledVRight" xml:space="preserve">
+    <value>Filled V, Right</value>
+  </data>
+  <data name="TransitionFilledVUp" xml:space="preserve">
+    <value>Filled V, Up</value>
+  </data>
+  <data name="TransitionFlip" xml:space="preserve">
+    <value>Flip</value>
+  </data>
+  <data name="TransitionHeart" xml:space="preserve">
+    <value>Heart</value>
+  </data>
+  <data name="TransitionInsetDownLeft" xml:space="preserve">
+    <value>Inset, Down Left</value>
+  </data>
+  <data name="TransitionInsetDownRight" xml:space="preserve">
+    <value>Inset, Down Right</value>
+  </data>
+  <data name="TransitionInsetUpLeft" xml:space="preserve">
+    <value>Inset, Up Left</value>
+  </data>
+  <data name="TransitionInsetUpRight" xml:space="preserve">
+    <value>Inset, Up Right</value>
+  </data>
+  <data name="TransitionIris" xml:space="preserve">
+    <value>Iris</value>
+  </data>
+  <data name="TransitionKeyhole" xml:space="preserve">
+    <value>Keyhole</value>
+  </data>
+  <data name="TransitionPageCurlUpLeft" xml:space="preserve">
+    <value>Page Curl, Up Left</value>
+  </data>
+  <data name="TransitionPageCurlUpRight" xml:space="preserve">
+    <value>Page Curl, Up Right</value>
+  </data>
+  <data name="TransitionRectangle" xml:space="preserve">
+    <value>Rectangle</value>
+  </data>
+  <data name="TransitionRevealDown" xml:space="preserve">
+    <value>Reveal, Down</value>
+  </data>
+  <data name="TransitionRevealRight" xml:space="preserve">
+    <value>Reveal, Right</value>
+  </data>
+  <data name="TransitionRoll" xml:space="preserve">
+    <value>Roll</value>
+  </data>
+  <data name="TransitionShatterIn" xml:space="preserve">
+    <value>Shatter, In</value>
+  </data>
+  <data name="TransitionShatterRight" xml:space="preserve">
+    <value>Shatter, Right</value>
+  </data>
+  <data name="TransitionShatterUpLeft" xml:space="preserve">
+    <value>Shatter, Up Left</value>
+  </data>
+  <data name="TransitionShatterUpRight" xml:space="preserve">
+    <value>Shatter, Up Right</value>
+  </data>
+  <data name="TransitionShrinkIn" xml:space="preserve">
+    <value>Shrink, In</value>
+  </data>
+  <data name="TransitionSlide" xml:space="preserve">
+    <value>Slide</value>
+  </data>
+  <data name="TransitionSlideUpCenter" xml:space="preserve">
+    <value>Slide, Up Center</value>
+  </data>
+  <data name="TransitionSpin" xml:space="preserve">
+    <value>Spin</value>
+  </data>
+  <data name="TransitionSplitHorizontal" xml:space="preserve">
+    <value>Split, Horizontal</value>
+  </data>
+  <data name="TransitionSplitVertical" xml:space="preserve">
+    <value>Split, Vertical</value>
+  </data>
+  <data name="TransitionStar5Points" xml:space="preserve">
+    <value>Star, 5 Points</value>
+  </data>
+  <data name="TransitionStars5Points" xml:space="preserve">
+    <value>Stars, 5 Points</value>
+  </data>
+  <data name="TransitionSweepIn" xml:space="preserve">
+    <value>Sweep, In</value>
+  </data>
+  <data name="TransitionSweepOut" xml:space="preserve">
+    <value>Sweep, Out</value>
+  </data>
+  <data name="TransitionSweepUp" xml:space="preserve">
+    <value>Sweep, Up</value>
+  </data>
+  <data name="TransitionWheel4Spokes" xml:space="preserve">
+    <value>Wheel, 4 Spokes</value>
+  </data>
+  <data name="TransitionWhirlwind" xml:space="preserve">
+    <value>Whirlwind</value>
+  </data>
+  <data name="TransitionWhirlwindFromTop" xml:space="preserve">
+    <value>Whirlwind from top</value>
+  </data>
+  <data name="TransitionWipeNarrowDown" xml:space="preserve">
+    <value>Wipe, Narrow Down</value>
+  </data>
+  <data name="TransitionWipeNarrowRight" xml:space="preserve">
+    <value>Wipe, Narrow Right</value>
+  </data>
+  <data name="TransitionWipeNormalDown" xml:space="preserve">
+    <value>Wipe, Normal Down</value>
+  </data>
+  <data name="TransitionWipeNormalRight" xml:space="preserve">
+    <value>Wipe, Normal Right</value>
+  </data>
+  <data name="TransitionWipeWideDown" xml:space="preserve">
+    <value>Wipe, Wide Down</value>
+  </data>
+  <data name="TransitionWipeWideRight" xml:space="preserve">
+    <value>Wipe, Wide Right</value>
+  </data>
+  <data name="TransitionZigZagHorizontal" xml:space="preserve">
+    <value>Zig Zag, Horizontal</value>
+  </data>
+  <data name="TransitionZigZagVertical" xml:space="preserve">
+    <value>Zig Zag, Vertical</value>
+  </data>
+  <data name="TransitionFade" xml:space="preserve">
+    <value>Fade</value>
+  </data>
+  <data name="TransitionPixelate" xml:space="preserve">
+    <value>Pixelate</value>
+  </data>
+  <data name="TitleAnimationBasicTitle" xml:space="preserve">
+    <value>Basic Title</value>
+  </data>
+  <data name="TitleAnimationFadeBounceWipe" xml:space="preserve">
+    <value>Fade, Bounce Wipe</value>
+  </data>
+  <data name="TitleAnimationFadeEllipseWipe" xml:space="preserve">
+    <value>Fade, Ellipse Wipe</value>
+  </data>
+  <data name="TitleAnimationFadeSlowZoom" xml:space="preserve">
+    <value>Fade, Slow Zoom</value>
+  </data>
+  <data name="TitleAnimationFadeWipe" xml:space="preserve">
+    <value>Fade, Wipe</value>
+  </data>
+  <data name="TitleAnimationFlashing" xml:space="preserve">
+    <value>Flashing</value>
+  </data>
+  <data name="TitleAnimationFlyInTopLeft" xml:space="preserve">
+    <value>Fly In, Top Left</value>
+  </data>
+  <data name="TitleAnimationMirror" xml:space="preserve">
+    <value>Mirror</value>
+  </data>
+  <data name="TitleAnimationNewsBanner" xml:space="preserve">
+    <value>News Banner</value>
+  </data>
+  <data name="TitleAnimationPaintDrip" xml:space="preserve">
+    <value>Paint Drip</value>
+  </data>
+  <data name="TitleAnimationScrollBanner" xml:space="preserve">
+    <value>Scroll, Banner</value>
+  </data>
+  <data name="TitleAnimationScrollInverted" xml:space="preserve">
+    <value>Scroll, Inverted</value>
+  </data>
+  <data name="TitleAnimationSpinIn" xml:space="preserve">
+    <value>Spin, In</value>
+  </data>
+  <data name="TitleAnimationSpinOut" xml:space="preserve">
+    <value>Spin, Out</value>
+  </data>
+  <data name="TitleAnimationStretch" xml:space="preserve">
+    <value>Stretch</value>
+  </data>
+  <data name="TitleAnimationSubtitle" xml:space="preserve">
+    <value>Subtitle</value>
+  </data>
+  <data name="TitleAnimationTypewriter" xml:space="preserve">
+    <value>Typewriter</value>
+  </data>
+  <data name="TitleAnimationVideoInText" xml:space="preserve">
+    <value>Video, In Text</value>
+  </data>
+  <data name="TitleAnimationWow" xml:space="preserve">
+    <value>Wow!</value>
+  </data>
+  <data name="TitleAnimationZoomIn" xml:space="preserve">
+    <value>Zoom, In</value>
+  </data>
+  <data name="TitleAnimationZoomOut" xml:space="preserve">
+    <value>Zoom, Out</value>
+  </data>
+  <data name="TitleAnimationZoomUpAndIn" xml:space="preserve">
+    <value>Zoom, Up and In</value>
+  </data>
+  <data name="TitleAnimationExplodingOutline" xml:space="preserve">
+    <value>Exploding Outline</value>
+  </data>
+  <data name="TitleAnimationTickerTape" xml:space="preserve">
+    <value>Ticker Tape</value>
+  </data>
+  <data name="TitleAnimationFadeInAndOut" xml:space="preserve">
+    <value>Fade, In and Out</value>
+  </data>
+  <data name="TitleAnimationFlyInFades" xml:space="preserve">
+    <value>Fly In, Fades</value>
+  </data>
+  <data name="TitleAnimationFlyOut" xml:space="preserve">
+    <value>Fly Out</value>
+  </data>
+  <data name="TitleAnimationFlyInFlyOut" xml:space="preserve">
+    <value>Fly In, Fly Out</value>
+  </data>
+  <data name="TitleAnimationFlyInLeftAndRight" xml:space="preserve">
+    <value>Fly In, Left and Right</value>
+  </data>
+  <data name="TitleAnimationMovingTitlesLayered" xml:space="preserve">
+    <value>Moving Titles, Layered</value>
+  </data>
+  <data name="TitleAnimationNewsVideoInset" xml:space="preserve">
+    <value>News Video, Inset</value>
+  </data>
+  <data name="TitleAnimationNewspaper" xml:space="preserve">
+    <value>Newspaper</value>
+  </data>
+  <data name="TitleAnimationScrollPerspective" xml:space="preserve">
+    <value>Scroll, Perspective</value>
+  </data>
+  <data name="TitleAnimationSportsScoreboard" xml:space="preserve">
+    <value>Sports Scoreboard</value>
+  </data>
+  <data name="TitleAnimationCreditsExploding" xml:space="preserve">
+    <value>Credits: Exploding</value>
+  </data>
+  <data name="TitleAnimationCreditsFadeInAndOut" xml:space="preserve">
+    <value>Credits: Fade, In and Out</value>
+  </data>
+  <data name="TitleAnimationCreditsFlyInLeftAndRight" xml:space="preserve">
+    <value>Credits: Fly In, Left and Right</value>
+  </data>
+  <data name="TitleAnimationCreditsMirror" xml:space="preserve">
+    <value>Credits: Mirror</value>
+  </data>
+  <data name="TitleAnimationCreditsScrollUpSideBySide" xml:space="preserve">
+    <value>Credits: Scroll, Up Side-by-Side</value>
+  </data>
+  <data name="TitleAnimationCreditsScrollUpStacked" xml:space="preserve">
+    <value>Credits: Scroll, Up Stacked</value>
+  </data>
+  <data name="TitleAnimationCreditsVideoLeft" xml:space="preserve">
+    <value>Credits: Video Left</value>
+  </data>
+  <data name="TitleAnimationCreditsVideoTop" xml:space="preserve">
+    <value>Credits: Video Top</value>
+  </data>
+  <data name="TitleAnimationCreditsZoomIn" xml:space="preserve">
+    <value>Credits: Zoom, In</value>
+  </data>
+  <data name="TitleAnimationBasicTitleDescription" xml:space="preserve">
+    <value>Plain text that stays in place.</value>
+  </data>
+  <data name="TitleAnimationFadeBounceWipeDescription" xml:space="preserve">
+    <value>Text bounces in behind a wiping fade.</value>
+  </data>
+  <data name="TitleAnimationFadeEllipseWipeDescription" xml:space="preserve">
+    <value>Text appears through a growing ellipse.</value>
+  </data>
+  <data name="TitleAnimationFadeSlowZoomDescription" xml:space="preserve">
+    <value>Text fades in and grows slowly.</value>
+  </data>
+  <data name="TitleAnimationFadeWipeDescription" xml:space="preserve">
+    <value>Text is revealed by a soft wipe from left to right.</value>
+  </data>
+  <data name="TitleAnimationFlashingDescription" xml:space="preserve">
+    <value>Text blinks on and off.</value>
+  </data>
+  <data name="TitleAnimationFlyInTopLeftDescription" xml:space="preserve">
+    <value>Text flies in from the upper left.</value>
+  </data>
+  <data name="TitleAnimationMirrorDescription" xml:space="preserve">
+    <value>Text and its reflection slide together.</value>
+  </data>
+  <data name="TitleAnimationNewsBannerDescription" xml:space="preserve">
+    <value>Text scrolls along a banner at the bottom.</value>
+  </data>
+  <data name="TitleAnimationPaintDripDescription" xml:space="preserve">
+    <value>Text drips down into place.</value>
+  </data>
+  <data name="TitleAnimationScrollBannerDescription" xml:space="preserve">
+    <value>Text crosses the screen from right to left.</value>
+  </data>
+  <data name="TitleAnimationScrollInvertedDescription" xml:space="preserve">
+    <value>Text crosses the screen from left to right.</value>
+  </data>
+  <data name="TitleAnimationSpinInDescription" xml:space="preserve">
+    <value>Text spins into view.</value>
+  </data>
+  <data name="TitleAnimationSpinOutDescription" xml:space="preserve">
+    <value>Text spins out of view.</value>
+  </data>
+  <data name="TitleAnimationStretchDescription" xml:space="preserve">
+    <value>Text stretches from a line to full height.</value>
+  </data>
+  <data name="TitleAnimationSubtitleDescription" xml:space="preserve">
+    <value>Small text at the bottom of the frame.</value>
+  </data>
+  <data name="TitleAnimationTypewriterDescription" xml:space="preserve">
+    <value>Text appears one letter at a time.</value>
+  </data>
+  <data name="TitleAnimationVideoInTextDescription" xml:space="preserve">
+    <value>The video shows through large letters.</value>
+  </data>
+  <data name="TitleAnimationWowDescription" xml:space="preserve">
+    <value>Text bursts out and settles with a bounce.</value>
+  </data>
+  <data name="TitleAnimationZoomInDescription" xml:space="preserve">
+    <value>Text grows from a point.</value>
+  </data>
+  <data name="TitleAnimationZoomOutDescription" xml:space="preserve">
+    <value>Text shrinks from large to normal.</value>
+  </data>
+  <data name="TitleAnimationZoomUpAndInDescription" xml:space="preserve">
+    <value>Text rises from below as it grows.</value>
+  </data>
+  <data name="TitleAnimationExplodingOutlineDescription" xml:space="preserve">
+    <value>Outlined text bursts toward the viewer.</value>
+  </data>
+  <data name="TitleAnimationTickerTapeDescription" xml:space="preserve">
+    <value>Text runs across a strip like a ticker.</value>
+  </data>
+  <data name="TitleAnimationFadeInAndOutDescription" xml:space="preserve">
+    <value>Both lines fade in, stay, and fade out.</value>
+  </data>
+  <data name="TitleAnimationFlyInFadesDescription" xml:space="preserve">
+    <value>Lines fly in from the left and fade out.</value>
+  </data>
+  <data name="TitleAnimationFlyOutDescription" xml:space="preserve">
+    <value>Lines fade in and fly out to the right.</value>
+  </data>
+  <data name="TitleAnimationFlyInFlyOutDescription" xml:space="preserve">
+    <value>Lines fly in from the left and out to the right.</value>
+  </data>
+  <data name="TitleAnimationFlyInLeftAndRightDescription" xml:space="preserve">
+    <value>One line comes from each side.</value>
+  </data>
+  <data name="TitleAnimationMovingTitlesLayeredDescription" xml:space="preserve">
+    <value>Two lines drift past each other in layers.</value>
+  </data>
+  <data name="TitleAnimationNewsVideoInsetDescription" xml:space="preserve">
+    <value>The video moves to a corner box beside the text.</value>
+  </data>
+  <data name="TitleAnimationNewspaperDescription" xml:space="preserve">
+    <value>A spinning front page with the video as its photo.</value>
+  </data>
+  <data name="TitleAnimationScrollPerspectiveDescription" xml:space="preserve">
+    <value>Text scrolls up and away into the distance.</value>
+  </data>
+  <data name="TitleAnimationSportsScoreboardDescription" xml:space="preserve">
+    <value>A score bar drops in from the top.</value>
+  </data>
+  <data name="TitleAnimationCreditsExplodingDescription" xml:space="preserve">
+    <value>Each credit bursts toward the viewer.</value>
+  </data>
+  <data name="TitleAnimationCreditsFadeInAndOutDescription" xml:space="preserve">
+    <value>Each credit fades in and out in turn.</value>
+  </data>
+  <data name="TitleAnimationCreditsFlyInLeftAndRightDescription" xml:space="preserve">
+    <value>Headings and names fly in from opposite sides.</value>
+  </data>
+  <data name="TitleAnimationCreditsMirrorDescription" xml:space="preserve">
+    <value>Credits slide in with a reflection.</value>
+  </data>
+  <data name="TitleAnimationCreditsScrollUpSideBySideDescription" xml:space="preserve">
+    <value>Headings and names scroll up in two columns.</value>
+  </data>
+  <data name="TitleAnimationCreditsScrollUpStackedDescription" xml:space="preserve">
+    <value>Headings and names scroll up, one under the other.</value>
+  </data>
+  <data name="TitleAnimationCreditsVideoLeftDescription" xml:space="preserve">
+    <value>Credits scroll beside the video on the left.</value>
+  </data>
+  <data name="TitleAnimationCreditsVideoTopDescription" xml:space="preserve">
+    <value>Credits scroll under the video at the top.</value>
+  </data>
+  <data name="TitleAnimationCreditsZoomInDescription" xml:space="preserve">
+    <value>Each credit shrinks into place from large.</value>
+  </data>
+</root>

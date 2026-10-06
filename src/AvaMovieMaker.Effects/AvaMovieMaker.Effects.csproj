@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaMovieMaker.Effects</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" />
+    <PackageReference Include="SkiaSharp.HarfBuzz" />
+    <PackageReference Include="HarfBuzzSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaMovieMaker.Rendering\AvaMovieMaker.Rendering.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <SkslNamespace>AvaMovieMaker.Effects</SkslNamespace>
+  </PropertyGroup>
+
+  <Import Project="..\Sksl.targets" />
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaMovieMaker.Rendering.Tests" />
+  </ItemGroup>
+
+</Project>

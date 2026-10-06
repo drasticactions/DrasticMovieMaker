@@ -1,0 +1,22 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:aw="https://github.com/avawpf"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Dialogs"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             x:Class="AvaMovieMaker.Dialogs.ClipVolumeWindow"
+             x:DataType="vm:ClipVolumeViewModel"
+             aw:WindowSettings.Title="{x:Static str:Strings.ClipVolumeWindowTitle}" aw:WindowSettings.FrameKind="Dialog" aw:WindowSettings.CanResize="False" aw:WindowSettings.SizeToContent="WidthAndHeight"
+             aw:WindowSettings.WindowStartupLocation="CenterOwner" aw:WindowSettings.ShowInTaskbar="False">
+  <Canvas Width="329" Height="129">
+    <Path Canvas.Left="8" Canvas.Top="38" Data="M1,11 L31,1 L31,11 Z" Fill="#6974A3" />
+    <Path Canvas.Left="7" Canvas.Top="37" Data="M0,10 L30,0 L30,10 Z" Fill="#5382D2" />
+    <TextBlock Canvas.Left="79" Canvas.Top="9" Text="{x:Static str:Strings.ClipVolumeAdjustVolumeLevel}" />
+    <Slider Canvas.Left="39" Canvas.Top="30" Width="184" Minimum="0" Maximum="100" Value="{Binding Volume}" IsEnabled="{Binding !Mute}"
+            TickFrequency="5" TickPlacement="BottomRight" AutomationProperties.Name="{x:Static str:Strings.ClipVolumeVolumeName}" />
+    <CheckBox Canvas.Left="8" Canvas.Top="84" Content="{x:Static str:Strings.ClipVolumeMuteClip}" IsChecked="{Binding Mute}" />
+    <Button Canvas.Left="235" Canvas.Top="9" Width="86" Height="24" Content="{x:Static str:Strings.ButtonOk}" IsDefault="True" Click="OnOk" />
+    <Button Canvas.Left="235" Canvas.Top="44" Width="86" Height="24" Content="{x:Static str:Strings.ButtonCancel}" IsCancel="True" Click="OnCancel" />
+    <Button Canvas.Left="235" Canvas.Top="96" Width="86" Height="24" Content="{x:Static str:Strings.ClipVolumeReset}" Command="{Binding ResetCommand}" />
+  </Canvas>
+</UserControl>

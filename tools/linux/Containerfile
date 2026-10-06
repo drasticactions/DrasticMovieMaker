@@ -1,0 +1,6 @@
+# The Linux build image: Ubuntu 22.04 (glibc 2.35) with the FFmpeg and NativeAOT toolchains and the .NET SDK.
+# tools/linux/container.sh builds it on first use and runs commands in it.
+FROM docker.io/library/ubuntu:22.04
+COPY deps.sh global.json /tmp/amm/
+RUN sh /tmp/amm/deps.sh --dotnet /tmp/amm/global.json && rm -rf /tmp/amm
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1 DOTNET_SKIP_FIRST_TIME_EXPERIENCE=1

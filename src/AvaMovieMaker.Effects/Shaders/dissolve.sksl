@@ -1,0 +1,36 @@
+// Dissolves: each pixel (or bar) gets a random threshold. B shows once the progress passes it.
+uniform shader a;
+uniform shader b;
+uniform float2 resolution;
+uniform float progress;
+uniform int pattern;   // 0 fine noise, 1 rough noise, 2 horizontal bars, 3 vertical bars
+uniform float seed;
+
+float hash(float2 v) {
+    return fract(sin(dot(v, float2(127.1, 311.7)) + seed * 17.13) * 43758.5453);
+}
+
+float valueNoise(float2 v) {
+    float2 i = floor(v);
+    float2 f = fract(v);
+    float2 u = f * f * (3.0 - 2.0 * f);
+    return mix(mix(hash(i), hash(i + float2(1, 0)), u.x), mix(hash(i + float2(0, 1)), hash(i + float2(1, 1)), u.x), u.y);
+}
+
+half4 main(float2 p) {
+    float scale = resolution.y / 480.0;
+    float2 q = p / scale;
+    float t;
+    if (pattern == 0) {
+        t = hash(floor(q));
+    } else if (pattern == 1) {
+        t = valueNoise(q / 24.0) * 0.6 + valueNoise(q / 8.0) * 0.3 + hash(floor(q / 2.0)) * 0.1;
+    } else if (pattern == 2) {
+        t = hash(float2(0.0, floor(q.y / 2.0)));
+    } else {
+        t = hash(float2(floor(q.x / 2.0), 0.0));
+    }
+    float soft = pattern == 1 ? 0.08 : 0.02;
+    float m = clamp((progress * (1.0 + soft) - t) / soft, 0.0, 1.0);
+    return mix(a.eval(p), b.eval(p), half(m));
+}

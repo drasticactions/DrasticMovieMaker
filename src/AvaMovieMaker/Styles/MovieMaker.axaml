@@ -1,0 +1,130 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="avares://AvaMovieMaker/Styles/MovieMakerBrushes.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <Style Selector="Menu.mm-menubar">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="Foreground" Value="{DynamicResource MmMenuBarTextBrush}" />
+  </Style>
+  <Style Selector="Menu.mm-menubar > MenuItem">
+    <Setter Property="Foreground" Value="{DynamicResource MmMenuBarTextBrush}" />
+    <Setter Property="Padding" Value="7,2,7,3" />
+  </Style>
+  <Style Selector="Menu.mm-menubar > MenuItem MenuItem">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.MenuTextBrush}" />
+  </Style>
+  <Style Selector="Menu.mm-menubar > MenuItem MenuItem:disabled">
+    <Setter Property="Foreground" Value="{DynamicResource SystemColors.GrayTextBrush}" />
+  </Style>
+
+  <Style Selector="Button.mm-tool, ToggleButton.mm-tool, StackPanel.mm-toolbar > Button, StackPanel.mm-toolbar > ToggleButton, Button.mm-toolbar">
+    <Setter Property="Focusable" Value="False" />
+  </Style>
+
+  <Style Selector="Button.mm-tool, ToggleButton.mm-tool">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Foreground" Value="{DynamicResource MmToolBarTextBrush}" />
+    <Setter Property="Padding" Value="5,3" />
+    <Setter Property="MinHeight" Value="28" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Border" Background="{TemplateBinding Background}" CornerRadius="2" Padding="{TemplateBinding Padding}">
+          <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}"
+                            VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Button.mm-tool:pointerover /template/ Border#PART_Border">
+    <Setter Property="Background" Value="{DynamicResource MmToolBarHotBrush}" />
+  </Style>
+  <Style Selector="Button.mm-tool:disabled">
+    <Setter Property="Foreground" Value="{DynamicResource MmToolBarDisabledTextBrush}" />
+  </Style>
+
+  <Style Selector="Button.mm-link">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Foreground" Value="{DynamicResource MmTaskLinkBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <TextBlock Name="PART_Text" Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" Background="Transparent" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Button.mm-link:pointerover /template/ TextBlock#PART_Text">
+    <Setter Property="TextDecorations" Value="Underline" />
+    <Setter Property="Foreground" Value="{DynamicResource MmTaskLinkHotBrush}" />
+  </Style>
+  <Style Selector="Button.mm-link:disabled">
+    <Setter Property="Foreground" Value="{DynamicResource MmTaskDisabledBrush}" />
+    <Setter Property="Cursor" Value="Arrow" />
+  </Style>
+  <Style Selector="Button.mm-hyperlink">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Cursor" Value="Hand" />
+    <Setter Property="Foreground" Value="{DynamicResource MmTaskLinkBrush}" />
+    <Setter Property="HorizontalAlignment" Value="Left" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" TextDecorations="Underline" Background="Transparent" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Button.mm-hyperlink:disabled">
+    <Setter Property="Foreground" Value="{DynamicResource MmTaskDisabledBrush}" />
+  </Style>
+
+  <Style Selector="Button.mm-flat, ToggleButton.mm-flat">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderBrush" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="Padding" Value="3" />
+    <Setter Property="MinWidth" Value="0" />
+    <Setter Property="MinHeight" Value="0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <Border Name="PART_Border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2" Padding="{TemplateBinding Padding}">
+          <ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+      </ControlTemplate>
+    </Setter>
+  </Style>
+  <Style Selector="Button.mm-flat:pointerover, ToggleButton.mm-flat:pointerover">
+    <Setter Property="BorderBrush" Value="{DynamicResource MmItemHotBorderBrush}" />
+    <Setter Property="Background" Value="{DynamicResource MmItemHotBrush}" />
+  </Style>
+  <Style Selector="ToggleButton.mm-flat:checked">
+    <Setter Property="BorderBrush" Value="{DynamicResource MmItemSelectedBorderBrush}" />
+    <Setter Property="Background" Value="{DynamicResource MmItemSelectedBrush}" />
+  </Style>
+
+  <Style Selector="Button.mm-wizard-back">
+    <Setter Property="Background" Value="Transparent" />
+    <Setter Property="BorderThickness" Value="0" />
+    <Setter Property="Padding" Value="0" />
+    <Setter Property="Template">
+      <ControlTemplate>
+        <ContentPresenter Content="{TemplateBinding Content}" Background="Transparent" />
+      </ControlTemplate>
+    </Setter>
+  </Style>
+
+  <Style Selector="TextBlock.mm-flow-heading">
+    <Setter Property="FontSize" Value="15" />
+    <Setter Property="Foreground" Value="{DynamicResource MmFlowHeadingBrush}" />
+  </Style>
+</Styles>

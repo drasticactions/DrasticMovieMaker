@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaMovieMaker.Rendering</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaMovieMaker.Media\AvaMovieMaker.Media.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <SkslNamespace>AvaMovieMaker.Rendering.Compositing</SkslNamespace>
+  </PropertyGroup>
+
+  <Import Project="..\Sksl.targets" />
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaMovieMaker.Rendering.Tests" />
+  </ItemGroup>
+
+</Project>

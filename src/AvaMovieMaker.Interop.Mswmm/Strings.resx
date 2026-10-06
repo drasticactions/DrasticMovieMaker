@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="NotAMovieMakerProject" xml:space="preserve">
+    <value>This is not a Windows Movie Maker project.</value>
+  </data>
+  <data name="ProjectFileDamaged" xml:space="preserve">
+    <value>The Movie Maker project file is damaged.</value>
+  </data>
+  <data name="NotACompoundFile" xml:space="preserve">
+    <value>Not a compound file.</value>
+  </data>
+  <data name="UnsupportedSectorSize" xml:space="preserve">
+    <value>Unsupported compound file sector size.</value>
+  </data>
+  <data name="NoRootEntry" xml:space="preserve">
+    <value>The compound file has no root entry.</value>
+  </data>
+  <data name="NoTimelineData" xml:space="preserve">
+    <value>The project has no Movie Maker timeline data (ProducerData/Producer.Dat).</value>
+  </data>
+  <data name="TimelineDataDamaged" xml:space="preserve">
+    <value>The project timeline data is damaged: {0}</value>
+    <comment>{0} = parser message</comment>
+  </data>
+  <data name="TimelineDataEmpty" xml:space="preserve">
+    <value>The project timeline data is empty.</value>
+  </data>
+  <data name="TimelineDataNotAProject" xml:space="preserve">
+    <value>The project timeline data is not a Movie Maker project.</value>
+  </data>
+  <data name="TimelineDataNoProject" xml:space="preserve">
+    <value>The project timeline data has no Project element.</value>
+  </data>
+  <data name="TimelineDataNoData" xml:space="preserve">
+    <value>The project timeline data has no data section.</value>
+  </data>
+  <data name="WarnNewerVersion" xml:space="preserve">
+    <value>The project was saved by a newer Movie Maker (file version {0}); some items may be missing.</value>
+    <comment>Import report line; {0} = file version</comment>
+  </data>
+  <data name="WarnUnknownTrack" xml:space="preserve">
+    <value>A track of unknown type {0} with {1} item(s) was not imported.</value>
+    <comment>Import report line; {0} = track type, {1} = item count</comment>
+  </data>
+  <data name="WarnUnknownAspect" xml:space="preserve">
+    <value>Unknown project aspect ratio {0}:{1}; using 4:3.</value>
+    <comment>Import report line</comment>
+  </data>
+  <data name="WarnVideoItemType" xml:space="preserve">
+    <value>A video track item of type {0} was not imported.</value>
+    <comment>Import report line; {0} = item type</comment>
+  </data>
+  <data name="WarnClipSpeed" xml:space="preserve">
+    <value>A clip speed of {0} was not kept.</value>
+    <comment>Import report line; {0} = speed</comment>
+  </data>
+  <data name="WarnTitleNoDuration" xml:space="preserve">
+    <value>A title ("{0}") has no duration and was not imported.</value>
+    <comment>Import report line; {0} = title text</comment>
+  </data>
+  <data name="WarnOverlayItemType" xml:space="preserve">
+    <value>A Title Overlay item of type {0} was not imported.</value>
+    <comment>Import report line; {0} = item type</comment>
+  </data>
+  <data name="WarnOverlayNoDuration" xml:space="preserve">
+    <value>An overlay title ("{0}") has no duration and was not imported.</value>
+    <comment>Import report line; {0} = title text</comment>
+  </data>
+  <data name="WarnOverlayEffects" xml:space="preserve">
+    <value>Effects on an overlay title were not imported.</value>
+    <comment>Import report line</comment>
+  </data>
+  <data name="WarnTitleNoSettings" xml:space="preserve">
+    <value>A title ({0} {1}) has no settings and was not imported.</value>
+    <comment>Import report line; {0} = record type, {1} = record id</comment>
+  </data>
+  <data name="WarnTitleAnimation" xml:space="preserve">
+    <value>The title animation "{0}" is not available; using {1}.</value>
+    <comment>Import report line; {0} = animation, {1} = replacement</comment>
+  </data>
+  <data name="WarnTitleTextBlocks" xml:space="preserve">
+    <value>Some title text blocks were not imported.</value>
+    <comment>Import report line</comment>
+  </data>
+  <data name="WarnAudioItemType" xml:space="preserve">
+    <value>An Audio/Music item of type {0} was not imported.</value>
+    <comment>Import report line; {0} = item type</comment>
+  </data>
+  <data name="WarnAudioEffects" xml:space="preserve">
+    <value>Effects on an Audio/Music clip were not imported.</value>
+    <comment>Import report line</comment>
+  </data>
+  <data name="WarnEmptyTrim" xml:space="preserve">
+    <value>The clip "{0}" has an empty trim range and was not imported.</value>
+    <comment>Import report line; {0} = clip name</comment>
+  </data>
+  <data name="WarnPictureNoDuration" xml:space="preserve">
+    <value>The picture "{0}" has no duration; using 5 seconds.</value>
+    <comment>Import report line; {0} = picture name</comment>
+  </data>
+  <data name="WarnNoSourceFile" xml:space="preserve">
+    <value>A timeline item ({0} {1}) has no source file and was not imported.</value>
+    <comment>Import report line; {0} = record type, {1} = record id</comment>
+  </data>
+  <data name="WarnSourceNoPath" xml:space="preserve">
+    <value>A source file (id {0}) has no path and its clips were not imported.</value>
+    <comment>Import report line; {0} = file id</comment>
+  </data>
+  <data name="WarnEffectRecord" xml:space="preserve">
+    <value>An effect record ({0}) was not understood and was skipped.</value>
+    <comment>Import report line; {0} = record type</comment>
+  </data>
+  <data name="WarnEffectUnavailable" xml:space="preserve">
+    <value>The effect "{0}" is not available and was skipped.</value>
+    <comment>Import report line; {0} = effect</comment>
+  </data>
+  <data name="WarnTransitionRecord" xml:space="preserve">
+    <value>A transition record ({0}) was not understood and was skipped.</value>
+    <comment>Import report line; {0} = record type</comment>
+  </data>
+  <data name="WarnTransitionUnavailable" xml:space="preserve">
+    <value>The transition "{0}" is not available and was skipped.</value>
+    <comment>Import report line; {0} = transition</comment>
+  </data>
+  <data name="WarnMissingRecord" xml:space="preserve">
+    <value>A reference to a missing record ({0}, {1}) was skipped.</value>
+    <comment>Import report line; {0} = record kind, {1} = record id</comment>
+  </data>
+</root>

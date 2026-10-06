@@ -1,0 +1,157 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ResourceDictionary.ThemeDictionaries>
+    <ResourceDictionary x:Key="Light">
+      <LinearGradientBrush x:Key="MmMenuBarBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#7B849B" />
+        <GradientStop Offset="0.05" Color="#636D88" />
+        <GradientStop Offset="0.7" Color="#3D4453" />
+        <GradientStop Offset="0.72" Color="#121212" />
+        <GradientStop Offset="1" Color="#121212" />
+      </LinearGradientBrush>
+      <SolidColorBrush x:Key="MmMenuBarTextBrush" Color="#FFFFFF" />
+      <LinearGradientBrush x:Key="MmToolBarBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#2F3D48" />
+        <GradientStop Offset="0.03" Color="#121212" />
+        <GradientStop Offset="0.7" Color="#121213" />
+        <GradientStop Offset="0.94" Color="#424D76" />
+        <GradientStop Offset="0.97" Color="#626B8F" />
+        <GradientStop Offset="1" Color="#303030" />
+      </LinearGradientBrush>
+      <SolidColorBrush x:Key="MmToolBarTextBrush" Color="#FFFFFF" />
+      <SolidColorBrush x:Key="MmToolBarDisabledTextBrush" Color="#7C7C7C" />
+      <SolidColorBrush x:Key="MmToolBarHotBrush" Color="#33FFFFFF" />
+      <SolidColorBrush x:Key="MmPaneBrush" Color="#EEF3FA" />
+      <SolidColorBrush x:Key="MmTaskSectionTextBrush" Color="#8E949B" />
+      <SolidColorBrush x:Key="MmTaskSectionLineBrush" Color="#B9C2CC" />
+      <SolidColorBrush x:Key="MmTaskLinkBrush" Color="#0066CC" />
+      <SolidColorBrush x:Key="MmTaskLinkHotBrush" Color="#3399FF" />
+      <SolidColorBrush x:Key="MmTaskDisabledBrush" Color="#8E949B" />
+      <SolidColorBrush x:Key="MmTasksHeaderTextBrush" Color="#8E949B" />
+      <LinearGradientBrush x:Key="MmMonitorBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#CFDAE7" />
+        <GradientStop Offset="0.867" Color="#EEF3FA" />
+        <GradientStop Offset="1" Color="#EEF3FA" />
+      </LinearGradientBrush>
+      <SolidColorBrush x:Key="MmMonitorCaptionBrush" Color="#1E1E1E" />
+      <SolidColorBrush x:Key="MmMonitorTimeBrush" Color="#1E1E1E" />
+      <SolidColorBrush x:Key="MmSeekTrackBrush" Color="#F0F4F9" />
+      <SolidColorBrush x:Key="MmSeekTrackBorderBrush" Color="#A9B5C3" />
+      <LinearGradientBrush x:Key="MmSeekFillBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#7FE07F" />
+        <GradientStop Offset="1" Color="#20B020" />
+      </LinearGradientBrush>
+      <LinearGradientBrush x:Key="MmHSplitterBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#FFFFFF" />
+        <GradientStop Offset="0.25" Color="#DEE8F5" />
+        <GradientStop Offset="0.5" Color="#F6F9FC" />
+        <GradientStop Offset="0.75" Color="#E1E8EE" />
+        <GradientStop Offset="1" Color="#E1E8EE" />
+      </LinearGradientBrush>
+      <SolidColorBrush x:Key="MmVSplitterBrush" Color="#E6E9EC" />
+      <SolidColorBrush x:Key="MmLowerBrush" Color="#CFDAE7" />
+      <SolidColorBrush x:Key="MmTrackBrush" Color="#EEF3FA" />
+      <SolidColorBrush x:Key="MmTrackLineBrush" Color="#B9C5D3" />
+      <SolidColorBrush x:Key="MmTrackHeaderTextBrush" Color="#000000" />
+      <SolidColorBrush x:Key="MmRulerTextBrush" Color="#1D2B5B" />
+      <SolidColorBrush x:Key="MmRulerTickBrush" Color="#1D2B5B" />
+      <SolidColorBrush x:Key="MmClipBrush" Color="#E0EAF8" />
+      <SolidColorBrush x:Key="MmClipBorderBrush" Color="#000000" />
+      <SolidColorBrush x:Key="MmClipSelectedBrush" Color="#FFFFFF" />
+      <SolidColorBrush x:Key="MmWaveformBrush" Color="#B5C0D4" />
+      <SolidColorBrush x:Key="MmTitleClipBrush" Color="#E7E0F4" />
+      <SolidColorBrush x:Key="MmPlayheadBrush" Color="#2AA02A" />
+      <SolidColorBrush x:Key="MmHintTextBrush" Color="#000000" />
+      <SolidColorBrush x:Key="MmCellBrush" Color="#F3F3F3" />
+      <SolidColorBrush x:Key="MmCellSelectedBrush" Color="#E5EDF5" />
+      <SolidColorBrush x:Key="MmCellSelectedBorderBrush" Color="#AFC2D8" />
+      <SolidColorBrush x:Key="MmSlotBrush" Color="#E6EDF2" />
+      <SolidColorBrush x:Key="MmSlotArrowBrush" Color="#C3CDD6" />
+      <SolidColorBrush x:Key="MmFilmHoleBrush" Color="#E5EBF1" />
+      <SolidColorBrush x:Key="MmCellNameBrush" Color="#000000" />
+      <SolidColorBrush x:Key="MmItemSelectedBrush" Color="#EBF5FD" />
+      <SolidColorBrush x:Key="MmItemSelectedBorderBrush" Color="#99D1FC" />
+      <SolidColorBrush x:Key="MmItemHotBrush" Color="#F4F9FE" />
+      <SolidColorBrush x:Key="MmItemHotBorderBrush" Color="#C6E3FC" />
+      <SolidColorBrush x:Key="MmFlowHeadingBrush" Color="#1E1E1E" />
+      <SolidColorBrush x:Key="MmFlowRuleBrush" Color="#A0A0A0" />
+      <SolidColorBrush x:Key="MmListBorderBrush" Color="#828790" />
+      <LinearGradientBrush x:Key="MmWizardBandBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Color="#C4D8EE" Offset="0" />
+        <GradientStop Color="#B4CCE6" Offset="1" />
+      </LinearGradientBrush>
+    </ResourceDictionary>
+    <ResourceDictionary x:Key="Dark">
+      <LinearGradientBrush x:Key="MmMenuBarBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#4A5062" />
+        <GradientStop Offset="0.7" Color="#262A34" />
+        <GradientStop Offset="0.72" Color="#0C0C0C" />
+        <GradientStop Offset="1" Color="#0C0C0C" />
+      </LinearGradientBrush>
+      <SolidColorBrush x:Key="MmMenuBarTextBrush" Color="#F0F0F0" />
+      <LinearGradientBrush x:Key="MmToolBarBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#1E2830" />
+        <GradientStop Offset="0.03" Color="#0C0C0C" />
+        <GradientStop Offset="0.7" Color="#0C0C0D" />
+        <GradientStop Offset="0.94" Color="#2C3350" />
+        <GradientStop Offset="1" Color="#202020" />
+      </LinearGradientBrush>
+      <SolidColorBrush x:Key="MmToolBarTextBrush" Color="#F0F0F0" />
+      <SolidColorBrush x:Key="MmToolBarDisabledTextBrush" Color="#6A6A6A" />
+      <SolidColorBrush x:Key="MmToolBarHotBrush" Color="#26FFFFFF" />
+      <SolidColorBrush x:Key="MmPaneBrush" Color="#23272D" />
+      <SolidColorBrush x:Key="MmTaskSectionTextBrush" Color="#8E949B" />
+      <SolidColorBrush x:Key="MmTaskSectionLineBrush" Color="#3E4650" />
+      <SolidColorBrush x:Key="MmTaskLinkBrush" Color="#6FB3FF" />
+      <SolidColorBrush x:Key="MmTaskLinkHotBrush" Color="#A5D0FF" />
+      <SolidColorBrush x:Key="MmTaskDisabledBrush" Color="#6A7078" />
+      <SolidColorBrush x:Key="MmTasksHeaderTextBrush" Color="#8E949B" />
+      <LinearGradientBrush x:Key="MmMonitorBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#1B2028" />
+        <GradientStop Offset="0.867" Color="#23272D" />
+        <GradientStop Offset="1" Color="#23272D" />
+      </LinearGradientBrush>
+      <SolidColorBrush x:Key="MmMonitorCaptionBrush" Color="#ECECEC" />
+      <SolidColorBrush x:Key="MmMonitorTimeBrush" Color="#ECECEC" />
+      <SolidColorBrush x:Key="MmSeekTrackBrush" Color="#2E333A" />
+      <SolidColorBrush x:Key="MmSeekTrackBorderBrush" Color="#4A5260" />
+      <LinearGradientBrush x:Key="MmSeekFillBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#4FB04F" />
+        <GradientStop Offset="1" Color="#1A801A" />
+      </LinearGradientBrush>
+      <LinearGradientBrush x:Key="MmHSplitterBrush" StartPoint="0%,0%" EndPoint="0%,100%">
+        <GradientStop Offset="0" Color="#3A4048" />
+        <GradientStop Offset="1" Color="#2A2F36" />
+      </LinearGradientBrush>
+      <SolidColorBrush x:Key="MmVSplitterBrush" Color="#2E333A" />
+      <SolidColorBrush x:Key="MmLowerBrush" Color="#1B2028" />
+      <SolidColorBrush x:Key="MmTrackBrush" Color="#23272D" />
+      <SolidColorBrush x:Key="MmTrackLineBrush" Color="#3A424D" />
+      <SolidColorBrush x:Key="MmTrackHeaderTextBrush" Color="#E8E8E8" />
+      <SolidColorBrush x:Key="MmRulerTextBrush" Color="#AFC0E8" />
+      <SolidColorBrush x:Key="MmRulerTickBrush" Color="#AFC0E8" />
+      <SolidColorBrush x:Key="MmClipBrush" Color="#2F3A4C" />
+      <SolidColorBrush x:Key="MmClipBorderBrush" Color="#8A96A8" />
+      <SolidColorBrush x:Key="MmClipSelectedBrush" Color="#4A5A74" />
+      <SolidColorBrush x:Key="MmWaveformBrush" Color="#8FB0E0" />
+      <SolidColorBrush x:Key="MmTitleClipBrush" Color="#3E3654" />
+      <SolidColorBrush x:Key="MmPlayheadBrush" Color="#3CC03C" />
+      <SolidColorBrush x:Key="MmHintTextBrush" Color="#C8C8C8" />
+      <SolidColorBrush x:Key="MmCellBrush" Color="#2A2F36" />
+      <SolidColorBrush x:Key="MmCellSelectedBrush" Color="#33404F" />
+      <SolidColorBrush x:Key="MmCellSelectedBorderBrush" Color="#5A7090" />
+      <SolidColorBrush x:Key="MmSlotBrush" Color="#2A3038" />
+      <SolidColorBrush x:Key="MmSlotArrowBrush" Color="#4A5260" />
+      <SolidColorBrush x:Key="MmFilmHoleBrush" Color="#1B2028" />
+      <SolidColorBrush x:Key="MmCellNameBrush" Color="#E8E8E8" />
+      <SolidColorBrush x:Key="MmItemSelectedBrush" Color="#26425E" />
+      <SolidColorBrush x:Key="MmItemSelectedBorderBrush" Color="#3D79B0" />
+      <SolidColorBrush x:Key="MmItemHotBrush" Color="#1F3247" />
+      <SolidColorBrush x:Key="MmItemHotBorderBrush" Color="#2D5276" />
+      <SolidColorBrush x:Key="MmFlowHeadingBrush" Color="#E8E8E8" />
+      <SolidColorBrush x:Key="MmFlowRuleBrush" Color="#5A5A5A" />
+      <SolidColorBrush x:Key="MmListBorderBrush" Color="#5A5A5A" />
+      <SolidColorBrush x:Key="MmWizardBandBrush" Color="#2B3440" />
+    </ResourceDictionary>
+  </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>

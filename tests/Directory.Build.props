@@ -1,0 +1,45 @@
+<Project>
+  <Import Project="..\Directory.Build.props" />
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    <NoWarn>$(NoWarn);CS1591;xUnit1051</NoWarn>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(MSBuildProjectName)' != 'AvaMovieMaker.TestSupport'">
+    <PackageReference Include="xunit.v3.mtp-v2" />
+    <Using Include="Xunit" />
+    <ProjectReference Include="$(MSBuildThisFileDirectory)AvaMovieMaker.TestSupport\AvaMovieMaker.TestSupport.csproj" />
+    <Compile Include="$(MSBuildThisFileDirectory)TestPaths.cs" Link="TestPaths.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(MSBuildProjectName)' != 'AvaMovieMaker.TestSupport' and $([MSBuild]::IsOSPlatform('Linux'))">
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(MSBuildProjectName)' != 'AvaMovieMaker.TestSupport' and $([MSBuild]::IsOSPlatform('OSX'))">
+    <PackageReference Include="SkiaSharp.NativeAssets.macOS" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.macOS" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(MSBuildProjectName)' != 'AvaMovieMaker.TestSupport' and $([MSBuild]::IsOSPlatform('Windows'))">
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Win32" />
+    <PackageReference Include="Avalonia.Angle.Windows.Natives" />
+  </ItemGroup>
+  <PropertyGroup>
+    <AmmHostRid Condition="$([MSBuild]::IsOSPlatform('Linux'))">linux-x64</AmmHostRid>
+    <AmmHostRid Condition="$([MSBuild]::IsOSPlatform('OSX'))">osx-arm64</AmmHostRid>
+    <AmmHostRid Condition="$([MSBuild]::IsOSPlatform('Windows'))">win-x64</AmmHostRid>
+    <AmmFFmpegDir Condition="'$(AmmFFmpegDir)' == ''">$(AmmRepoRoot)tools/ffmpeg/out/$(AmmHostRid)/</AmmFFmpegDir>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(MSBuildProjectName)' != 'AvaMovieMaker.TestSupport' and Exists('$(AmmFFmpegDir)')">
+    <None Include="$(AmmFFmpegDir)**/*.so.*;$(AmmFFmpegDir)**/*.dylib;$(AmmFFmpegDir)**/*.dll"
+          Link="%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+  <PropertyGroup Condition="'$(MSBuildProjectName)' == 'AvaMovieMaker.TestSupport'">
+    <OutputType>Library</OutputType>
+    <IsTestProject>false</IsTestProject>
+  </PropertyGroup>
+</Project>

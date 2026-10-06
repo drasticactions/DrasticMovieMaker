@@ -1,0 +1,142 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:wpf="https://github.com/avawpf"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Contents"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             xmlns:conv="using:AvaMovieMaker.Converters"
+             xmlns:v="using:AvaMovieMaker.Views"
+             xmlns:shell="using:AvaMovieMaker.ViewModels.Shell"
+             x:Class="AvaMovieMaker.Views.ContentsView"
+             x:DataType="vm:ContentsViewModel"
+             Background="{DynamicResource MmPaneBrush}">
+  <DockPanel>
+    <StackPanel DockPanel.Dock="Top" Classes="mm-toolbar" Orientation="Horizontal" Height="28" Margin="19,4,0,4" Spacing="4">
+      <ToggleButton Name="TasksToggle" Width="30" Height="26" Padding="0" ToolTip.Tip="{x:Static str:Strings.ContentsTasks}" AutomationProperties.Name="{x:Static str:Strings.ContentsTasks}"
+                    IsChecked="{Binding $parent[v:ShellView].((shell:ShellViewModel)DataContext).ShowTasks}">
+        <c:Glyph Kind="tasks" />
+      </ToggleButton>
+      <ToggleButton Width="30" Height="26" Padding="0" ToolTip.Tip="{x:Static str:Strings.ContentsCollections}" AutomationProperties.Name="{x:Static str:Strings.ContentsCollections}"
+                    IsChecked="{Binding $parent[v:ShellView].((shell:ShellViewModel)DataContext).ShowCollections}">
+        <c:Glyph Kind="collections" />
+      </ToggleButton>
+      <ComboBox Name="ViewCombo" Width="142" Height="24" SelectedIndex="{Binding ViewIndex}" AutomationProperties.Name="{x:Static str:Strings.ContentsContentsViewName}">
+        <ComboBoxItem Content="{x:Static str:Strings.ContentsImportedMedia}" />
+        <ComboBoxItem Content="{x:Static str:Strings.TaskEffects}" />
+        <ComboBoxItem Content="{x:Static str:Strings.TaskTransitions}" />
+      </ComboBox>
+      <Button Width="30" Height="26" Padding="0" Background="Transparent" BorderThickness="0" ToolTip.Tip="{x:Static str:Strings.ContentsChangeTheView}" AutomationProperties.Name="{x:Static str:Strings.ContentsViewsName}">
+        <StackPanel Orientation="Horizontal" Spacing="2">
+          <c:Glyph Kind="view-options" />
+          <Path Data="M0,0 L6,0 L3,3 Z" Fill="Black" VerticalAlignment="Center" />
+        </StackPanel>
+        <Button.Flyout>
+          <MenuFlyout>
+            <MenuItem Header="{x:Static str:Strings.Thumbnails}" ToggleType="Radio" GroupName="cv" IsChecked="{Binding !IsDetails}" Click="OnThumbnails" />
+            <MenuItem Header="{x:Static str:Strings.Details}" ToggleType="Radio" GroupName="cv" IsChecked="{Binding IsDetails}" Click="OnDetails" />
+          </MenuFlyout>
+        </Button.Flyout>
+      </Button>
+    </StackPanel>
+
+    <Panel>
+      <ListBox Name="Thumbs" ItemsSource="{Binding Items}" SelectionMode="Multiple" Background="Transparent" BorderThickness="0"
+               IsVisible="{Binding ShowThumbnails}" SelectionChanged="OnSelectionChanged" DoubleTapped="OnDoubleTapped"
+               ScrollViewer.HorizontalScrollBarVisibility="Disabled" AutomationProperties.Name="{x:Static str:Strings.ContentsClipListName}"
+               IsTextSearchEnabled="True" TextSearch.TextBinding="{Binding Name, DataType=vm:ContentItemViewModel}">
+        <ListBox.ItemsPanel>
+          <ItemsPanelTemplate><WrapPanel Orientation="Horizontal" /></ItemsPanelTemplate>
+        </ListBox.ItemsPanel>
+        <ListBox.Styles>
+          <Style Selector="ListBoxItem">
+            <Setter Property="Width" Value="134" />
+            <Setter Property="Height" Value="140" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+            <Setter Property="Template">
+              <ControlTemplate>
+                <Border Name="Card" Background="Transparent" BorderThickness="1" BorderBrush="Transparent" CornerRadius="3" Margin="1,0,1,20">
+                  <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </Border>
+              </ControlTemplate>
+            </Setter>
+          </Style>
+          <Style Selector="ListBoxItem:pointerover /template/ Border#Card">
+            <Setter Property="Background" Value="{DynamicResource MmItemHotBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MmItemHotBorderBrush}" />
+          </Style>
+          <Style Selector="ListBoxItem:selected /template/ Border#Card">
+            <Setter Property="Background" Value="{DynamicResource MmItemSelectedBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MmItemSelectedBorderBrush}" />
+          </Style>
+        </ListBox.Styles>
+        <ListBox.ItemTemplate>
+          <DataTemplate x:DataType="vm:ContentItemViewModel">
+            <StackPanel ToolTip.Tip="{Binding ToolTip}" AutomationProperties.Name="{Binding Name}">
+              <c:ThumbnailFrame Margin="0,12,0,0" Width="91" Height="68" HorizontalAlignment="Center"
+                                Image="{Binding Thumbnail, Converter={x:Static conv:SkBitmapConverter.Instance}}"
+                                Kind="{Binding Kind}" IsMissing="{Binding IsMissing}" />
+              <Panel Margin="2,13,2,0">
+                <TextBlock Text="{Binding Name}" TextAlignment="Center" TextTrimming="CharacterEllipsis" IsVisible="{Binding !IsRenaming}" Foreground="{DynamicResource MmCellNameBrush}" />
+                <TextBox Text="{Binding EditName}" IsVisible="{Binding IsRenaming}" KeyDown="OnRenameKey" LostFocus="OnRenameLostFocus" />
+              </Panel>
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+      <wpf:ListView Name="Details" ItemsSource="{Binding Items}" SelectionMode="Multiple" IsVisible="{Binding ShowDetails}"
+                    SelectionChanged="OnSelectionChanged" DoubleTapped="OnDoubleTapped">
+        <wpf:ListView.View>
+          <wpf:GridView>
+            <wpf:GridViewColumn Header="{x:Static str:Strings.ColumnName}" Width="140" DisplayMemberBinding="{Binding Name, x:DataType=vm:ContentItemViewModel}" />
+            <wpf:GridViewColumn Header="{x:Static str:Strings.ColumnDuration}" Width="80" DisplayMemberBinding="{Binding DurationText, x:DataType=vm:ContentItemViewModel}" />
+            <wpf:GridViewColumn Header="{x:Static str:Strings.ColumnStartTime}" Width="80" DisplayMemberBinding="{Binding StartText, x:DataType=vm:ContentItemViewModel}" />
+            <wpf:GridViewColumn Header="{x:Static str:Strings.ColumnEndTime}" Width="80" DisplayMemberBinding="{Binding EndText, x:DataType=vm:ContentItemViewModel}" />
+            <wpf:GridViewColumn Header="{x:Static str:Strings.ColumnDimensions}" Width="80" DisplayMemberBinding="{Binding Dimensions, x:DataType=vm:ContentItemViewModel}" />
+            <wpf:GridViewColumn Header="{x:Static str:Strings.ColumnDateTaken}" Width="120" DisplayMemberBinding="{Binding DateTaken, x:DataType=vm:ContentItemViewModel}" />
+            <wpf:GridViewColumn Header="{x:Static str:Strings.ColumnFileName}" Width="140" DisplayMemberBinding="{Binding FileName, x:DataType=vm:ContentItemViewModel}" />
+          </wpf:GridView>
+        </wpf:ListView.View>
+      </wpf:ListView>
+
+      <ListBox Name="Catalog" ItemsSource="{Binding CatalogItems}" SelectedItem="{Binding SelectedCatalogItem}" Background="Transparent" BorderThickness="0"
+               IsVisible="{Binding !IsMediaView}" DoubleTapped="OnCatalogDoubleTapped" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+               AutomationProperties.Name="{x:Static str:Strings.ContentsCatalogName}" IsTextSearchEnabled="True" TextSearch.TextBinding="{Binding Name, DataType=vm:CatalogItemViewModel}">
+        <ListBox.ItemsPanel>
+          <ItemsPanelTemplate><WrapPanel Orientation="Horizontal" /></ItemsPanelTemplate>
+        </ListBox.ItemsPanel>
+        <ListBox.Styles>
+          <Style Selector="ListBoxItem">
+            <Setter Property="Width" Value="134" />
+            <Setter Property="Height" Value="140" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="Template">
+              <ControlTemplate>
+                <Border Name="Card" Background="Transparent" BorderThickness="1" BorderBrush="Transparent" CornerRadius="3" Margin="1,0,1,4">
+                  <ContentPresenter Content="{TemplateBinding Content}" ContentTemplate="{TemplateBinding ContentTemplate}" />
+                </Border>
+              </ControlTemplate>
+            </Setter>
+          </Style>
+          <Style Selector="ListBoxItem:pointerover /template/ Border#Card">
+            <Setter Property="Background" Value="{DynamicResource MmItemHotBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MmItemHotBorderBrush}" />
+          </Style>
+          <Style Selector="ListBoxItem:selected /template/ Border#Card">
+            <Setter Property="Background" Value="{DynamicResource MmItemSelectedBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource MmItemSelectedBorderBrush}" />
+          </Style>
+        </ListBox.Styles>
+        <ListBox.ItemTemplate>
+          <DataTemplate x:DataType="vm:CatalogItemViewModel">
+            <StackPanel ToolTip.Tip="{Binding ToolTip}" AutomationProperties.Name="{Binding Name}">
+              <c:CatalogSample Margin="0,12,0,0" Width="96" Height="72" HorizontalAlignment="Center" ItemId="{Binding Id}" IsTransition="{Binding IsTransition}" />
+              <TextBlock Margin="2,13,2,0" Text="{Binding Name}" TextAlignment="Center" TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" Foreground="{DynamicResource MmCellNameBrush}" />
+            </StackPanel>
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+    </Panel>
+  </DockPanel>
+</UserControl>

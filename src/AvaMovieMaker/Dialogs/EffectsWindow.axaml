@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:aw="https://github.com/avawpf"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Dialogs"
+             x:Class="AvaMovieMaker.Dialogs.EffectsWindow"
+             x:DataType="vm:ClipEffectsViewModel"
+             aw:WindowSettings.Title="{x:Static str:Strings.EffectsWindowTitle}" aw:WindowSettings.FrameKind="Dialog" aw:WindowSettings.CanResize="False" aw:WindowSettings.SizeToContent="WidthAndHeight"
+             aw:WindowSettings.WindowStartupLocation="CenterOwner" aw:WindowSettings.ShowInTaskbar="False">
+  <Canvas Width="526" Height="241">
+    <TextBlock Canvas.Left="12" Canvas.Top="13" Text="{x:Static str:Strings.EffectsAvailableEffects}" />
+    <ListBox Canvas.Left="12" Canvas.Top="33" Width="145" Height="144" ItemsSource="{Binding Available}" SelectedItem="{Binding SelectedAvailable}"
+             DoubleTapped="OnAvailableDoubleTapped" AutomationProperties.Name="{x:Static str:Strings.EffectsAvailableEffectsName}"
+             IsTextSearchEnabled="True" TextSearch.TextBinding="{Binding Name, DataType=vm:EffectListItem}">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="vm:EffectListItem">
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <Button Canvas.Left="169" Canvas.Top="33" Width="87" Height="26" Content="{x:Static str:Strings.EffectsAdd}" Command="{Binding AddCommand}" />
+    <Button Canvas.Left="169" Canvas.Top="75" Width="87" Height="26" Content="{x:Static str:Strings.EffectsRemove}" Command="{Binding RemoveCommand}" />
+    <TextBlock Canvas.Left="269" Canvas.Top="13" Text="{x:Static str:Strings.EffectsDisplayedEffects}" />
+    <ListBox Canvas.Left="269" Canvas.Top="33" Width="145" Height="144" ItemsSource="{Binding Displayed}" SelectedItem="{Binding SelectedDisplayed}"
+             AutomationProperties.Name="{x:Static str:Strings.EffectsDisplayedEffectsName}" IsTextSearchEnabled="True" TextSearch.TextBinding="{Binding Name, DataType=vm:EffectListItem}">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="vm:EffectListItem">
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <Button Canvas.Left="427" Canvas.Top="33" Width="87" Height="26" Content="{x:Static str:Strings.EffectsMoveUp}" Command="{Binding MoveUpCommand}" />
+    <Button Canvas.Left="427" Canvas.Top="75" Width="87" Height="26" Content="{x:Static str:Strings.EffectsMoveDown}" Command="{Binding MoveDownCommand}" />
+    <Border Canvas.Left="12" Canvas.Top="191" Width="502" Height="1" Background="#A0A0A0" />
+    <Button Canvas.Left="334" Canvas.Top="202" Width="87" Height="26" Content="{x:Static str:Strings.ButtonOk}" IsDefault="True" Click="OnOk" />
+    <Button Canvas.Left="427" Canvas.Top="202" Width="87" Height="26" Content="{x:Static str:Strings.ButtonCancel}" IsCancel="True" Click="OnCancel" />
+  </Canvas>
+</UserControl>

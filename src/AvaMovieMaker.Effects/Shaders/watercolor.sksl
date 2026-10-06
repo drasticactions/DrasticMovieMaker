@@ -1,0 +1,29 @@
+// Watercolor: a Kuwahara filter. Each pixel takes the mean of the least varied of four quadrants.
+uniform shader src;
+uniform float radius;
+
+half4 main(float2 p) {
+    float3 bestMean = float3(0);
+    float bestVar = 1e9;
+    for (int q = 0; q < 4; q++) {
+        float2 dirv = float2(q == 0 || q == 2 ? -1.0 : 1.0, q < 2 ? -1.0 : 1.0);
+        float3 sum = float3(0);
+        float3 sum2 = float3(0);
+        for (int j = 0; j <= 4; j++) {
+            for (int i = 0; i <= 4; i++) {
+                float2 o = float2(float(i), float(j)) * (radius / 4.0) * dirv;
+                float3 c = float3(src.eval(p + o).rgb);
+                sum += c;
+                sum2 += c * c;
+            }
+        }
+        float3 mean = sum / 25.0;
+        float3 v = sum2 / 25.0 - mean * mean;
+        float var = v.r + v.g + v.b;
+        if (var < bestVar) {
+            bestVar = var;
+            bestMean = mean;
+        }
+    }
+    return half4(half3(bestMean), 1.0);
+}

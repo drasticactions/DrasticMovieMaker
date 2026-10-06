@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="UndoAddClip" xml:space="preserve">
+    <value>Add Clip</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoRemoveClip" xml:space="preserve">
+    <value>Remove Clip</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoMoveClip" xml:space="preserve">
+    <value>Move Clip</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoSplit" xml:space="preserve">
+    <value>Split</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoCombine" xml:space="preserve">
+    <value>Combine</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoTrimClip" xml:space="preserve">
+    <value>Trim Clip</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoTrimStart" xml:space="preserve">
+    <value>Trim Left</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoTrimEnd" xml:space="preserve">
+    <value>Trim Right</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoClearTrim" xml:space="preserve">
+    <value>Clip Start Stop</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoSetDuration" xml:space="preserve">
+    <value>Set Duration</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoAddEffect" xml:space="preserve">
+    <value>Add Effect</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoRemoveEffect" xml:space="preserve">
+    <value>Remove Effect</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoRemoveEffects" xml:space="preserve">
+    <value>Remove Effects</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoChangeEffects" xml:space="preserve">
+    <value>Change Effects</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoAddTransition" xml:space="preserve">
+    <value>Add Transition</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoChangeTransition" xml:space="preserve">
+    <value>Add/Change Transition</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoRemoveTransition" xml:space="preserve">
+    <value>Remove Transition</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoTrimTransition" xml:space="preserve">
+    <value>Trim Transition</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoClearTimeline" xml:space="preserve">
+    <value>Clear Timeline</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoClearStoryboard" xml:space="preserve">
+    <value>Clear Storyboard</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoPaste" xml:space="preserve">
+    <value>Paste</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoRenameClip" xml:space="preserve">
+    <value>Rename Clip</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoSetProperty" xml:space="preserve">
+    <value>Set Property</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoChangeTitle" xml:space="preserve">
+    <value>Change Title</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoAddTitle" xml:space="preserve">
+    <value>Add Title</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoTrackVolume" xml:space="preserve">
+    <value>Track Volume</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoClipVolume" xml:space="preserve">
+    <value>Adjust Clip Volume Level</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoMuteItem" xml:space="preserve">
+    <value>Mute Item</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoAudioFadeIn" xml:space="preserve">
+    <value>Fade In</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoAudioFadeOut" xml:space="preserve">
+    <value>Fade Out</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoImportMediaItems" xml:space="preserve">
+    <value>Import Media Items</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoRemoveFromFile" xml:space="preserve">
+    <value>Remove From File</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoCreateClips" xml:space="preserve">
+    <value>Create Clips</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoAutoMovie" xml:space="preserve">
+    <value>AutoMovie</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="TransitionDoesNotFit" xml:space="preserve">
+    <value>A transition cannot be added here. Make sure two video clips are adjacent on the Video track and that the default duration of the transition is shorter than the length of the two video clips.</value>
+  </data>
+  <data name="AutoMovieStyleFadeAndReveal" xml:space="preserve">
+    <value>Fade and Reveal</value>
+    <comment>AutoMovie style name</comment>
+  </data>
+  <data name="AutoMovieStyleFadeAndRevealDescription" xml:space="preserve">
+    <value>Applies fade and reveal transitions</value>
+    <comment>AutoMovie style description</comment>
+  </data>
+  <data name="AutoMovieStyleFlipAndSlide" xml:space="preserve">
+    <value>Flip and Slide</value>
+    <comment>AutoMovie style name</comment>
+  </data>
+  <data name="AutoMovieStyleFlipAndSlideDescription" xml:space="preserve">
+    <value>Applies flip, slide, reveal, and page curl transitions</value>
+    <comment>AutoMovie style description</comment>
+  </data>
+  <data name="AutoMovieStyleHighlightsMovie" xml:space="preserve">
+    <value>Highlights Movie</value>
+    <comment>AutoMovie style name</comment>
+  </data>
+  <data name="AutoMovieStyleHighlightsMovieDescription" xml:space="preserve">
+    <value>Cuts, fades, adds a title and credits</value>
+    <comment>AutoMovie style description</comment>
+  </data>
+  <data name="AutoMovieStyleMusicVideo" xml:space="preserve">
+    <value>Music Video</value>
+    <comment>AutoMovie style name</comment>
+  </data>
+  <data name="AutoMovieStyleMusicVideoDescription" xml:space="preserve">
+    <value>Quick edits for fast beats and longer edits for slow beats</value>
+    <comment>AutoMovie style description</comment>
+  </data>
+  <data name="AutoMovieStyleOldMovie" xml:space="preserve">
+    <value>Old Movie</value>
+    <comment>AutoMovie style name</comment>
+  </data>
+  <data name="AutoMovieStyleOldMovieDescription" xml:space="preserve">
+    <value>Film age effect applied to clips</value>
+    <comment>AutoMovie style description</comment>
+  </data>
+  <data name="AutoMovieStyleSportsHighlights" xml:space="preserve">
+    <value>Sports Highlights</value>
+    <comment>AutoMovie style name</comment>
+  </data>
+  <data name="AutoMovieStyleSportsHighlightsDescription" xml:space="preserve">
+    <value>Selects action clips and adds a title and credits</value>
+    <comment>AutoMovie style description</comment>
+  </data>
+  <data name="AutoMovieTheEnd" xml:space="preserve">
+    <value>The End</value>
+    <comment>Text AutoMovie puts in the movie</comment>
+  </data>
+  <data name="AutoMovieFinalScore" xml:space="preserve">
+    <value>Final Score</value>
+    <comment>Text AutoMovie puts in the movie</comment>
+  </data>
+  <data name="AutoMovieHome" xml:space="preserve">
+    <value>Home</value>
+    <comment>Text AutoMovie puts in the movie</comment>
+  </data>
+  <data name="AutoMovieVisitors" xml:space="preserve">
+    <value>Visitors</value>
+    <comment>Text AutoMovie puts in the movie</comment>
+  </data>
+  <data name="AutoMovieDirectedBy" xml:space="preserve">
+    <value>Directed By</value>
+    <comment>Text AutoMovie puts in the movie</comment>
+  </data>
+  <data name="AutoMovieCreatedWith" xml:space="preserve">
+    <value>Created With</value>
+    <comment>Text AutoMovie puts in the movie</comment>
+  </data>
+  <data name="AutoMovieScoreboardHome" xml:space="preserve">
+    <value>Home          0</value>
+    <comment>Text AutoMovie puts in the movie: scoreboard overlay line</comment>
+  </data>
+  <data name="AutoMovieScoreboardVisitors" xml:space="preserve">
+    <value>Visitors          0</value>
+    <comment>Text AutoMovie puts in the movie: scoreboard overlay line</comment>
+  </data>
+  <data name="PublishProfileBest" xml:space="preserve">
+    <value>Best quality for playback on my computer (recommended)</value>
+    <comment>Publish Movie settings name</comment>
+  </data>
+  <data name="PublishProfileHd1080" xml:space="preserve">
+    <value>High definition (1080p)</value>
+    <comment>Publish Movie settings name</comment>
+  </data>
+  <data name="PublishProfileHd720" xml:space="preserve">
+    <value>HD (720p)</value>
+    <comment>Publish Movie settings name</comment>
+  </data>
+  <data name="PublishProfileDvd" xml:space="preserve">
+    <value>DVD quality</value>
+    <comment>Publish Movie settings name</comment>
+  </data>
+  <data name="PublishProfileWeb" xml:space="preserve">
+    <value>Portable / web</value>
+    <comment>Publish Movie settings name</comment>
+  </data>
+  <data name="PublishProfileWebM1080" xml:space="preserve">
+    <value>WebM, 1080p</value>
+    <comment>Publish Movie settings name</comment>
+  </data>
+  <data name="PublishProfileWebM720" xml:space="preserve">
+    <value>WebM, 720p</value>
+    <comment>Publish Movie settings name</comment>
+  </data>
+  <data name="PublishProfileWebM480" xml:space="preserve">
+    <value>WebM, 480p</value>
+    <comment>Publish Movie settings name</comment>
+  </data>
+  <data name="PublishProfileCompressTo" xml:space="preserve">
+    <value>Compress to</value>
+    <comment>Publish Movie settings name</comment>
+  </data>
+  <data name="PublishProfileDisplayName" xml:space="preserve">
+    <value>{0} ({1})</value>
+    <comment>{0} = settings name, {1} = average bit rate</comment>
+  </data>
+  <data name="BitrateMbps" xml:space="preserve">
+    <value>{0:0.0} Mbps</value>
+    <comment>{0} = megabits per second</comment>
+  </data>
+  <data name="BitrateKbps" xml:space="preserve">
+    <value>{0} kbps</value>
+    <comment>{0} = kilobits per second</comment>
+  </data>
+  <data name="ProjectFileEmpty" xml:space="preserve">
+    <value>The project file is empty.</value>
+  </data>
+  <data name="NotAProjectFile" xml:space="preserve">
+    <value>{0} is not an AvaMovieMaker project.</value>
+    <comment>{0} = file name</comment>
+  </data>
+  <data name="NotAProjectPackage" xml:space="preserve">
+    <value>This is not an AvaMovieMaker project package.</value>
+  </data>
+  <data name="ProjectUntitled" xml:space="preserve">
+    <value>Untitled</value>
+    <comment>The name of a project that has not been saved.</comment>
+  </data>
+</root>

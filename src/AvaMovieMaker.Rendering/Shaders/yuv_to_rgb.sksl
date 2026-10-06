@@ -1,0 +1,36 @@
+// YUV planes to RGB. Children: y (luma), u and v (chroma). For semi-planar layouts, u holds both chroma channels.
+// layout: 0 planar 8-bit (Gray8), 1 NV12 (Rg88), 2 planar 10-bit in low bits (Alpha16), 3 P010 (Alpha16 + Rg1616).
+uniform shader y;
+uniform shader u;
+uniform shader v;
+uniform int planeLayout;
+uniform float2 chromaScale;   // chroma plane size / luma plane size
+uniform float2 chromaOffset;  // siting shift in chroma pixels
+uniform float4 range;         // yScale, yOffset, cScale, cOffset
+uniform float4 coef;          // rv, gu, gv, bu
+uniform float alphaOne;       // 1
+
+half4 main(float2 p) {
+    float Y;
+    float2 C;
+    float2 pc = p * chromaScale + chromaOffset;
+    if (planeLayout == 0) {
+        Y = y.eval(p).r;
+        C = float2(u.eval(pc).r, v.eval(pc).r);
+    } else if (planeLayout == 1) {
+        Y = y.eval(p).r;
+        C = u.eval(pc).rg;
+    } else if (planeLayout == 2) {
+        float s = 65535.0 / 1023.0;
+        Y = y.eval(p).a * s;
+        C = float2(u.eval(pc).a, v.eval(pc).a) * s;
+    } else {
+        Y = y.eval(p).a;
+        C = u.eval(pc).rg;
+    }
+    float yy = (Y - range.y) * range.x;
+    float cb = (C.x - range.w) * range.z;
+    float cr = (C.y - range.w) * range.z;
+    float3 rgb = float3(yy + coef.x * cr, yy - coef.y * cb - coef.z * cr, yy + coef.w * cb);
+    return half4(half3(saturate(rgb)), half(alphaOne));
+}

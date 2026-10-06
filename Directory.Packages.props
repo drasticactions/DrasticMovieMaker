@@ -1,0 +1,31 @@
+<Project>
+  <ItemGroup>
+    <PackageVersion Include="Avalonia" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Desktop" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Wayland" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Skia" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.HarfBuzz" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Headless" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Headless.XUnit" Version="$(AvaloniaVersion)" />
+    <PackageVersion Include="Avalonia.Angle.Windows.Natives" Version="2.1.27548.20260419" />
+    <PackageVersion Include="AvaWpf.Theme" Version="$(AvaWpfVersion)" />
+    <PackageVersion Include="AvaWpf.Controls" Version="$(AvaWpfVersion)" />
+    <PackageVersion Include="AvaWpf.Animations" Version="$(AvaWpfVersion)" />
+    <PackageVersion Include="AvaWpf.Fonts" Version="$(AvaWpfVersion)" />
+    <PackageVersion Include="SkiaSharp" Version="4.153.1" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="4.153.1" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.macOS" Version="4.153.1" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Win32" Version="4.153.1" />
+    <PackageVersion Include="HarfBuzzSharp" Version="14.2.1.301" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="14.2.1.301" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.macOS" Version="14.2.1.301" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Win32" Version="14.2.1.301" />
+    <PackageVersion Include="SkiaSharp.HarfBuzz" Version="4.153.1" />
+    <PackageVersion Include="FFmpeg.AutoGen.Abstractions" Version="9.0.1.1" />
+    <PackageVersion Include="FFmpeg.AutoGen.Bindings.DynamicallyLoaded" Version="9.0.1.1" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="10.0.12" />
+    <PackageVersion Include="xunit.v3.mtp-v2" Version="3.2.2" />
+    <PackageVersion Include="JAJ.Packages.MiniAudioEx" Version="3.3.7" />
+  </ItemGroup>
+</Project>

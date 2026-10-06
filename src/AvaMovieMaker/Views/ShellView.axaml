@@ -1,0 +1,101 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Shell"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             xmlns:v="using:AvaMovieMaker.Views"
+             xmlns:app="using:AvaMovieMaker"
+             xmlns:nar="using:AvaMovieMaker.ViewModels.Narration"
+             x:Class="AvaMovieMaker.Views.ShellView"
+             x:DataType="vm:ShellViewModel"
+             Focusable="True">
+  <DockPanel>
+    <StackPanel DockPanel.Dock="Top">
+      <Border Background="{DynamicResource MmMenuBarBrush}" Height="{x:Static app:ShellMetrics.MenuBarHeight}">
+        <Menu Name="MainMenu" Classes="mm-menubar" Margin="{x:Static app:ShellMetrics.MenuMargin}" VerticalAlignment="Top" />
+      </Border>
+      <Border Background="{DynamicResource MmToolBarBrush}" Height="{x:Static app:ShellMetrics.ToolBarHeight}">
+        <StackPanel Orientation="Horizontal" Margin="{x:Static app:ShellMetrics.ToolBarMargin}" Spacing="2" VerticalAlignment="Center">
+          <Button Classes="mm-tool" Command="{Binding ImportMediaCommand}" AutomationProperties.Name="{x:Static str:Strings.ImportMedia}" ToolTip.Tip="{x:Static str:Strings.ShellImportDigitalMediaFilesIntoYour}">
+            <StackPanel Orientation="Horizontal" Spacing="4"><c:Glyph Kind="import" /><TextBlock Text="{x:Static str:Strings.ImportMedia}" FontWeight="SemiBold" /></StackPanel>
+          </Button>
+          <Button Classes="mm-tool" Command="{Binding UndoCommand}" AutomationProperties.Name="{x:Static str:Strings.ShellUndo}" ToolTip.Tip="{x:Static str:Strings.ShellUndoCtrlZ}" Margin="6,0,0,0">
+            <c:Glyph Kind="undo" />
+          </Button>
+          <Button Classes="mm-tool mm-split" IsEnabled="{Binding HasUndo}" AutomationProperties.Name="{x:Static str:Strings.ShellUndoListName}" ToolTip.Tip="{x:Static str:Strings.ShellUndo}">
+            <c:Glyph Kind="drop-arrow" />
+            <Button.Flyout>
+              <MenuFlyout ItemsSource="{Binding UndoHistory}" Placement="BottomEdgeAlignedLeft">
+                <MenuFlyout.ItemContainerTheme>
+                  <ControlTheme TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}" x:DataType="vm:HistoryEntry">
+                    <Setter Property="Header" Value="{Binding Name}" />
+                    <Setter Property="Command" Value="{Binding Command}" />
+                    <Setter Property="CommandParameter" Value="{Binding Count}" />
+                    <Setter Property="ToolTip.Tip" Value="{Binding Footer}" />
+                  </ControlTheme>
+                </MenuFlyout.ItemContainerTheme>
+              </MenuFlyout>
+            </Button.Flyout>
+          </Button>
+          <Button Classes="mm-tool" Command="{Binding RedoCommand}" AutomationProperties.Name="{x:Static str:Strings.ShellRedo}" ToolTip.Tip="{x:Static str:Strings.ShellRedoCtrlY}">
+            <c:Glyph Kind="redo" />
+          </Button>
+          <Button Classes="mm-tool mm-split" IsEnabled="{Binding HasRedo}" AutomationProperties.Name="{x:Static str:Strings.ShellRedoListName}" ToolTip.Tip="{x:Static str:Strings.ShellRedo}" Margin="0,0,6,0">
+            <c:Glyph Kind="drop-arrow" />
+            <Button.Flyout>
+              <MenuFlyout ItemsSource="{Binding RedoHistory}" Placement="BottomEdgeAlignedLeft">
+                <MenuFlyout.ItemContainerTheme>
+                  <ControlTheme TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}" x:DataType="vm:HistoryEntry">
+                    <Setter Property="Header" Value="{Binding Name}" />
+                    <Setter Property="Command" Value="{Binding Command}" />
+                    <Setter Property="CommandParameter" Value="{Binding Count}" />
+                    <Setter Property="ToolTip.Tip" Value="{Binding Footer}" />
+                  </ControlTheme>
+                </MenuFlyout.ItemContainerTheme>
+              </MenuFlyout>
+            </Button.Flyout>
+          </Button>
+          <Button Classes="mm-tool" Command="{Binding AutoMovieShowCommand}" IsEnabled="{Binding CanAutoMovie}" AutomationProperties.Name="{x:Static str:Strings.TaskAutoMovie}" ToolTip.Tip="{x:Static str:Strings.ShellMakeAMovieAutomaticallyFromThe}">
+            <StackPanel Orientation="Horizontal" Spacing="4"><c:Glyph Kind="automovie" /><TextBlock Text="{x:Static str:Strings.TaskAutoMovie}" FontWeight="SemiBold" /></StackPanel>
+          </Button>
+          <Button Classes="mm-tool" Command="{Binding PublishCommand}" IsEnabled="{Binding CanPublish}" AutomationProperties.Name="{x:Static str:Strings.Publish}" ToolTip.Tip="{x:Static str:Strings.ShellPublishYourMovieToAFile}">
+            <StackPanel Orientation="Horizontal" Spacing="4"><c:Glyph Kind="publish" /><TextBlock Text="{x:Static str:Strings.Publish}" FontWeight="SemiBold" /></StackPanel>
+          </Button>
+        </StackPanel>
+      </Border>
+    </StackPanel>
+
+    <Border DockPanel.Dock="Bottom" Height="22" IsVisible="{Binding ShowStatusBar}" Background="{DynamicResource MmPaneBrush}"
+            BorderBrush="{DynamicResource MmTaskSectionLineBrush}" BorderThickness="0,1,0,0">
+      <TextBlock Text="{Binding StatusText}" Margin="6,0" VerticalAlignment="Center" AutomationProperties.Name="{x:Static str:Strings.ShellStatusName}" />
+    </Border>
+
+    <Grid Name="MainGrid" RowDefinitions="459*,4,194*">
+      <Grid Grid.Row="0" Name="UpperGrid" ColumnDefinitions="644,4,*">
+        <Panel Grid.Column="0">
+          <Grid Name="TasksAndContents" ColumnDefinitions="Auto,*" IsVisible="{Binding IsContentsPane}">
+            <v:TasksPaneView Name="TasksPane" Grid.Column="0" DataContext="{Binding Tasks}" IsVisible="{Binding $parent[UserControl].((vm:ShellViewModel)DataContext).ShowTasks}" />
+            <v:CollectionsPaneView Name="CollectionsPane" Grid.Column="0" IsVisible="{Binding ShowCollections}" />
+            <v:ContentsView Name="ContentsPane" Grid.Column="1" DataContext="{Binding Contents}" />
+          </Grid>
+          <v:TitleEditorView DataContext="{Binding TitleEditor}" IsVisible="{Binding $parent[UserControl].((vm:ShellViewModel)DataContext).IsTitlesPane}" />
+          <v:AutoMovieView DataContext="{Binding AutoMovie}" IsVisible="{Binding $parent[UserControl].((vm:ShellViewModel)DataContext).IsAutoMoviePane}" />
+          <ContentControl Content="{Binding Narration}" IsVisible="{Binding IsNarrationPane}">
+            <ContentControl.DataTemplates>
+              <DataTemplate DataType="{x:Type nar:NarrationViewModel}">
+                <v:NarrationView />
+              </DataTemplate>
+            </ContentControl.DataTemplates>
+          </ContentControl>
+        </Panel>
+        <GridSplitter Grid.Column="1" Background="{DynamicResource MmVSplitterBrush}" ResizeDirection="Columns" />
+        <v:MonitorView Name="MonitorPane" Grid.Column="2" DataContext="{Binding Monitor}" />
+      </Grid>
+      <GridSplitter Grid.Row="1" Background="{DynamicResource MmHSplitterBrush}" ResizeDirection="Rows" />
+      <Panel Grid.Row="2" Background="{DynamicResource MmLowerBrush}">
+        <v:StoryboardView Name="StoryboardPane" DataContext="{Binding}" IsVisible="{Binding !IsTimeline}" />
+        <v:TimelineView Name="TimelineView" DataContext="{Binding}" IsVisible="{Binding IsTimeline}" />
+      </Panel>
+    </Grid>
+  </DockPanel>
+</UserControl>

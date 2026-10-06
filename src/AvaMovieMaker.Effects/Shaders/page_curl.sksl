@@ -1,0 +1,56 @@
+// Page curl: A rolls up around a cylinder moving across the frame from a lower corner, showing B beneath.
+uniform shader a;
+uniform shader b;
+uniform float2 resolution;
+uniform float progress;
+uniform float fromRight;  // 1: the curl starts at the lower right corner
+
+const float PI = 3.14159265;
+
+half4 main(float2 p) {
+    float2 uv = p / resolution;
+    if (fromRight > 0.5) { uv.x = 1.0 - uv.x; }
+    // Distance along the curl direction (from the lower left corner toward the upper right).
+    float2 dir = normalize(float2(1.0, -1.0) * float2(resolution.y / resolution.x, 1.0));
+    float2 origin = float2(0.0, 1.0);
+    float along = dot(uv - origin, dir);
+    float maxAlong = dot(float2(1.0, 0.0) - origin, dir);
+    float radius = 0.1;
+    float edge = mix(-radius * 2.0, maxAlong + radius * PI, progress);
+    float2 src;
+    float d = along - edge;
+    float2 uvA;
+    if (d > 0.0) {
+        // Flat, not yet reached.
+        uvA = uv;
+        float2 pa = uvA;
+        if (fromRight > 0.5) { pa.x = 1.0 - pa.x; }
+        return a.eval(pa * resolution);
+    }
+    // On the cylinder or already rolled: find the page point that lands here (front side, then back side).
+    float angle = asin(clamp(-d / radius, -1.0, 1.0));
+    float back = edge + radius * (PI - angle);
+    float front = edge + radius * angle;
+    float2 baseUv = uv - dir * along;
+    float2 uvBack = baseUv + dir * back;
+    if (-d <= radius && uvBack.x >= 0.0 && uvBack.x <= 1.0 && uvBack.y >= 0.0 && uvBack.y <= 1.0) {
+        // The back of the page, seen through the curl: lighter and mirrored.
+        float2 pb = uvBack;
+        if (fromRight > 0.5) { pb.x = 1.0 - pb.x; }
+        half4 c = a.eval(pb * resolution);
+        return half4(mix(c.rgb, half3(1.0), 0.6), 1.0);
+    }
+    float2 uvFront = baseUv + dir * front;
+    if (-d <= radius && uvFront.x >= 0.0 && uvFront.x <= 1.0 && uvFront.y >= 0.0 && uvFront.y <= 1.0) {
+        float2 pf = uvFront;
+        if (fromRight > 0.5) { pf.x = 1.0 - pf.x; }
+        half4 c = a.eval(pf * resolution);
+        return half4(c.rgb * half(0.75 + 0.25 * cos(angle)), 1.0);
+    }
+    // Shadow of the curl on B.
+    float2 pb2 = uv;
+    if (fromRight > 0.5) { pb2.x = 1.0 - pb2.x; }
+    half4 bc = b.eval(pb2 * resolution);
+    float shade = clamp(1.0 - (-d - radius) * 3.0, 0.0, 1.0) * 0.4 * step(0.0, -d - radius);
+    return half4(bc.rgb * half(1.0 - shade), 1.0);
+}

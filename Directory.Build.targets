@@ -1,0 +1,20 @@
+<Project>
+
+  <!--
+    A project's UI text lives in Strings.resx; the build generates the Strings class that reads it. The class is internal
+    unless the project sets PublicStrings (the UI table other assemblies share), so tables do not collide across projects.
+  -->
+  <PropertyGroup>
+    <PublicStrings Condition="'$(PublicStrings)' == ''">false</PublicStrings>
+  </PropertyGroup>
+
+  <ItemGroup Condition="$(MSBuildProjectDirectory.StartsWith('$(AmmSrcDir)'))">
+    <EmbeddedResource Update="Strings.resx"
+                      StronglyTypedLanguage="CSharp"
+                      StronglyTypedClassName="Strings"
+                      StronglyTypedNamespace="$(RootNamespace)"
+                      StronglyTypedFileName="$(IntermediateOutputPath)Strings.Designer.cs"
+                      PublicClass="$(PublicStrings)" />
+  </ItemGroup>
+
+</Project>

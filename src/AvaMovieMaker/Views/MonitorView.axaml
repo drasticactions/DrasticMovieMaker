@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Preview"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             x:Class="AvaMovieMaker.Views.MonitorView"
+             x:DataType="vm:MonitorViewModel"
+             Background="{DynamicResource MmMonitorBrush}"
+             AutomationProperties.Name="{x:Static str:Strings.MonitorPreviewMonitorName}">
+  <Grid RowDefinitions="Auto,*,Auto,Auto,61">
+    <TextBlock Grid.Row="0" Text="{Binding Caption}" HorizontalAlignment="Center" Margin="0,6,0,0" Height="20"
+               Foreground="{DynamicResource MmMonitorCaptionBrush}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+    <c:PreviewImage Grid.Row="1" Name="Preview" Margin="19,45,19,0" Aspect="{Binding DisplayAspect}" AutomationProperties.Name="{x:Static str:Strings.MonitorPreviewVideoName}" />
+    <TextBlock Grid.Row="2" Text="{Binding TimeText}" HorizontalAlignment="Right" Margin="0,8,22,4"
+               Foreground="{DynamicResource MmMonitorTimeBrush}" FontSize="11" AutomationProperties.Name="{x:Static str:Strings.MonitorTimeName}" />
+    <c:SeekBar Grid.Row="3" Margin="21,0,21,0" Height="14" Maximum="{Binding DurationSeconds}" Value="{Binding PositionSeconds}"
+               AutomationProperties.Name="{x:Static str:Strings.MonitorSeekBarName}" />
+    <Grid Grid.Row="4" ColumnDefinitions="*,Auto,*">
+      <c:TransportCapsule Grid.Column="1" VerticalAlignment="Center" Margin="0,0,0,6" />
+      <Button Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,22,6" Command="{Binding SplitCommand}"
+              Classes="mm-flat mm-toolbar" AutomationProperties.Name="{x:Static str:Strings.MonitorSplit}" ToolTip.Tip="{x:Static str:Strings.MonitorSplitTheClipIntoTwoClips}">
+        <StackPanel Orientation="Horizontal" Spacing="6">
+          <c:Glyph Kind="split" />
+          <TextBlock Text="{x:Static str:Strings.MonitorSplit}" Foreground="#606C78" VerticalAlignment="Center" />
+        </StackPanel>
+      </Button>
+    </Grid>
+  </Grid>
+</UserControl>

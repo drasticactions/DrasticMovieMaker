@@ -1,0 +1,81 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    The app: start-up, views, dialogs, services, the smoke check and the natives of each OS. This is the NativeAOT
+    publish target. One project serves every desktop OS. The runtime identifier (the host's when none is given) picks
+    the Skia and HarfBuzz natives and the bundled FFmpeg. The code picks platform services at run time.
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>AvaMovieMaker</AssemblyName>
+    <RootNamespace>AvaMovieMaker</RootNamespace>
+    <PublishAot>true</PublishAot>
+    <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == '' and '$(_IsPublishing)' == 'true'">$(NETCoreSdkPortableRuntimeIdentifier)</RuntimeIdentifier>
+    <AmmSupportedRids>linux-x64;osx-arm64;win-x64</AmmSupportedRids>
+    <AmmDesktopRid>$(RuntimeIdentifier)</AmmDesktopRid>
+    <AmmDesktopRid Condition="'$(AmmDesktopRid)' == ''">$(NETCoreSdkPortableRuntimeIdentifier)</AmmDesktopRid>
+    <AmmFFmpegDir Condition="'$(AmmFFmpegDir)' == ''">$(AmmRepoRoot)tools/ffmpeg/out/$(AmmDesktopRid)/</AmmFFmpegDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" />
+    <PackageReference Include="Avalonia.Desktop" />
+    <PackageReference Include="Avalonia.Wayland" />
+    <PackageReference Include="Avalonia.Skia" />
+    <PackageReference Include="Avalonia.HarfBuzz" />
+    <PackageReference Include="AvaWpf.Theme" />
+    <PackageReference Include="AvaWpf.Controls" />
+    <PackageReference Include="AvaWpf.Animations" />
+    <PackageReference Include="AvaWpf.Fonts" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(AmmDesktopRid.StartsWith('linux-'))">
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Linux" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(AmmDesktopRid.StartsWith('osx-'))">
+    <PackageReference Include="SkiaSharp.NativeAssets.macOS" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.macOS" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(AmmDesktopRid.StartsWith('win-'))">
+    <PackageReference Include="SkiaSharp.NativeAssets.Win32" />
+    <PackageReference Include="HarfBuzzSharp.NativeAssets.Win32" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(AmmDesktopRid.StartsWith('win-'))">
+    <ApplicationIcon>$(AmmRepoRoot)tools/windows/AvaMovieMaker.ico</ApplicationIcon>
+    <ApplicationManifest>$(AmmRepoRoot)tools/windows/AvaMovieMaker.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaMovieMaker.ViewModels\AvaMovieMaker.ViewModels.csproj" />
+    <ProjectReference Include="..\AvaMovieMaker.Assets\AvaMovieMaker.Assets.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Styles\**\*.axaml" />
+    <AvaloniaResource Include="Assets\Icons\*.png" />
+    <EmbeddedResource Include="..\..\THIRD-PARTY-NOTICES.md" LogicalName="THIRD-PARTY-NOTICES.md" />
+  </ItemGroup>
+
+  <ItemGroup Condition="Exists('$(AmmFFmpegDir)')">
+    <None Include="$(AmmFFmpegDir)**/*.so.*;$(AmmFFmpegDir)**/*.dylib;$(AmmFFmpegDir)**/*.dll"
+          Link="%(RecursiveDir)%(Filename)%(Extension)"
+          CopyToOutputDirectory="PreserveNewest"
+          CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaMovieMaker.Tests" />
+    <InternalsVisibleTo Include="AvaMovieMaker.Parity" />
+  </ItemGroup>
+
+  <Target Name="AmmCheckRid" BeforeTargets="Restore;_CheckForInvalidConfigurationAndPlatform">
+    <Error Condition="!$([System.String]::Copy(';$(AmmSupportedRids);').Contains(';$(AmmDesktopRid);'))"
+           Text="AvaMovieMaker builds for $(AmmSupportedRids.Replace(';', ', ')), not '$(AmmDesktopRid)'." />
+  </Target>
+
+</Project>

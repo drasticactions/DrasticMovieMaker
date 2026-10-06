@@ -1,0 +1,37 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:aw="https://github.com/avawpf"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Dialogs"
+             x:Class="AvaMovieMaker.Dialogs.ProjectPropertiesWindow"
+             x:DataType="vm:ProjectPropertiesViewModel"
+             aw:WindowSettings.Title="{x:Static str:Strings.ProjectPropertiesWindowTitle}" aw:WindowSettings.FrameKind="Dialog" aw:WindowSettings.CanResize="False" aw:WindowSettings.Width="498" aw:WindowSettings.Height="608"
+             aw:WindowSettings.WindowStartupLocation="CenterOwner" aw:WindowSettings.ShowInTaskbar="False">
+  <DockPanel Margin="12,10,12,12">
+    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,8,0,0">
+      <Button Content="{x:Static str:Strings.ButtonOk}" MinWidth="73" IsDefault="True" Click="OnOk" />
+      <Button Content="{x:Static str:Strings.ButtonCancel}" MinWidth="73" IsCancel="True" Click="OnCancel" />
+      <Button Name="ApplyButton" Content="{x:Static str:Strings.ProjectPropertiesApply}" MinWidth="73" IsEnabled="False" Click="OnApply" />
+    </StackPanel>
+    <TabControl Padding="10">
+      <TabItem Header="{x:Static str:Strings.ProjectPropertiesGeneral}">
+        <Grid ColumnDefinitions="78,306" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,*" RowSpacing="11" Margin="0,30,0,0">
+          <Label Content="{x:Static str:Strings.ProjectPropertiesTitle}" Target="TitleBox" VerticalAlignment="Center" />
+          <TextBox Name="TitleBox" Grid.Column="1" Text="{Binding Title}" MaxLength="{x:Static vm:ProjectPropertiesViewModel.TitleMaxLength}" />
+          <Label Grid.Row="1" Content="{x:Static str:Strings.ProjectPropertiesAuthor}" Target="AuthorBox" VerticalAlignment="Center" />
+          <TextBox Name="AuthorBox" Grid.Row="1" Grid.Column="1" Text="{Binding Author}" MaxLength="{x:Static vm:ProjectPropertiesViewModel.AuthorMaxLength}" />
+          <TextBlock Grid.Row="2" Text="{x:Static str:Strings.ProjectPropertiesDuration}" VerticalAlignment="Center" />
+          <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding TotalTime}" VerticalAlignment="Center" />
+          <Border Grid.Row="3" Grid.ColumnSpan="2" Height="1" Background="#A0A0A0" Margin="0,6" />
+          <Label Grid.Row="4" Content="{x:Static str:Strings.ProjectPropertiesCopyright}" Target="CopyrightBox" VerticalAlignment="Center" />
+          <TextBox Name="CopyrightBox" Grid.Row="4" Grid.Column="1" Text="{Binding Copyright}" />
+          <Label Grid.Row="5" Content="{x:Static str:Strings.ProjectPropertiesRating}" Target="RatingBox" VerticalAlignment="Center" />
+          <TextBox Name="RatingBox" Grid.Row="5" Grid.Column="1" Text="{Binding Rating}" MaxLength="{x:Static vm:ProjectPropertiesViewModel.RatingMaxLength}" />
+          <Label Grid.Row="6" Content="{x:Static str:Strings.ProjectPropertiesComments}" Target="CommentsBox" VerticalAlignment="Top" />
+          <TextBox Name="CommentsBox" Grid.Row="6" Grid.Column="1" Text="{Binding Description}" MaxLength="{x:Static vm:ProjectPropertiesViewModel.CommentsMaxLength}" Height="96" VerticalAlignment="Top"
+                   AcceptsReturn="True" TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Visible" />
+        </Grid>
+      </TabItem>
+    </TabControl>
+  </DockPanel>
+</UserControl>

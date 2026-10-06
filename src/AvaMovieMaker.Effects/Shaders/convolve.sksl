@@ -1,0 +1,26 @@
+// 3x3 neighborhood filters. op: 0 sharpen, 1 edge detection (Sobel), 2 pixelate (block size in step).
+uniform shader src;
+uniform int op;
+uniform float stepSize;
+
+half4 main(float2 p) {
+    if (op == 2) {
+        float2 c = (floor(p / stepSize) + 0.5) * stepSize;
+        return src.eval(c);
+    }
+    float3 s[9];
+    for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < 3; i++) {
+            s[j * 3 + i] = float3(src.eval(p + float2(float(i - 1), float(j - 1)) * stepSize).rgb);
+        }
+    }
+    if (op == 0) {
+        float3 sharp = s[4] * 5.0 - s[1] - s[3] - s[5] - s[7];
+        return half4(half3(saturate(mix(s[4], sharp, 0.6))), 1.0);
+    }
+    float3 gx = -s[0] - 2.0 * s[3] - s[6] + s[2] + 2.0 * s[5] + s[8];
+    float3 gy = -s[0] - 2.0 * s[1] - s[2] + s[6] + 2.0 * s[7] + s[8];
+    float3 g = sqrt(gx * gx + gy * gy);
+    float e = saturate(dot(g, float3(0.299, 0.587, 0.114)));
+    return half4(half3(e), 1.0);
+}

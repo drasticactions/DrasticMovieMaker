@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaMovieMaker.ViewModels</RootNamespace>
+    <PublicStrings>true</PublicStrings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaMovieMaker.Timeline\AvaMovieMaker.Timeline.csproj" />
+    <ProjectReference Include="..\AvaMovieMaker.Interop.Mswmm\AvaMovieMaker.Interop.Mswmm.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaMovieMaker.ViewModels.Tests" />
+    <InternalsVisibleTo Include="AvaMovieMaker" />
+  </ItemGroup>
+
+</Project>

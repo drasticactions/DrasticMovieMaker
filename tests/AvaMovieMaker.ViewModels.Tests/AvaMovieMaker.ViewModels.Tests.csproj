@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\AvaMovieMaker.ViewModels\AvaMovieMaker.ViewModels.csproj" />
+    <ProjectReference Include="..\..\src\AvaMovieMaker.Assets\AvaMovieMaker.Assets.csproj" />
+  </ItemGroup>
+
+</Project>

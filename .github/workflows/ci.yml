@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  desktop:
+    runs-on: ubuntu-24.04
+    container: archlinux:latest
+    steps:
+      - name: System packages
+        run: pacman -Syu --noconfirm --needed git icu krb5 clang lld zlib
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: NativeAOT publish
+        run: dotnet publish src/AvaMovieMaker -c Release -r linux-x64 -o out/desktop -warnaserror

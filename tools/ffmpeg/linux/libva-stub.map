@@ -1,0 +1,8 @@
+/* The symbol versions of the real libva.so.2: vaCreateSurfaces is versioned, everything else is unversioned. */
+VA_API_0.32.0 {
+};
+
+VA_API_0.33.0 {
+  global:
+    vaCreateSurfaces;
+} VA_API_0.32.0;

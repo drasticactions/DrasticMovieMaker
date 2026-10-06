@@ -1,0 +1,56 @@
+name: package-linux
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ffmpeg:
+    uses: ./.github/workflows/ffmpeg-desktop.yml
+    with:
+      targets: '["linux-x64"]'
+
+  appimage:
+    needs: ffmpeg
+    runs-on: ubuntu-24.04
+    container: ubuntu:22.04
+    defaults:
+      run:
+        shell: bash
+    env:
+      AMM_IN_CONTAINER: '1'
+    steps:
+      - name: System packages
+        run: |
+          apt-get update && apt-get install -y --no-install-recommends git ca-certificates
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - uses: actions/checkout@v4
+
+      - name: Toolchain and .NET SDK
+        run: sh tools/linux/deps.sh --dotnet global.json
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ffmpeg-linux-x64
+          path: tools/ffmpeg/out/linux-x64
+
+      - name: Signing key
+        env:
+          KEY: ${{ secrets.APPIMAGE_GPG_PRIVATE_KEY }}
+          KEY_ID: ${{ vars.APPIMAGE_GPG_KEY_ID }}
+        run: |
+          if [[ -n $KEY && -n $KEY_ID ]]; then
+            echo "$KEY" | gpg --batch --import
+            echo "AMM_APPIMAGE_SIGN_KEY=$KEY_ID" >> "$GITHUB_ENV"
+          else
+            echo "No signing key configured: the AppImage is unsigned."
+          fi
+
+      - name: AppImage
+        run: tools/package-appimage.sh out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AvaMovieMaker-linux-x64
+          path: out/*.AppImage
+          retention-days: 30

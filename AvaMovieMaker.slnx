@@ -1,0 +1,23 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AvaMovieMaker/AvaMovieMaker.csproj" />
+    <Project Path="src/AvaMovieMaker.Assets/AvaMovieMaker.Assets.csproj" />
+    <Project Path="src/AvaMovieMaker.Audio/AvaMovieMaker.Audio.csproj" />
+    <Project Path="src/AvaMovieMaker.Core/AvaMovieMaker.Core.csproj" />
+    <Project Path="src/AvaMovieMaker.Effects/AvaMovieMaker.Effects.csproj" />
+    <Project Path="src/AvaMovieMaker.Interop.Mswmm/AvaMovieMaker.Interop.Mswmm.csproj" />
+    <Project Path="src/AvaMovieMaker.Media/AvaMovieMaker.Media.csproj" />
+    <Project Path="src/AvaMovieMaker.Rendering/AvaMovieMaker.Rendering.csproj" />
+    <Project Path="src/AvaMovieMaker.Timeline/AvaMovieMaker.Timeline.csproj" />
+    <Project Path="src/AvaMovieMaker.ViewModels/AvaMovieMaker.ViewModels.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AvaMovieMaker.Tests/AvaMovieMaker.Tests.csproj" />
+    <Project Path="tests/AvaMovieMaker.Media.Tests/AvaMovieMaker.Media.Tests.csproj" />
+    <Project Path="tests/AvaMovieMaker.TestSupport/AvaMovieMaker.TestSupport.csproj" />
+    <Project Path="tests/AvaMovieMaker.ViewModels.Tests/AvaMovieMaker.ViewModels.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/gen-testmedia/gen-testmedia.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Narration"
+             x:Class="AvaMovieMaker.Views.NarrationView"
+             x:DataType="vm:NarrationViewModel"
+             Background="{DynamicResource MmPaneBrush}"
+             AutomationProperties.Name="{x:Static str:Strings.Narrate}">
+  <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+  <Canvas Width="300" Height="{Binding PaneHeight}" HorizontalAlignment="Left" VerticalAlignment="Top">
+    <TextBlock Classes="mm-flow-heading" Text="{x:Static str:Strings.Narrate}" Canvas.Left="43" Canvas.Top="5" ToolTip.Tip="{Binding Instructions}" />
+
+    <Panel Canvas.Left="43" Canvas.Top="43" Width="98" Height="26" ToolTip.Tip="{Binding StartTip}" Background="Transparent">
+      <Button Content="{x:Static str:Strings.NarrationStartNarration}" Command="{Binding StartCommand}" IsDefault="True" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+    </Panel>
+    <Button Content="{x:Static str:Strings.NarrationStopNarration}" Command="{Binding StopCommand}" Canvas.Left="43" Canvas.Top="80" Width="98" Height="26" />
+
+    <TextBlock Text="{x:Static str:Strings.NarrationInputLevel}" Canvas.Left="200" Canvas.Top="43" />
+    <Slider Orientation="Vertical" Minimum="0" Maximum="65535" Value="{Binding InputLevel}" Canvas.Left="200" Canvas.Top="62" Width="40" Height="79"
+            AutomationProperties.Name="{x:Static str:Strings.NarrationInputLevelName}" />
+    <ProgressBar Orientation="Vertical" Minimum="0" Maximum="1" Value="{Binding Level}" Canvas.Left="251" Canvas.Top="73" Width="16" Height="56"
+                 MinWidth="0" AutomationProperties.Name="{x:Static str:Strings.NarrationInputLevelMeterName}" />
+
+    <Border Height="2" Width="224" Background="{DynamicResource MmFlowRuleBrush}" Canvas.Left="43" Canvas.Top="160" />
+    <Button Content="{x:Static str:Strings.ButtonClose}" Command="{Binding DoneCommand}" IsCancel="True" Canvas.Left="43" Canvas.Top="172" Width="50" Height="26" />
+    <Button Classes="mm-hyperlink" Content="{x:Static str:Strings.NarrationHowDoIAddNarration}" IsEnabled="False" Canvas.Left="43" Canvas.Top="217" />
+    <Button Classes="mm-hyperlink" Content="{Binding OptionsLinkText}" Command="{Binding ToggleOptionsCommand}" Canvas.Left="43" Canvas.Top="236" />
+
+    <Canvas IsVisible="{Binding ShowOptions}">
+      <TextBlock Text="{x:Static str:Strings.NarrationNarrationCaptured}" Canvas.Left="43" Canvas.Top="270" />
+      <Border BorderBrush="{DynamicResource MmListBorderBrush}" BorderThickness="1" Background="White" Canvas.Left="161" Canvas.Top="270" Width="106" Height="19">
+        <TextBlock Text="{Binding Captured}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,3,0" />
+      </Border>
+      <TextBlock Text="{x:Static str:Strings.NarrationAvailableTime}" Canvas.Left="43" Canvas.Top="297" />
+      <Border BorderBrush="{DynamicResource MmListBorderBrush}" BorderThickness="1" Background="White" Canvas.Left="161" Canvas.Top="297" Width="106" Height="19">
+        <TextBlock Text="{Binding AvailableTime}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,3,0" />
+      </Border>
+      <CheckBox IsChecked="{Binding LimitToFreeSpace}" IsEnabled="{Binding IsIdle}" Canvas.Left="43" Canvas.Top="339" Width="221">
+        <TextBlock Text="{x:Static str:Strings.NarrationLimitNarrationToAvailableFreeSpace}" TextWrapping="Wrap" />
+      </CheckBox>
+      <CheckBox Content="{x:Static str:Strings.NarrationMuteSpeakers}" IsChecked="{Binding MuteSpeakers}" Canvas.Left="43" Canvas.Top="376" />
+      <TextBlock Text="{x:Static str:Strings.NarrationAudioDevice}" IsEnabled="{Binding IsIdle}" Canvas.Left="43" Canvas.Top="423" />
+      <ComboBox ItemsSource="{Binding Devices}" SelectedItem="{Binding Device}" IsEnabled="{Binding IsIdle}" Canvas.Left="43" Canvas.Top="442"
+                Width="224" Height="23" AutomationProperties.Name="{x:Static str:Strings.NarrationAudioDeviceName}" />
+    </Canvas>
+  </Canvas>
+  </ScrollViewer>
+</UserControl>

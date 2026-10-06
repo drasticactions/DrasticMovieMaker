@@ -1,0 +1,62 @@
+name: package-macos
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ffmpeg:
+    uses: ./.github/workflows/ffmpeg-desktop.yml
+    with:
+      targets: '["osx-arm64"]'
+
+  dmg:
+    needs: ffmpeg
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ffmpeg-osx-arm64
+          path: tools/ffmpeg/out/osx-arm64
+
+      - name: Signing identity
+        env:
+          P12: ${{ secrets.MACOS_CERTIFICATE_P12 }}
+          P12_PASSWORD: ${{ secrets.MACOS_CERTIFICATE_PASSWORD }}
+          IDENTITY: ${{ vars.MACOS_SIGN_IDENTITY }}
+          APPLE_ID: ${{ secrets.NOTARY_APPLE_ID }}
+          TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
+          NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
+        run: |
+          if [[ -z $P12 || -z $IDENTITY ]]; then
+            echo "No signing certificate configured: the app is unsigned."
+            exit 0
+          fi
+          keychain=$RUNNER_TEMP/signing.keychain-db
+          security create-keychain -p "" "$keychain"
+          security set-keychain-settings -lut 21600 "$keychain"
+          security unlock-keychain -p "" "$keychain"
+          echo "$P12" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security import "$RUNNER_TEMP/cert.p12" -k "$keychain" -P "$P12_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: -s -k "" "$keychain"
+          security list-keychains -d user -s "$keychain" $(security list-keychains -d user | tr -d '"')
+          echo "AMM_MACOS_SIGN_IDENTITY=$IDENTITY" >> "$GITHUB_ENV"
+          if [[ -n $APPLE_ID && -n $TEAM_ID && -n $NOTARY_PASSWORD ]]; then
+            xcrun notarytool store-credentials amm-notary --apple-id "$APPLE_ID" --team-id "$TEAM_ID" \
+              --password "$NOTARY_PASSWORD" --keychain "$keychain"
+            echo "AMM_NOTARY_PROFILE=amm-notary" >> "$GITHUB_ENV"
+          fi
+
+      - name: App and dmg
+        run: tools/package-macos.sh out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AvaMovieMaker-osx-arm64
+          path: out/*.dmg
+          retention-days: 30

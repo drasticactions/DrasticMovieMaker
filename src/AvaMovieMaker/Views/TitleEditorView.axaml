@@ -1,0 +1,155 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Titles"
+             xmlns:t="using:AvaMovieMaker.Effects.Titles"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             x:Class="AvaMovieMaker.Views.TitleEditorView"
+             x:DataType="vm:TitleEditorViewModel"
+             Background="{DynamicResource MmPaneBrush}"
+             AutomationProperties.Name="{x:Static str:Strings.TitleEditorTitlesName}">
+  <StackPanel Margin="35,10,0,0" Width="438" HorizontalAlignment="Left">
+    <TextBlock Classes="mm-flow-heading" Text="{Binding Heading}" Margin="0,0,0,12" />
+
+    <StackPanel IsVisible="{Binding IsPlacementPage}">
+      <ItemsControl ItemsSource="{Binding Placements}" Margin="11,0,0,0">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="vm:PlacementOption">
+            <Button Classes="mm-hyperlink" Content="{Binding Text}" IsEnabled="{Binding IsEnabled}" Margin="0,4,0,9"
+                    Command="{Binding $parent[UserControl].((vm:TitleEditorViewModel)DataContext).ChooseCommand}"
+                    CommandParameter="{Binding Placement}" />
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </StackPanel>
+
+    <StackPanel IsVisible="{Binding IsTextPage}">
+      <StackPanel IsVisible="{Binding !IsCredits}" Spacing="1">
+        <TextBox Name="Line1Box" Text="{Binding Line1}" Height="37" AcceptsReturn="True" TextWrapping="Wrap"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible" AutomationProperties.Name="{x:Static str:Strings.TitleEditorTitleTextName}" />
+        <TextBox Text="{Binding Line2}" Height="37" AcceptsReturn="True" TextWrapping="Wrap"
+                 ScrollViewer.VerticalScrollBarVisibility="Visible" AutomationProperties.Name="{x:Static str:Strings.TitleEditorTitleSecondLineName}" />
+      </StackPanel>
+      <StackPanel IsVisible="{Binding IsCredits}">
+        <TextBox Text="{Binding Line1}" AutomationProperties.Name="{x:Static str:Strings.TitleEditorCreditsTitleName}" />
+        <ScrollViewer MaxHeight="160">
+          <ItemsControl ItemsSource="{Binding Credits}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate x:DataType="vm:CreditRowViewModel">
+                <Grid ColumnDefinitions="*,*" Margin="0,0,0,1">
+                  <TextBox Text="{Binding Heading}" AutomationProperties.Name="{x:Static str:Strings.TitleEditorCreditHeadingName}" />
+                  <TextBox Grid.Column="1" Text="{Binding Names}" AcceptsReturn="True" AutomationProperties.Name="{x:Static str:Strings.TitleEditorCreditNamesName}" />
+                </Grid>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+        <Button Classes="mm-hyperlink" Content="{x:Static str:Strings.TitleEditorAddAnotherLine}" Command="{Binding AddCreditRowCommand}" Margin="0,4,0,0" />
+      </StackPanel>
+    </StackPanel>
+
+    <Border IsVisible="{Binding IsAnimationPage}" BorderBrush="{DynamicResource MmListBorderBrush}" BorderThickness="1" Height="173" Background="White">
+      <DockPanel>
+        <Grid DockPanel.Dock="Top" ColumnDefinitions="207,*" Height="24">
+          <TextBlock Text="{x:Static str:Strings.TitleEditorClipName}" Margin="7,0,0,0" VerticalAlignment="Center" />
+          <Border Grid.Column="1" BorderBrush="#E5E5E5" BorderThickness="1,0,0,0">
+            <TextBlock Text="{x:Static str:Strings.TitleEditorComments}" Margin="6,0,0,0" VerticalAlignment="Center" />
+          </Border>
+        </Grid>
+        <ListBox Name="AnimationList" ItemsSource="{Binding AnimationRows}" SelectedItem="{Binding Animation}" BorderThickness="0"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" AutomationProperties.Name="{x:Static str:Strings.TitleEditorTitleAnimationsName}">
+          <ListBox.Styles>
+            <Style Selector="ListBoxItem">
+              <Setter Property="MinHeight" Value="20" />
+              <Setter Property="Padding" Value="4,1" />
+            </Style>
+          </ListBox.Styles>
+          <ListBox.DataTemplates>
+            <DataTemplate DataType="vm:AnimationGroupHeader">
+              <Grid ColumnDefinitions="Auto,*">
+                <TextBlock Text="{Binding Name}" Foreground="{DynamicResource MmTaskLinkBrush}" Margin="5,0,6,0" />
+                <Border Grid.Column="1" Height="1" Background="{DynamicResource MmTaskSectionLineBrush}" VerticalAlignment="Center" />
+              </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="vm:AnimationOption">
+              <Grid ColumnDefinitions="200,*">
+                <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                <TextBlock Grid.Column="1" Text="{Binding Description}" TextTrimming="CharacterEllipsis" Margin="7,0,0,0" />
+              </Grid>
+            </DataTemplate>
+          </ListBox.DataTemplates>
+        </ListBox>
+      </DockPanel>
+    </Border>
+
+    <StackPanel IsVisible="{Binding IsFontPage}" Spacing="4">
+      <TextBlock Text="{x:Static str:Strings.TitleEditorFont}" />
+      <StackPanel Orientation="Horizontal" Spacing="12">
+        <ComboBox ItemsSource="{Binding Fonts}" SelectedItem="{Binding FontFamily}" Width="310" AutomationProperties.Name="{x:Static str:Strings.TitleEditorFontName}" />
+        <ToggleButton IsChecked="{Binding Bold}" Classes="mm-flat" AutomationProperties.Name="{x:Static str:Strings.TitleEditorBold}" ToolTip.Tip="{x:Static str:Strings.TitleEditorBold}">
+          <TextBlock Text="{x:Static str:Strings.TitleEditorB}" FontWeight="Bold" FontFamily="fonts:AvaMovieMaker#Liberation Serif" Foreground="#1E3C8C" />
+        </ToggleButton>
+        <ToggleButton IsChecked="{Binding Italic}" Classes="mm-flat" AutomationProperties.Name="{x:Static str:Strings.TitleEditorItalic}" ToolTip.Tip="{x:Static str:Strings.TitleEditorItalic}">
+          <TextBlock Text="{x:Static str:Strings.TitleEditorI}" FontStyle="Italic" FontWeight="Bold" FontFamily="fonts:AvaMovieMaker#Liberation Serif" Foreground="#1E3C8C" />
+        </ToggleButton>
+        <ToggleButton IsChecked="{Binding Underline}" Classes="mm-flat" AutomationProperties.Name="{x:Static str:Strings.TitleEditorUnderline}" ToolTip.Tip="{x:Static str:Strings.TitleEditorUnderline}">
+          <TextBlock Text="{x:Static str:Strings.TitleEditorU}" TextDecorations="Underline" FontWeight="Bold" FontFamily="fonts:AvaMovieMaker#Liberation Serif" Foreground="#1E3C8C" />
+        </ToggleButton>
+      </StackPanel>
+      <Grid ColumnDefinitions="98,170,74,*" RowDefinitions="Auto,Auto" Margin="0,6,0,0">
+        <TextBlock Text="{x:Static str:Strings.TitleEditorColor}" />
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="4">
+          <Button Classes="mm-flat" Command="{Binding PickTextColorCommand}" AutomationProperties.Name="{x:Static str:Strings.TitleEditorTextColorName}" ToolTip.Tip="{x:Static str:Strings.TitleEditorChangeTheTextColor}">
+            <c:ColorSwatch Kind="text" Color="{Binding TextColor}" />
+          </Button>
+          <Button Classes="mm-flat" Command="{Binding PickBackgroundColorCommand}" IsEnabled="{Binding IsFullFrame}"
+                  AutomationProperties.Name="{x:Static str:Strings.TitleEditorBackgroundColorName}" ToolTip.Tip="{x:Static str:Strings.TitleEditorChangeTheBackgroundColor}">
+            <c:ColorSwatch Kind="background" Color="{Binding BackgroundColor}" />
+          </Button>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+          <TextBlock Text="{x:Static str:Strings.TitleEditorTransparency}" />
+          <TextBlock Text="{Binding Transparency, StringFormat='{}{0}%'}" />
+        </StackPanel>
+        <Slider Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Transparency}" Width="146" HorizontalAlignment="Left"
+                IsSnapToTickEnabled="True" TickFrequency="1" AutomationProperties.Name="{x:Static str:Strings.TitleEditorTransparencyName}" />
+        <TextBlock Grid.Column="2" Text="{x:Static str:Strings.TitleEditorSize}" />
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" Spacing="2">
+          <Button Classes="mm-flat" Command="{Binding IncreaseSizeCommand}" AutomationProperties.Name="{x:Static str:Strings.TitleEditorIncreaseTextSizeName}" ToolTip.Tip="{x:Static str:Strings.TitleEditorIncreaseTheTextSize}">
+            <c:Glyph Kind="font-grow" />
+          </Button>
+          <Button Classes="mm-flat" Command="{Binding DecreaseSizeCommand}" AutomationProperties.Name="{x:Static str:Strings.TitleEditorDecreaseTextSizeName}" ToolTip.Tip="{x:Static str:Strings.TitleEditorDecreaseTheTextSize}">
+            <c:Glyph Kind="font-shrink" />
+          </Button>
+        </StackPanel>
+        <TextBlock Grid.Column="3" Text="{x:Static str:Strings.TitleEditorPosition}" />
+        <StackPanel Grid.Row="1" Grid.Column="3" Orientation="Horizontal" Spacing="2">
+          <ToggleButton Classes="mm-flat" IsChecked="{Binding AlignLeft}" AutomationProperties.Name="{x:Static str:Strings.TitleEditorAlignLeftName}" ToolTip.Tip="{x:Static str:Strings.TitleEditorLeft}">
+            <c:Glyph Kind="align-left" />
+          </ToggleButton>
+          <ToggleButton Classes="mm-flat" IsChecked="{Binding AlignCenter}" AutomationProperties.Name="{x:Static str:Strings.TitleEditorCenter}" ToolTip.Tip="{x:Static str:Strings.TitleEditorCenter}">
+            <c:Glyph Kind="align-center" />
+          </ToggleButton>
+          <ToggleButton Classes="mm-flat" IsChecked="{Binding AlignRight}" AutomationProperties.Name="{x:Static str:Strings.TitleEditorAlignRightName}" ToolTip.Tip="{x:Static str:Strings.TitleEditorRight}">
+            <c:Glyph Kind="align-right" />
+          </ToggleButton>
+        </StackPanel>
+      </Grid>
+    </StackPanel>
+
+    <StackPanel IsVisible="{Binding !IsPlacementPage}" Margin="5,16,0,0" Spacing="6">
+      <TextBlock Text="{x:Static str:Strings.TitleEditorMoreOptions}" />
+      <StackPanel Margin="10,0,0,0" Spacing="6">
+        <Button Classes="mm-hyperlink" Content="{x:Static str:Strings.TitleEditorEditTheTitleText}" Command="{Binding ShowTextCommand}" IsVisible="{Binding !IsTextPage}" />
+        <Button Classes="mm-hyperlink" Content="{x:Static str:Strings.TitleEditorChangeTheTitleAnimation}" Command="{Binding ShowAnimationsCommand}" IsVisible="{Binding !IsAnimationPage}" />
+        <Button Classes="mm-hyperlink" Content="{x:Static str:Strings.TitleEditorChangeTheTextFontAndColor}" Command="{Binding ShowFontsCommand}" IsVisible="{Binding !IsFontPage}" />
+      </StackPanel>
+    </StackPanel>
+
+    <Border Height="1" Background="{DynamicResource MmFlowRuleBrush}" Margin="0,18,0,12" />
+    <StackPanel Orientation="Horizontal" Spacing="13">
+      <Button Content="{Binding AddText}" Command="{Binding AddCommand}" IsVisible="{Binding !IsPlacementPage}" MinWidth="67" IsDefault="True" />
+      <Button Content="{x:Static str:Strings.ButtonCancel}" Command="{Binding CancelCommand}" MinWidth="67" IsCancel="True" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

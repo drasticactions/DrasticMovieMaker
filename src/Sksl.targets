@@ -1,0 +1,44 @@
+<Project>
+  <!--
+    This file compiles Shaders/*.sksl into a generated SkslSources class of raw string constants. As a result, the
+    shaders ship inside the assembly without manifest resources or reflection. Import this file after you set
+    SkslNamespace.
+  -->
+  <ItemGroup>
+    <SkslSource Include="Shaders\*.sksl" />
+    <None Remove="Shaders\*.sksl" />
+    <AdditionalFiles Include="Shaders\*.sksl" />
+  </ItemGroup>
+
+  <Target Name="GenerateSkslSources" BeforeTargets="CoreCompile" Inputs="@(SkslSource);$(MSBuildThisFileFullPath)" Outputs="$(IntermediateOutputPath)SkslSources.g.cs">
+    <ItemGroup>
+      <_SkslCase Include="@(SkslSource)">
+        <Code>$([System.IO.File]::ReadAllText('%(FullPath)'))</Code>
+      </_SkslCase>
+    </ItemGroup>
+    <PropertyGroup>
+      <_SkslCases>@(_SkslCase->'        "%(Filename)" => """%0A%(Code)%0A""",', '%0A')</_SkslCases>
+      <_SkslText>// &lt;auto-generated /&gt; from Shaders/*.sksl by Sksl.targets.
+namespace $(SkslNamespace)%3B
+
+internal static class SkslSources
+{
+    /// &lt;summary&gt;The SkSL source of Shaders/&lt;name&gt;.sksl.&lt;/summary&gt;
+    public static string Get(string name) => name switch
+    {
+$(_SkslCases)
+        _ => throw new System.ArgumentException("No shader named " + name, nameof(name)),
+    }%3B
+}
+</_SkslText>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(IntermediateOutputPath)SkslSources.g.cs" Lines="$([MSBuild]::Escape($(_SkslText)))" Overwrite="true" WriteOnlyWhenDifferent="true" />
+  </Target>
+
+  <Target Name="IncludeSkslSources" BeforeTargets="CoreCompile" DependsOnTargets="GenerateSkslSources">
+    <ItemGroup>
+      <Compile Include="$(IntermediateOutputPath)SkslSources.g.cs" Exclude="@(Compile)" />
+      <FileWrites Include="$(IntermediateOutputPath)SkslSources.g.cs" />
+    </ItemGroup>
+  </Target>
+</Project>

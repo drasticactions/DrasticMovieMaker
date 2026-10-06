@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.AutoMovie"
+             xmlns:am="using:AvaMovieMaker.Timeline.AutoMovie"
+             xmlns:m="using:AvaMovieMaker.Timeline.Model"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             x:Class="AvaMovieMaker.Views.AutoMovieView"
+             x:DataType="vm:AutoMovieViewModel"
+             Background="{DynamicResource MmPaneBrush}"
+             AutomationProperties.Name="{x:Static str:Strings.TaskAutoMovie}">
+  <StackPanel Margin="35,10,0,0" Width="438" HorizontalAlignment="Left">
+    <TextBlock Classes="mm-flow-heading" Text="{Binding Heading}" Margin="0,0,0,12" />
+
+    <Border IsVisible="{Binding IsStylePage}" BorderBrush="{DynamicResource MmListBorderBrush}" BorderThickness="1" Height="173" Background="White">
+      <Panel>
+      <Border Width="1" Background="#E5E5E5" HorizontalAlignment="Left" Margin="135,0,0,0" />
+      <DockPanel>
+        <Grid DockPanel.Dock="Top" ColumnDefinitions="135,*" Height="21">
+          <TextBlock Text="{x:Static str:Strings.ColumnName}" Margin="7,0,0,0" VerticalAlignment="Center" />
+          <TextBlock Grid.Column="1" Text="{x:Static str:Strings.AutoMovieDescription}" Margin="7,0,0,0" VerticalAlignment="Center" />
+        </Grid>
+        <ListBox ItemsSource="{Binding Styles}" SelectedItem="{Binding SelectedStyle}" BorderThickness="0" AutomationProperties.Name="{x:Static str:Strings.AutoMovieAutoMovieEditingStylesName}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+          <ListBox.Styles>
+            <Style Selector="ListBoxItem">
+              <Setter Property="Padding" Value="6,0,2,0" />
+              <Setter Property="MinHeight" Value="19" />
+              <Setter Property="Height" Value="19" />
+            </Style>
+          </ListBox.Styles>
+          <ListBox.ItemTemplate>
+            <DataTemplate x:DataType="am:AutoMovieStyle">
+              <Grid ColumnDefinitions="135,*">
+                <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+                <TextBlock Grid.Column="1" Text="{Binding Description}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+              </Grid>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </DockPanel>
+      </Panel>
+    </Border>
+
+    <TextBox IsVisible="{Binding IsTitlePage}" Text="{Binding Title}" Height="75" AcceptsReturn="True" TextWrapping="Wrap"
+             ScrollViewer.VerticalScrollBarVisibility="Visible" AutomationProperties.Name="{x:Static str:Strings.AutoMovieMovieTitleName}" />
+
+    <StackPanel IsVisible="{Binding IsMusicPage}">
+      <TextBlock Text="{x:Static str:Strings.AutoMovieAudioAndMusicFiles}" Margin="1,0,0,6" />
+      <StackPanel Orientation="Horizontal" Spacing="11">
+        <ComboBox ItemsSource="{Binding MusicChoices}" SelectedItem="{Binding Music}" Width="309"
+                  AutomationProperties.Name="{x:Static str:Strings.AutoMovieAudioAndMusicFilesName}">
+          <ComboBox.ItemTemplate>
+            <DataTemplate x:DataType="m:MediaItem">
+              <TextBlock Text="{Binding Path}" TextTrimming="CharacterEllipsis" />
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Classes="mm-hyperlink" Content="{x:Static str:Strings.AutoMovieBrowse}" Command="{Binding BrowseCommand}" VerticalAlignment="Center" />
+      </StackPanel>
+      <TextBlock Text="{x:Static str:Strings.AutoMovieAudioLevels}" Margin="1,14,0,4" />
+      <Grid ColumnDefinitions="112,152,Auto">
+        <TextBlock Text="{x:Static str:Strings.AutoMovieAudioFromVideo}" VerticalAlignment="Center" Margin="1,0,0,0" />
+        <Slider Grid.Column="1" Minimum="-1" Maximum="1" Value="{Binding AudioLevels}" AutomationProperties.Name="{x:Static str:Strings.AutoMovieAudioLevelsName}" />
+        <TextBlock Grid.Column="2" Text="{x:Static str:Strings.TrackAudioMusic}" VerticalAlignment="Center" Margin="17,0,0,0" />
+      </Grid>
+    </StackPanel>
+
+    <StackPanel Margin="5,9,0,0" Spacing="5">
+      <TextBlock Text="{x:Static str:Strings.AutoMovieMoreOptions}" />
+      <StackPanel Margin="10,0,0,0" Spacing="5">
+        <Button Classes="mm-hyperlink" Content="{x:Static str:Strings.AutoMovieSelectAnAutoMovieEditingStyle}" Command="{Binding ShowStylesCommand}" IsVisible="{Binding IsTitlePage}" />
+        <Button Classes="mm-hyperlink" Content="{x:Static str:Strings.AutoMovieEnterATitleForTheMovie}" Command="{Binding ShowTitleCommand}" IsVisible="{Binding !IsTitlePage}" />
+        <Button Classes="mm-hyperlink" Content="{x:Static str:Strings.AutoMovieSelectAnAutoMovieEditingStyle}" Command="{Binding ShowStylesCommand}" IsVisible="{Binding IsMusicPage}" />
+        <Button Classes="mm-hyperlink" Content="{x:Static str:Strings.AutoMovieSelectAudioOrBackgroundMusic}" Command="{Binding ShowMusicCommand}" IsVisible="{Binding !IsMusicPage}" />
+      </StackPanel>
+    </StackPanel>
+
+    <TextBlock Text="{Binding Status}" Margin="5,8,0,0" IsVisible="{Binding IsBusy}" />
+    <Border Height="1" Background="{DynamicResource MmFlowRuleBrush}" Margin="0,19,0,8" />
+    <StackPanel Orientation="Horizontal" Spacing="13">
+      <Button Content="{x:Static str:Strings.AutoMovieCreateAutoMovie}" Command="{Binding CreateCommand}" MinWidth="115" IsDefault="True" />
+      <Button Content="{x:Static str:Strings.ButtonCancel}" Command="{Binding CancelCommand}" MinWidth="115" IsCancel="True" IsEnabled="{Binding !IsBusy}" />
+    </StackPanel>
+  </StackPanel>
+</UserControl>

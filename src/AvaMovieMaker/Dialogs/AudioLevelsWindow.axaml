@@ -1,0 +1,19 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:str="using:AvaMovieMaker.ViewModels"
+             xmlns:aw="https://github.com/avawpf"
+             xmlns:vm="using:AvaMovieMaker.ViewModels.Dialogs"
+             xmlns:c="using:AvaMovieMaker.Controls"
+             x:Class="AvaMovieMaker.Dialogs.AudioLevelsWindow"
+             x:DataType="vm:AudioLevelsViewModel"
+             aw:WindowSettings.Title="{x:Static str:Strings.AudioLevelsWindowTitle}" aw:WindowSettings.FrameKind="Tool" aw:WindowSettings.CanResize="False" aw:WindowSettings.SizeToContent="WidthAndHeight"
+             aw:WindowSettings.WindowStartupLocation="CenterOwner" aw:WindowSettings.ShowInTaskbar="False">
+  <Canvas Width="339" Height="97">
+    <c:Glyph Canvas.Left="19" Canvas.Top="13" Kind="audio-from-video" />
+    <Slider Canvas.Left="61" Canvas.Top="20" Width="210" Minimum="-1" Maximum="1" Value="{Binding Levels}"
+            TickFrequency="0.1" TickPlacement="BottomRight" AutomationProperties.Name="{x:Static str:Strings.AudioLevelsAudioLevelsName}" />
+    <c:Glyph Canvas.Left="274" Canvas.Top="15" Kind="audio-music" />
+    <TextBlock Canvas.Left="10" Canvas.Top="73" Text="{x:Static str:Strings.AudioLevelsAudioFromVideo}" />
+    <TextBlock Canvas.Left="238" Canvas.Top="73" Width="92" Text="{x:Static str:Strings.TrackAudioMusic}" TextAlignment="Right" />
+  </Canvas>
+</UserControl>

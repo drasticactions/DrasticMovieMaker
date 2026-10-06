@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>AvaMovieMaker.Timeline</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AvaMovieMaker.Effects\AvaMovieMaker.Effects.csproj" />
+    <ProjectReference Include="..\AvaMovieMaker.Audio\AvaMovieMaker.Audio.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AvaMovieMaker.Timeline.Tests" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,31 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <AvaloniaVersion>12.1.3</AvaloniaVersion>
+    <AvaWpfVersion>0.1.3</AvaWpfVersion>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Version>0.1.0</Version>
+    <Authors>drasticactions</Authors>
+    <Product>AvaMovieMaker</Product>
+    <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
+    <AmmRepoRoot>$(MSBuildThisFileDirectory)</AmmRepoRoot>
+    <AmmSrcDir>$(MSBuildThisFileDirectory)src/</AmmSrcDir>
+    <NoWarn>$(NoWarn);CS1591;CS8002</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="$(MSBuildProjectDirectory.StartsWith('$(AmmSrcDir)'))">
+    <IsAotCompatible>true</IsAotCompatible>
+    <IsTrimmable>true</IsTrimmable>
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+    <EnableAotAnalyzer>true</EnableAotAnalyzer>
+    <ILLinkTreatWarningsAsErrors>true</ILLinkTreatWarningsAsErrors>
+  </PropertyGroup>
+
+</Project>

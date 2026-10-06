@@ -1,0 +1,24 @@
+// Time-based warps. op: 0 3D ripple (rings from the center), 1 warp (a slow wave through the frame).
+uniform shader src;
+uniform float2 resolution;
+uniform int op;
+uniform float time;
+uniform float duration;
+
+half4 main(float2 p) {
+    float2 uv = p / resolution;
+    float aspect = resolution.x / resolution.y;
+    if (op == 0) {
+        float2 d = (uv - 0.5) * float2(aspect, 1.0);
+        float r = length(d);
+        float env = sin(3.14159265 * clamp(time / max(duration, 0.001), 0.0, 1.0));
+        float wave = sin(r * 40.0 - time * 8.0) * 0.012 * env / (1.0 + r * 4.0);
+        float2 off = r > 0.0 ? d / r * wave : float2(0.0);
+        float2 q = uv + off / float2(aspect, 1.0);
+        half4 c = src.eval(q * resolution);
+        return half4(c.rgb * half(1.0 + wave * 6.0), 1.0);
+    }
+    float amp = 0.03;
+    float2 q = uv + float2(sin(uv.y * 9.0 + time * 1.7) * amp, sin(uv.x * 7.0 + time * 1.3) * amp * 0.6);
+    return src.eval(q * resolution);
+}

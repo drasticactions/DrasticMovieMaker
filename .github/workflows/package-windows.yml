@@ -1,0 +1,48 @@
+name: package-windows
+
+on:
+  workflow_dispatch:
+
+jobs:
+  ffmpeg:
+    uses: ./.github/workflows/ffmpeg-desktop.yml
+    with:
+      targets: '["win-x64"]'
+
+  zip:
+    needs: ffmpeg
+    runs-on: windows-2022
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: ffmpeg-win-x64
+          path: tools/ffmpeg/out/win-x64
+
+      - name: Signing certificate
+        env:
+          PFX: ${{ secrets.WINDOWS_CERTIFICATE_PFX }}
+          PFX_PASSWORD: ${{ secrets.WINDOWS_CERTIFICATE_PASSWORD }}
+        run: |
+          if (-not $env:PFX) { Write-Host 'No signing certificate configured: the app is unsigned.'; exit 0 }
+          $pfx = Join-Path $env:RUNNER_TEMP 'cert.pfx'
+          [IO.File]::WriteAllBytes($pfx, [Convert]::FromBase64String($env:PFX))
+          "AMM_WINDOWS_CERT=$pfx" >> $env:GITHUB_ENV
+          "AMM_WINDOWS_CERT_PASSWORD=$env:PFX_PASSWORD" >> $env:GITHUB_ENV
+
+      - name: Zip
+        run: ./tools/package-windows.ps1 -Out out
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AvaMovieMaker-win-x64
+          path: out/*.zip
+          retention-days: 30
