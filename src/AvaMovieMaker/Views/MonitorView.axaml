@@ -8,9 +8,10 @@
              Background="{DynamicResource MmMonitorBrush}"
              AutomationProperties.Name="{x:Static str:Strings.MonitorPreviewMonitorName}">
   <Grid RowDefinitions="Auto,*,Auto,Auto,61">
-    <TextBlock Grid.Row="0" Text="{Binding Caption}" HorizontalAlignment="Center" Margin="0,6,0,0" Height="20"
-               Foreground="{DynamicResource MmMonitorCaptionBrush}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
-    <c:PreviewImage Grid.Row="1" Name="Preview" Margin="19,45,19,0" Aspect="{Binding DisplayAspect}" AutomationProperties.Name="{x:Static str:Strings.MonitorPreviewVideoName}" />
+    <TextBlock Grid.Row="0" Name="Caption" Text="{Binding Caption}" ToolTip.Tip="{Binding Caption}" HorizontalAlignment="Center" Margin="0,6,0,0" Height="36"
+               Foreground="{DynamicResource MmMonitorCaptionBrush}" FontWeight="SemiBold" TextAlignment="Center" TextWrapping="Wrap" MaxLines="2"
+               TextTrimming="CharacterEllipsis" />
+    <c:PreviewImage Grid.Row="1" Name="Preview" Margin="19,29,19,0" Aspect="{Binding DisplayAspect}" AutomationProperties.Name="{x:Static str:Strings.MonitorPreviewVideoName}" />
     <TextBlock Grid.Row="2" Text="{Binding TimeText}" HorizontalAlignment="Right" Margin="0,8,22,4"
                Foreground="{DynamicResource MmMonitorTimeBrush}" FontSize="11" AutomationProperties.Name="{x:Static str:Strings.MonitorTimeName}" />
     <c:SeekBar Grid.Row="3" Margin="21,0,21,0" Height="14" Maximum="{Binding DurationSeconds}" Value="{Binding PositionSeconds}"
