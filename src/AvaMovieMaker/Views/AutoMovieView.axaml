@@ -26,14 +26,13 @@
             <Style Selector="ListBoxItem">
               <Setter Property="Padding" Value="6,0,2,0" />
               <Setter Property="MinHeight" Value="19" />
-              <Setter Property="Height" Value="19" />
             </Style>
           </ListBox.Styles>
           <ListBox.ItemTemplate>
             <DataTemplate x:DataType="am:AutoMovieStyle">
-              <Grid ColumnDefinitions="135,*">
-                <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
-                <TextBlock Grid.Column="1" Text="{Binding Description}" TextTrimming="CharacterEllipsis" VerticalAlignment="Center" />
+              <Grid ColumnDefinitions="135,*" Background="Transparent" ToolTip.Tip="{Binding Description}">
+                <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                <TextBlock Grid.Column="1" Text="{Binding Description}" TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" />
               </Grid>
             </DataTemplate>
           </ListBox.ItemTemplate>
