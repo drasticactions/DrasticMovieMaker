@@ -213,7 +213,7 @@ public sealed class DialogWindowTests
     public void Color_dialog() => WithMainWindow(w =>
     {
         var custom = new List<uint>();
-        ShowAndCheck(w, new ColorDialog(0xFF416FA6, custom));
+        ShowAndCheck(w, new ColorDialog(0xFF416FA6, custom, _ => { }));
         Assert.Equal(16, custom.Count);
     });
 
@@ -290,7 +290,7 @@ public sealed class DialogWindowTests
         {
         }
 
-        public Task<uint?> PickColorAsync(uint initial) => Task.FromResult<uint?>(null);
+        public Task<uint?> PickColorAsync(uint initial, Action<uint> changed) => Task.FromResult<uint?>(null);
 
         public void PlayMovie(string path)
         {

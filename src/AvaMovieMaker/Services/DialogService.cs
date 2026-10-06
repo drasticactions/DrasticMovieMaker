@@ -59,9 +59,9 @@ internal sealed class DialogService(Visual owner, ISettingsStore store, IFullScr
 
     public void ShowFullScreen(MonitorViewModel monitor) => fullScreen.Show(new FullScreenView(monitor), owner);
 
-    public async Task<uint?> PickColorAsync(uint initial)
+    public async Task<uint?> PickColorAsync(uint initial, Action<uint> changed)
     {
-        uint? picked = await WindowHost.ShowDialogAsync<uint?>(new ColorDialog(initial, store.Settings.CustomColors), owner);
+        uint? picked = await WindowHost.ShowDialogAsync<uint?>(new ColorDialog(initial, store.Settings.CustomColors, changed), owner);
         store.Save();
         return picked;
     }

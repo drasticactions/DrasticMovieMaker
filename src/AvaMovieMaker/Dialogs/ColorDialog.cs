@@ -22,6 +22,7 @@ public sealed class ColorDialog : UserControl
     ];
 
     private readonly List<uint> _custom;
+    private readonly Action<uint> _changed;
     private readonly WrapPanel _customPanel = new() { Width = 220 };
     private readonly Border _solid = new() { Width = 64, Height = 42, BorderBrush = Brushes.Black, BorderThickness = new Thickness(1) };
     private readonly NumericUpDown _hue = Box(239), _sat = Box(240), _lum = Box(240), _red = Box(255), _green = Box(255), _blue = Box(255);
@@ -32,7 +33,7 @@ public sealed class ColorDialog : UserControl
     private bool _syncing;
     private uint _rgb;
 
-    public ColorDialog(uint initial, List<uint> customColors)
+    public ColorDialog(uint initial, List<uint> customColors, Action<uint> changed)
     {
         WindowSettings.SetTitle(this, Strings.ColorWindowTitle);
         WindowSettings.SetFrameKind(this, WindowFrameKind.Dialog);
@@ -113,6 +114,7 @@ public sealed class ColorDialog : UserControl
 
         Content = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(10), Children = { left, _define } };
         SetRgb(initial & 0xFFFFFF);
+        _changed = changed;
     }
 
     private static NumericUpDown Box(int max) => new() { Minimum = 0, Maximum = max, Increment = 1, FormatString = "0", Width = 70, ShowButtonSpinner = false };
@@ -167,15 +169,27 @@ public sealed class ColorDialog : UserControl
 
     private void SetRgb(uint rgb)
     {
+        uint was = _rgb;
         _rgb = rgb & 0xFFFFFF;
         (int h, int s, int l) = ToHsl(_rgb);
         Sync(h, s, l);
+        Report(was);
     }
 
     private void SetHsl(int h, int s, int l)
     {
+        uint was = _rgb;
         _rgb = FromHsl(h, s, l);
         Sync(h, s, l);
+        Report(was);
+    }
+
+    private void Report(uint was)
+    {
+        if (_rgb != was)
+        {
+            _changed?.Invoke(0xFF000000 | _rgb);
+        }
     }
 
     private void Sync(int h, int s, int l)

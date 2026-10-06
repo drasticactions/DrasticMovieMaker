@@ -125,7 +125,9 @@ internal sealed class FakeDialogService : IDialogService
 
     public void ShowFullScreen(MonitorViewModel monitor) => Shown.Add(monitor);
 
-    public Task<uint?> PickColorAsync(uint initial) => Task.FromResult<uint?>(null);
+    public Func<uint, Action<uint>, uint?> PickColor { get; set; } = (_, _) => null;
+
+    public Task<uint?> PickColorAsync(uint initial, Action<uint> changed) => Task.FromResult(PickColor(initial, changed));
 
     public void PlayMovie(string path) => Shown.Add(path);
 

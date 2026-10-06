@@ -274,22 +274,18 @@ public sealed partial class TitleEditorViewModel : ObservableObject
     [RelayCommand]
     private void AddCreditRow() => Credits.Add(new CreditRowViewModel());
 
-    [RelayCommand]
+    [RelayCommand(AllowConcurrentExecutions = true)]
     private async Task PickTextColorAsync()
     {
-        if (await _dialogs.PickColorAsync(TextColor) is { } c)
-        {
-            TextColor = c;
-        }
+        uint original = TextColor;
+        TextColor = await _dialogs.PickColorAsync(original, c => TextColor = c) ?? original;
     }
 
-    [RelayCommand]
+    [RelayCommand(AllowConcurrentExecutions = true)]
     private async Task PickBackgroundColorAsync()
     {
-        if (await _dialogs.PickColorAsync(BackgroundColor) is { } c)
-        {
-            BackgroundColor = c;
-        }
+        uint original = BackgroundColor;
+        BackgroundColor = await _dialogs.PickColorAsync(original, c => BackgroundColor = c) ?? original;
     }
 
     public TitleContent ToContent() => new()

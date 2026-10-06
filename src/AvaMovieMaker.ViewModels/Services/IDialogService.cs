@@ -25,7 +25,7 @@ public interface IDialogService
 
     void ShowFullScreen(Preview.MonitorViewModel monitor);
 
-    Task<uint?> PickColorAsync(uint initial);
+    Task<uint?> PickColorAsync(uint initial, Action<uint> changed);
 
     void PlayMovie(string path);
 
