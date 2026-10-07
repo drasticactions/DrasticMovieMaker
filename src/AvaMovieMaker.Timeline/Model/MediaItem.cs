@@ -10,11 +10,11 @@ public sealed record MediaItem
 
     public MediaKind Kind { get; init; }
 
-    public string Path { get; init; } = string.Empty;
+    public string Path { get; init => field = value ?? string.Empty; } = string.Empty;
 
     public string? RelativePath { get; init; }
 
-    public string Name { get; init; } = string.Empty;
+    public string Name { get; init => field = value ?? string.Empty; } = string.Empty;
 
     public MediaTime Duration { get; init; }
 
@@ -22,7 +22,7 @@ public sealed record MediaItem
 
     public AudioProperties? Audio { get; init; }
 
-    public IReadOnlyList<SourceClip> Clips { get; init; } = [];
+    public IReadOnlyList<SourceClip> Clips { get; init => field = value ?? []; } = [];
 
     public DateTimeOffset ImportedAt { get; init; } = DateTimeOffset.Now;
 

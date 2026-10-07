@@ -513,6 +513,7 @@ public sealed class PreviewImage : Control, IPreviewSurface
         if (change.Property == AspectProperty)
         {
             PlaceVisual();
+            ReportSize();
         }
     }
 

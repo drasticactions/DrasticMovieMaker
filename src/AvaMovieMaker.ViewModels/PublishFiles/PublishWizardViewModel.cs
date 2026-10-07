@@ -53,7 +53,7 @@ public sealed partial class PublishWizardViewModel : ObservableObject
         AddFolder(Path.Combine(AppPaths.HomeDir, "Desktop"), Strings.FolderDesktop);
         AddFolder(AppPaths.HomeDir, Strings.FolderHome);
         AddFolder(initial);
-        Profiles = PublishProfiles.All.Select(p => new ProfileOption(p, MovieEncoder.MissingEncoder(p.Encoder(session.Project.Settings, false, new Dictionary<string, string>())))).ToList();
+        Profiles = PublishProfiles.All.Where(p => p.IsAvailableFor(session.Project.Settings.Aspect)).Select(p => new ProfileOption(p, MovieEncoder.MissingEncoder(p.Encoder(session.Project.Settings, false, new Dictionary<string, string>())))).ToList();
         MoreProfiles = Profiles.Where(p => p.Profile != PublishProfiles.Recommended).ToList();
         SelectedProfile = MoreProfiles.FirstOrDefault(p => p.IsAvailable) ?? Profiles[0];
         Page = PublishPage.Where;
@@ -334,7 +334,7 @@ public sealed partial class PublishWizardViewModel : ObservableObject
                 (Strings.PublishFileType, p.FileTypeName),
                 (Strings.PublishBitRate, Mode == PublishMode.Best ? Strings.VariableBitRate : PublishProfile.FormatBitrate(p.EstimatedVideoBitrate + p.AudioBitrate)),
                 (Strings.PublishDisplaySize, string.Format(CultureInfo.CurrentCulture, Strings.DisplaySize, w, h)),
-                (Strings.PublishAspectRatio, ps.Aspect == AspectRatio.Widescreen16x9 ? "16:9" : "4:3"),
+                (Strings.PublishAspectRatio, AspectRatios.Label(ps.Aspect)),
                 (Strings.PublishFramesPerSecond, Math.Round(ps.FrameRate.ToDouble()).ToString(CultureInfo.CurrentCulture)),
                 (Strings.PublishSpaceRequired, FormatBytes(bytes)),
                 (Strings.PublishSpaceAvailable, free),
@@ -344,7 +344,7 @@ public sealed partial class PublishWizardViewModel : ObservableObject
 
     private (int, int)? LargestSource() =>
         _session.Project.Media.Where(m => m.Video is not null && m.Kind == MediaKind.Video)
-            .Select(m => (m.Video!.Width, m.Video.Height)).OrderByDescending(s => s.Width * s.Height).Cast<(int, int)?>().FirstOrDefault();
+            .Select(m => m.Video!.DisplaySize).OrderByDescending(s => s.Width * s.Height).Cast<(int, int)?>().FirstOrDefault();
 
     private static string FormatBytes(long b) =>
         string.Format(CultureInfo.CurrentCulture, b >= 1 << 30 ? Strings.SizeGigabytes : Strings.SizeMegabytes, b / (double)(b >= 1 << 30 ? 1 << 30 : 1 << 20));

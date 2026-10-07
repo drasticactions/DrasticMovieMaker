@@ -1,10 +1,11 @@
+using AvaMovieMaker.Rendering.Compositing;
 using AvaMovieMaker.Time;
 
 namespace AvaMovieMaker.Rendering.Plan;
 
 public abstract record ClipSource;
 
-public sealed record MediaSource(string Path, MediaTime SourceTime, bool IsPicture) : ClipSource;
+public sealed record MediaSource(string Path, MediaTime SourceTime, bool IsPicture, FrameFitMode Fit = FrameFitMode.Fit) : ClipSource;
 
 public sealed record TitleSource(object Content, double LocalTime, double Duration) : ClipSource;
 

@@ -13,4 +13,6 @@ public enum EffectFamily
     Film,
 
     Speed,
+
+    Framing,
 }

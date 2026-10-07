@@ -1,4 +1,5 @@
 using AvaMovieMaker.Audio.Mixing;
+using AvaMovieMaker.Effects.Catalog;
 using AvaMovieMaker.Media;
 using AvaMovieMaker.Media.Decoding;
 using AvaMovieMaker.Time;
@@ -30,7 +31,8 @@ public static class RenderPlanner
                 Title = c.Kind == VideoClipKind.Title ? c.Title : null,
                 SourceIn = c.In,
                 Speed = c.Speed,
-                Effects = c.Effects.Select(e => e.EffectId).ToList(),
+                Effects = c.Effects.Select(e => e.EffectId).Where(e => !EffectCatalog.IsFraming(e)).ToList(),
+                Fit = EffectCatalog.FitOf(c.Effects.Select(e => e.EffectId)),
                 TransitionId = c.TransitionIn?.TransitionId,
                 TransitionLength = layout.Transitions[i],
                 FadeIn = c.VideoFadeIn,

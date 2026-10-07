@@ -47,15 +47,17 @@ public class EncodeTests
         Assert.InRange(bgra[2], 112, 128);
     }
 
-    [Fact]
-    public void HardwareEncoderRoundTrip()
+    [Theory]
+    [InlineData(320, 240)]
+    [InlineData(1080, 1920)]
+    public void HardwareEncoderRoundTrip(int width, int height)
     {
         using var temp = new TempFolder();
         var settings = new EncoderSettings
         {
             Container = ContainerFormat.Mp4,
-            Width = 320,
-            Height = 240,
+            Width = width,
+            Height = height,
             FrameRate = Rational.Pal,
             HardwareEncode = true,
         };
@@ -73,7 +75,8 @@ public class EncodeTests
         Encode(path, settings);
 
         MediaInfo info = MediaProbe.Probe(path);
-        Assert.Equal(320, info.Video!.Width);
+        Assert.Equal(width, info.Video!.Width);
+        Assert.Equal(height, info.Video.Height);
         Assert.InRange(info.Duration.Seconds, 0.95, 1.1);
 
         using var dec = new VideoDecoder(path, allowHardware: true);

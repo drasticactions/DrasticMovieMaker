@@ -10,7 +10,8 @@ public sealed record EffectInfo
 
     public string NeutralName => Strings.ResourceManager.GetString(NameKey, System.Globalization.CultureInfo.InvariantCulture) ?? NameKey;
 
-    public required string MswmmId { get; init; }
+    // Empty for effects the legacy project format has no equivalent for.
+    public string MswmmId { get; init; } = string.Empty;
 
     public required EffectFamily Family { get; init; }
 

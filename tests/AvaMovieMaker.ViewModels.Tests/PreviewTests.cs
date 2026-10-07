@@ -4,9 +4,11 @@ using AvaMovieMaker.Media;
 using AvaMovieMaker.TestSupport;
 using AvaMovieMaker.Time;
 using AvaMovieMaker.Timeline.Model;
+using AvaMovieMaker.Timeline.Planning;
 using AvaMovieMaker.Timeline.Playback;
 using AvaMovieMaker.ViewModels.Contents;
 using AvaMovieMaker.ViewModels.Preview;
+using AvaMovieMaker.ViewModels.Shell;
 using AvaMovieMaker.ViewModels.Timeline;
 using SkiaSharp;
 
@@ -21,7 +23,7 @@ public sealed class PreviewTests
             h.Session.Editor.AddTitle(new TitleContent { Lines = [$"t{i}"] }, null, MediaTime.Zero);
         }
 
-        string path = SamplePictures.For(widescreen: false).First;
+        string path = SamplePictures.For(AspectRatio.Standard4x3).First;
         h.Session.Editor.ImportMedia([new MediaItem { Kind = MediaKind.Picture, Path = path, Name = "flower" }]);
         h.Shell.Monitor.ShowProject(seekStart: true);
         return ([.. h.Session.Project.VideoTrack.Select(c => c.Id)], h.Shell.Contents.Items.Single());
@@ -253,19 +255,39 @@ public sealed class PreviewTests
     }
 
     [Theory]
-    [InlineData(false, 480)]
-    [InlineData(true, 360)]
-    public void Sample_pictures_are_our_own_drawings_at_the_project_aspect(bool widescreen, int height)
+    [InlineData(AspectRatio.Standard4x3, 640, 480, "4x3")]
+    [InlineData(AspectRatio.Widescreen16x9, 640, 360, "16x9")]
+    [InlineData(AspectRatio.Vertical9x16, 360, 640, "9x16")]
+    [InlineData(AspectRatio.Square1x1, 640, 640, "1x1")]
+    [InlineData(AspectRatio.Portrait4x5, 512, 640, "4x5")]
+    public void Sample_pictures_are_our_own_drawings_at_the_project_aspect(AspectRatio aspect, int width, int height, string tag)
     {
-        (string a, string b) = SamplePictures.For(widescreen);
+        (string a, string b) = SamplePictures.For(aspect);
         Assert.StartsWith(AppPaths.CacheDir, a, StringComparison.Ordinal);
         Assert.NotEqual(a, b);
+        Assert.Contains($"-{tag}-v1.png", a, StringComparison.Ordinal);
         foreach (string p in new[] { a, b })
         {
             using SKBitmap bmp = SKBitmap.Decode(p);
-            Assert.Equal(640, bmp.Width);
+            Assert.Equal(width, bmp.Width);
             Assert.Equal(height, bmp.Height);
         }
+    }
+
+    [Theory]
+    [InlineData(AspectRatio.Standard4x3, AspectRatio.Vertical9x16)]
+    [InlineData(AspectRatio.Widescreen16x9, AspectRatio.Vertical9x16)]
+    [InlineData(AspectRatio.Vertical9x16, AspectRatio.Widescreen16x9)]
+    [InlineData(AspectRatio.Square1x1, AspectRatio.Widescreen16x9)]
+    [InlineData(AspectRatio.Portrait4x5, AspectRatio.Widescreen16x9)]
+    public void Framing_effects_preview_on_pictures_of_the_other_orientation(AspectRatio project, AspectRatio sample)
+    {
+        Assert.Equal(SamplePictures.For(sample), SamplePictures.Other(project));
+        RenderPlan plan = ShellViewModel.CatalogSamplePlan("fill-frame", false, new ProjectSettings { Aspect = project });
+        Assert.Equal(SamplePictures.For(sample).First, plan.Video[0].Path);
+        Assert.Equal(AvaMovieMaker.Rendering.Compositing.FrameFitMode.Fill, plan.Video[0].Fit);
+        RenderPlan sepia = ShellViewModel.CatalogSamplePlan("sepia-tone", false, new ProjectSettings { Aspect = project });
+        Assert.Equal(SamplePictures.For(project).First, sepia.Video[0].Path);
     }
 
     [Fact]

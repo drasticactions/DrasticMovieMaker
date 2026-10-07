@@ -606,4 +606,10 @@
   <data name="TitleAnimationCreditsZoomInDescription" xml:space="preserve">
     <value>Each credit shrinks into place from large.</value>
   </data>
+  <data name="EffectFillFrame" xml:space="preserve">
+    <value>Fill Frame</value>
+  </data>
+  <data name="EffectBlurredBackground" xml:space="preserve">
+    <value>Blurred Background</value>
+  </data>
 </root>

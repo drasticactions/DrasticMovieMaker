@@ -49,12 +49,12 @@
               <StackPanel Spacing="8" Margin="10">
                 <TextBlock TextWrapping="Wrap" Text="{x:Static str:Strings.OptionsADefaultDurationWillBeAssigned}" Margin="0,0,0,12" />
                 <Grid ColumnDefinitions="114,Auto,Auto" RowDefinitions="Auto,Auto" RowSpacing="6">
-                  <TextBlock Text="{x:Static str:Strings.OptionsPictureDuration}" VerticalAlignment="Center" />
-                  <NumericUpDown Grid.Column="1" Value="{Binding PictureSeconds}" Minimum="0.125" Maximum="30" Increment="0.25" Width="70"
+                  <Label Content="{x:Static str:Strings.OptionsPictureDuration}" Target="PictureBox" VerticalAlignment="Center" Padding="0" />
+                  <NumericUpDown Grid.Column="1" Name="PictureBox" Value="{Binding PictureSeconds}" Minimum="0.125" Maximum="30" Increment="0.25" Width="70"
                                  AutomationProperties.Name="{x:Static str:Strings.OptionsPictureDurationName}" />
                   <TextBlock Grid.Column="2" Text="{x:Static str:Strings.UnitSeconds}" VerticalAlignment="Center" Margin="12,0,0,0" />
-                  <TextBlock Grid.Row="1" Text="{x:Static str:Strings.OptionsTransitionDuration}" VerticalAlignment="Center" />
-                  <NumericUpDown Grid.Row="1" Grid.Column="1" Value="{Binding TransitionSeconds}" Minimum="0.25" Maximum="30" Increment="0.25" Width="70"
+                  <Label Grid.Row="1" Content="{x:Static str:Strings.OptionsTransitionDuration}" Target="TransitionBox" VerticalAlignment="Center" Padding="0" />
+                  <NumericUpDown Grid.Row="1" Grid.Column="1" Name="TransitionBox" Value="{Binding TransitionSeconds}" Minimum="0.25" Maximum="30" Increment="0.25" Width="70"
                                  AutomationProperties.Name="{x:Static str:Strings.OptionsTransitionDurationName}" />
                   <TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Static str:Strings.UnitSeconds}" VerticalAlignment="Center" Margin="12,0,0,0" />
                 </Grid>
@@ -67,9 +67,9 @@
                   <TextBlock Text="{x:Static str:Strings.OptionsVideoFormat}" VerticalAlignment="Center" />
                   <RadioButton Grid.Column="1" GroupName="format" Content="{x:Static str:Strings.OptionsNTSC}" IsChecked="{Binding !IsPal}" />
                   <RadioButton Grid.Column="2" GroupName="format" Content="{x:Static str:Strings.OptionsPAL}" IsChecked="{Binding IsPal}" />
-                  <TextBlock Grid.Row="1" Text="{x:Static str:Strings.OptionsAspectRatio}" VerticalAlignment="Center" />
-                  <RadioButton Grid.Row="1" Grid.Column="1" GroupName="aspect" Content="_4:3" IsChecked="{Binding !IsWidescreen}" />
-                  <RadioButton Grid.Row="1" Grid.Column="2" GroupName="aspect" Content="16:_9" IsChecked="{Binding IsWidescreen}" />
+                  <Label Grid.Row="1" Content="{x:Static str:Strings.OptionsAspectRatio}" Target="AspectBox" VerticalAlignment="Center" Padding="0" />
+                  <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="AspectBox" ItemsSource="{Binding Aspects}" SelectedItem="{Binding SelectedAspect}"
+                            MinWidth="160" HorizontalAlignment="Left" />
                 </Grid>
               </StackPanel>
             </GroupBox>

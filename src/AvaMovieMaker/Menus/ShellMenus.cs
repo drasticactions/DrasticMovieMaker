@@ -1,5 +1,7 @@
 using System.Windows.Input;
 using Avalonia.Data;
+using AvaMovieMaker.Rendering.Compositing;
+using AvaMovieMaker.Timeline.Model;
 using AvaMovieMaker.ViewModels;
 using AvaMovieMaker.ViewModels.Contents;
 using AvaMovieMaker.ViewModels.Shell;
@@ -60,6 +62,12 @@ public static class ShellMenus
         Menu(Strings.PreviewMonitorSize, null,
             Radio(Item(Strings.MonitorSmall, Strings.PromptMonitorSmall, s.SetMonitorSizeCommand, parameter: "small"), "monitor", MenuBindings.Not(s, nameof(s.LargeMonitor), x => x.LargeMonitor)),
             Radio(Item(Strings.MonitorLarge, Strings.PromptMonitorLarge, s.SetMonitorSizeCommand, parameter: "large"), "monitor", Of(s, nameof(s.LargeMonitor), x => x.LargeMonitor))),
+        Menu(Strings.AspectRatioMenu, null,
+            AspectItem(s, AspectRatio.Standard4x3, Strings.AspectStandard, Strings.PromptAspectStandard),
+            AspectItem(s, AspectRatio.Widescreen16x9, Strings.AspectWidescreen, Strings.PromptAspectWidescreen),
+            AspectItem(s, AspectRatio.Vertical9x16, Strings.AspectVertical, Strings.PromptAspectVertical),
+            AspectItem(s, AspectRatio.Square1x1, Strings.AspectSquare, Strings.PromptAspectSquare),
+            AspectItem(s, AspectRatio.Portrait4x5, Strings.AspectPortrait, Strings.PromptAspectPortrait)),
         Item(Strings.FullScreen, Strings.PromptFullScreen, s.Monitor.FullScreenCommand, "Alt+Enter"),
         Separator(),
         Check(Item(Strings.StatusBar, Strings.PromptStatusBar, s.ToggleStatusBarCommand), Of(s, nameof(s.ShowStatusBar), x => x.ShowStatusBar)),
@@ -108,7 +116,11 @@ public static class ShellMenus
         Menu(Strings.Video, null,
             Item(Strings.VideoEffects, Strings.PromptVideoEffects, s.VideoEffectsCommand),
             Item(Strings.FadeIn, Strings.PromptVideoFadeIn, s.VideoFadeInCommand),
-            Item(Strings.FadeOut, Strings.PromptVideoFadeOut, s.VideoFadeOutCommand)),
+            Item(Strings.FadeOut, Strings.PromptVideoFadeOut, s.VideoFadeOutCommand),
+            Menu(Strings.FitMenu, null,
+                FitItem(s, FrameFitMode.Fit, Strings.FitBars, Strings.PromptFitBars),
+                FitItem(s, FrameFitMode.Fill, Strings.FitFill, Strings.PromptFitFill),
+                FitItem(s, FrameFitMode.Blur, Strings.FitBlur, Strings.PromptFitBlur)) with { IsEnabledBinding = Of(s, nameof(s.CanFit), x => x.CanFit) }),
         Separator(),
         Item(Strings.TrimBeginning, Strings.PromptTrimBeginning, s.TrimBeginningCommand, "I"),
         Item(Strings.TrimEnd, Strings.PromptTrimEnd, s.TrimEndCommand, "O"),
@@ -147,6 +159,12 @@ public static class ShellMenus
                 CommandParameter = path,
                 ToolTip = path,
             })];
+
+    private static MenuItemEntry AspectItem(ShellViewModel s, AspectRatio aspect, string header, string prompt) =>
+        Radio(Item(header, prompt, s.SetAspectRatioCommand, parameter: aspect), "aspect", Of(s, nameof(s.Aspect), x => x.Aspect == aspect));
+
+    private static MenuItemEntry FitItem(ShellViewModel s, FrameFitMode mode, string header, string prompt) =>
+        Radio(Item(header, prompt, s.SetFitCommand, parameter: mode), "fit", Of(s, nameof(s.SelectedFit), x => x.SelectedFit == mode));
 
     private static MenuItemEntry Menu(string header, string? name, params MenuEntry[] items) =>
         new(header) { Name = name, Items = items };

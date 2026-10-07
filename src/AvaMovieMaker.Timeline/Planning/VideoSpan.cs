@@ -1,4 +1,5 @@
 using AvaMovieMaker.Effects.Titles;
+using AvaMovieMaker.Rendering.Compositing;
 using AvaMovieMaker.Rendering.Plan;
 using AvaMovieMaker.Time;
 
@@ -26,6 +27,8 @@ public sealed record VideoSpan
 
     public IReadOnlyList<string> Effects { get; init; } = [];
 
+    public FrameFitMode Fit { get; init; }
+
     public string? TransitionId { get; init; }
 
     public MediaTime TransitionLength { get; init; }
@@ -46,7 +49,7 @@ public sealed record VideoSpan
         double len = Length.Seconds;
         ClipSource source = Title is not null ? new TitleSource(Title, local, len)
             : Path is null ? BlackSource.Instance
-            : new MediaSource(Path, IsPicture ? MediaTime.Zero : SourceTimeAt(t), IsPicture);
+            : new MediaSource(Path, IsPicture ? MediaTime.Zero : SourceTimeAt(t), IsPicture, Fit);
         var effects = Effects.Select(e => new EffectInstance(e, local, len)).ToList();
         float level = 1f;
         double fade = Math.Min(VideoFadeLength.Seconds, len / 2);

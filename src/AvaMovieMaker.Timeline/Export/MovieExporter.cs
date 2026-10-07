@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using AvaMovieMaker.Audio.Mixing;
+using AvaMovieMaker.Diagnostics;
+using AvaMovieMaker.Media.FFmpeg;
 using AvaMovieMaker.Media.Encoders;
 using AvaMovieMaker.Rendering.Compositing;
 using AvaMovieMaker.Rendering.Gpu;
@@ -18,6 +20,21 @@ public static class MovieExporter
     public static void Export(RenderDevice device, IEffectLibrary effects, IFrameProvider frames, RenderPlan plan,
         EncoderSettings settings, string path, IProgress<ExportProgress>? progress = null, CancellationToken cancel = default,
         MediaTime? limit = null)
+    {
+        try
+        {
+            ExportOnce(device, effects, frames, plan, settings, path, progress, cancel, limit);
+        }
+        catch (FFmpegException e) when (settings.HardwareEncode && !cancel.IsCancellationRequested)
+        {
+            // Drivers can refuse a frame size or format the software encoder handles, so retry without the hardware.
+            Log.Warn("encode", $"Hardware encoding failed ({e.Message}); encoding in software instead.");
+            ExportOnce(device, effects, frames, plan, settings with { HardwareEncode = false }, path, progress, cancel, limit);
+        }
+    }
+
+    private static void ExportOnce(RenderDevice device, IEffectLibrary effects, IFrameProvider frames, RenderPlan plan,
+        EncoderSettings settings, string path, IProgress<ExportProgress>? progress, CancellationToken cancel, MediaTime? limit)
     {
         Rational rate = settings.FrameRate;
         MediaTime duration = limit is { } l ? MediaTime.Min(l, plan.Duration) : plan.Duration;

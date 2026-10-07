@@ -41,8 +41,9 @@ public sealed class InWindowMenuHost : IMenuHost
         {
             Name = e.Name,
             Header = e.Header,
-            Command = e.Command,
+            // The parameter goes first: setting Command asks CanExecute, which is false for a null value-type parameter.
             CommandParameter = e.CommandParameter,
+            Command = e.Command,
             InputGesture = e.Shortcut?.Gesture,
             IsEnabled = e.IsEnabled,
             ToggleType = e.Toggle switch
@@ -67,6 +68,7 @@ public sealed class InWindowMenuHost : IMenuHost
         Bind(item, MenuItem.HeaderProperty, e.HeaderBinding);
         Bind(item, MenuItem.IsCheckedProperty, e.IsChecked);
         Bind(item, Avalonia.Visual.IsVisibleProperty, e.IsVisible);
+        Bind(item, Avalonia.Input.InputElement.IsEnabledProperty, e.IsEnabledBinding);
         foreach (MenuEntry child in e.Items)
         {
             item.Items.Add(Create(child));

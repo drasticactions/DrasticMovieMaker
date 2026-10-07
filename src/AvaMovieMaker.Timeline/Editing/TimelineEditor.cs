@@ -1,6 +1,7 @@
 using AvaMovieMaker.Effects.Catalog;
 using AvaMovieMaker.Effects.Titles;
 using AvaMovieMaker.Media;
+using AvaMovieMaker.Rendering.Compositing;
 using AvaMovieMaker.Time;
 using AvaMovieMaker.Timeline.Model;
 using AvaMovieMaker.Undo;
@@ -659,7 +660,7 @@ public sealed class TimelineEditor(Project project, UndoStack undo)
             return false;
         }
 
-        var targets = clipIds.Where(id => Project.IndexOfVideo(id) >= 0 && Project.VideoTrack[Project.IndexOfVideo(id)].Effects.Count < MaxEffects).ToList();
+        var targets = clipIds.Where(id => Project.IndexOfVideo(id) >= 0 && CanAdd(Project.VideoTrack[Project.IndexOfVideo(id)], effectId)).ToList();
         if (targets.Count == 0)
         {
             return false;
@@ -670,10 +671,52 @@ public sealed class TimelineEditor(Project project, UndoStack undo)
             foreach (Guid id in targets)
             {
                 int j = p.IndexOfVideo(id);
-                VideoClip c = p.VideoTrack[j];
-                p.VideoTrack[j] = c with { Effects = [.. c.Effects, new EffectRef(effectId)] };
+                p.VideoTrack[j] = WithEffect(p.VideoTrack[j], effectId);
             }
         });
+    }
+
+    private static bool CanAdd(VideoClip c, string effectId) =>
+        c.Effects.Count < MaxEffects || (EffectCatalog.IsFraming(effectId) && c.Effects.Any(e => EffectCatalog.IsFraming(e.EffectId)));
+
+    private static VideoClip WithEffect(VideoClip c, string effectId) =>
+        c with { Effects = [.. EffectCatalog.WithEffect(c.Effects.Select(e => e.EffectId), effectId).Select(e => new EffectRef(e))] };
+
+    public static bool CanFrame(VideoClip c) => c.Kind is VideoClipKind.Video or VideoClipKind.Picture;
+
+    public bool SetFit(IReadOnlyCollection<Guid> clipIds, FrameFitMode mode)
+    {
+        var targets = clipIds.Where(id => Project.IndexOfVideo(id) >= 0)
+            .Select(id => Project.VideoTrack[Project.IndexOfVideo(id)])
+            .Where(c => CanFrame(c) && EffectCatalog.FitOf(c.Effects.Select(e => e.EffectId)) != mode)
+            .Where(c => mode == FrameFitMode.Fit || c.Effects.Any(e => EffectCatalog.IsFraming(e.EffectId)) || c.Effects.Count < MaxEffects)
+            .Select(c => c.Id)
+            .ToList();
+        if (targets.Count == 0)
+        {
+            return false;
+        }
+
+        return Run(UndoNames.ChangeFit, p =>
+        {
+            foreach (Guid id in targets)
+            {
+                int j = p.IndexOfVideo(id);
+                VideoClip c = p.VideoTrack[j];
+                p.VideoTrack[j] = c with { Effects = [.. EffectCatalog.WithFit(c.Effects.Select(e => e.EffectId), mode).Select(e => new EffectRef(e))] };
+            }
+        });
+    }
+
+    public bool SetAspect(AspectRatio aspect)
+    {
+        if (Project.Settings.Aspect == aspect)
+        {
+            return false;
+        }
+
+        Undo.Execute(new SettingsEdit(Project, UndoNames.ChangeAspectRatio, Project.Settings with { Aspect = aspect }));
+        return true;
     }
 
     public bool RemoveEffects(IReadOnlyCollection<Guid> clipIds)
@@ -695,7 +738,19 @@ public sealed class TimelineEditor(Project project, UndoStack undo)
     }
 
     public bool SetEffects(Guid clipId, IReadOnlyList<string> effectIds) =>
-        UpdateVideo(clipId, UndoNames.ChangeEffects, c => c with { Effects = effectIds.Where(e => EffectCatalog.Find(e) is not null).Select(e => new EffectRef(e)).ToList() });
+        UpdateVideo(clipId, UndoNames.ChangeEffects, c => c with { Effects = OneFraming(effectIds.Where(e => EffectCatalog.Find(e) is not null)).Select(e => new EffectRef(e)).ToList() });
+
+    // Keeps the last framing effect in the list, at the position of the first.
+    private static List<string> OneFraming(IEnumerable<string> effectIds)
+    {
+        var list = new List<string>();
+        foreach (string id in effectIds)
+        {
+            list = EffectCatalog.WithEffect(list, id);
+        }
+
+        return list;
+    }
 
     public bool ToggleEffect(Guid clipId, string effectId)
     {
@@ -712,7 +767,7 @@ public sealed class TimelineEditor(Project project, UndoStack undo)
             return UpdateVideo(clipId, UndoNames.RemoveEffect, x => x with { Effects = [.. x.Effects.Where((_, k) => k != at)] });
         }
 
-        return c.Effects.Count < MaxEffects && UpdateVideo(clipId, UndoNames.AddEffect, x => x with { Effects = [.. x.Effects, new EffectRef(effectId)] });
+        return CanAdd(c, effectId) && UpdateVideo(clipId, UndoNames.AddEffect, x => WithEffect(x, effectId));
     }
 
     public bool SetVideoFade(Guid clipId, bool? fadeIn, bool? fadeOut) =>

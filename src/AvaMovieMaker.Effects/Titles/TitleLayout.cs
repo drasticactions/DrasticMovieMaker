@@ -18,8 +18,8 @@ public static class TitleLayout
 
     public const float StepFactor = 1.15f;
 
-    public static float FontSize(TitleFont font, int frameHeight, float relative = 1f) =>
-        frameHeight * BaseSize * relative * MathF.Pow(StepFactor, Math.Clamp(font.SizeStep, -6, 10));
+    public static float FontSize(TitleFont font, int shortSide, float relative = 1f) =>
+        shortSide * BaseSize * relative * MathF.Pow(StepFactor, Math.Clamp(font.SizeStep, -6, 10));
 
     public static TextLine Shape(string text, TitleFont font, float size)
     {

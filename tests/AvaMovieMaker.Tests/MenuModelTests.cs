@@ -3,6 +3,7 @@ using Avalonia.Headless.XUnit;
 using Avalonia.Input;
 using Avalonia.LogicalTree;
 using AvaMovieMaker.Menus;
+using AvaMovieMaker.Timeline.Model;
 using AvaMovieMaker.Views;
 using AvaMovieMaker.ViewModels;
 using AvaMovieMaker.ViewModels.Shell;
@@ -58,6 +59,68 @@ public sealed class MenuModelTests
             Shell.ToggleStoryboardTimelineCommand.Execute(null);
             TestApp.Pump();
             Assert.Equal(was, timeline.IsChecked);
+        }
+        finally
+        {
+            TestApp.Close(w);
+        }
+    }
+
+    [AvaloniaFact]
+    public void Aspect_ratio_and_fit_submenus_track_the_project_in_both_menu_bars()
+    {
+        MainWindow w = TestApp.OpenMainWindow();
+        try
+        {
+            Menu bar = w.View!.FindControl<Menu>("MainMenu")!;
+            MenuItem[] items = [.. bar.GetLogicalDescendants().OfType<MenuItem>()];
+            MenuItem[] aspects = [.. items.Where(m => ReferenceEquals(m.Command, Shell.SetAspectRatioCommand))];
+            Assert.Equal(["4:3 (Standard)", "16:9 (Widescreen)", "9:16 (Vertical)", "1:1 (Square)", "4:5 (Portrait)"], aspects.Select(m => m.Header as string));
+            Assert.All(aspects, m => Assert.Equal(MenuItemToggleType.Radio, m.ToggleType));
+            MenuItem aspectMenu = items.Single(m => (m.Header as string) == Strings.AspectRatioMenu);
+            MenuItem monitorSize = items.Single(m => (m.Header as string) == Strings.PreviewMonitorSize);
+            var viewItems = ((MenuItem)monitorSize.Parent!).Items;
+            Assert.Equal(viewItems.IndexOf(monitorSize) + 1, viewItems.IndexOf(aspectMenu));
+
+            AspectRatio was = Shell.Aspect;
+            Shell.SetAspectRatioCommand.Execute(AspectRatio.Square1x1);
+            TestApp.Pump();
+            Assert.Equal([false, false, false, true, false], aspects.Select(m => m.IsChecked));
+            Shell.UndoCommand.Execute(null);
+            TestApp.Pump();
+            Assert.Equal(was, Shell.Aspect);
+            Assert.True(aspects[AspectRatios.All.ToList().IndexOf(was)].IsChecked);
+
+            MenuItem fit = items.Single(m => (m.Header as string) == Strings.FitMenu);
+            Assert.Equal(3, fit.Items.Count);
+            Assert.Equal(Shell.CanFit, fit.IsEnabled);
+            Assert.Contains(Strings.PromptFitBlur, fit.Items.OfType<MenuItem>().Select(InWindowMenuHost.GetPrompt));
+
+            NativeMenuItem[] native = [.. NativeItems(NativeMenuHost.Build(ShellMenus.Build(Shell)))];
+            Assert.Equal(5, native.Count(i => ReferenceEquals(i.Command, Shell.SetAspectRatioCommand)));
+            Assert.Equal(3, native.Count(i => ReferenceEquals(i.Command, Shell.SetFitCommand)));
+            Assert.Equal(Shell.CanFit, native.Single(i => i.Header == NativeMenuHost.WithoutAccessKey(Strings.FitMenu)).IsEnabled);
+        }
+        finally
+        {
+            TestApp.Close(w);
+        }
+    }
+
+    [AvaloniaFact]
+    public void Native_menu_items_are_enabled_when_their_command_can_run()
+    {
+        MainWindow w = TestApp.OpenMainWindow();
+        try
+        {
+            NativeMenuItem[] items = [.. NativeItems(NativeMenuHost.Build(ShellMenus.Build(Shell)))];
+            string[] wrong =
+            [
+                .. items.Where(i => i.Command is not null && i.Command.CanExecute(i.CommandParameter) != i.IsEnabled)
+                    .Select(i => $"{i.Header} (can run: {i.Command!.CanExecute(i.CommandParameter)}, enabled: {i.IsEnabled})"),
+            ];
+            Assert.True(wrong.Length == 0, string.Join("; ", wrong));
+            Assert.True(items.First(i => ReferenceEquals(i.Command, Shell.SetAspectRatioCommand)).IsEnabled);
         }
         finally
         {

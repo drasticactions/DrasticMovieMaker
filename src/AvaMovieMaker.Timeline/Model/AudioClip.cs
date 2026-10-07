@@ -20,7 +20,7 @@ public sealed record AudioClip
 
     public MediaTime Start { get; init; }
 
-    public AudioSettings Audio { get; init; } = AudioSettings.Default;
+    public AudioSettings Audio { get; init => field = value ?? AudioSettings.Default; } = AudioSettings.Default;
 
     public MediaTime Length => Out - In;
 

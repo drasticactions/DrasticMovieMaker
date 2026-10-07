@@ -1,4 +1,5 @@
 using AvaMovieMaker.IO;
+using AvaMovieMaker.Timeline.Model;
 using SkiaSharp;
 
 namespace AvaMovieMaker.ViewModels.Preview;
@@ -8,12 +9,17 @@ public static class SamplePictures
     private const int Version = 1;
     private static readonly Lock Gate = new();
 
-    public static (string First, string Second) For(bool widescreen)
+    public static (string First, string Second) For(AspectRatio aspect)
     {
-        int w = 640, h = widescreen ? 360 : 480;
-        string tag = widescreen ? "16x9" : "4x3";
+        (int num, int den) = AspectRatios.Ratio(aspect);
+        (int w, int h) = num >= den ? (640, (int)Math.Round(640.0 * den / num)) : ((int)Math.Round(640.0 * num / den), 640);
+        string tag = $"{num}x{den}";
         return (Ensure($"flower-{tag}-v{Version}.png", w, h, DrawFlower), Ensure($"daisies-{tag}-v{Version}.png", w, h, DrawDaisies));
     }
+
+    // Pictures of the other orientation, so fitting them to the frame shows a visible difference.
+    public static (string First, string Second) Other(AspectRatio aspect) =>
+        For(AspectRatios.IsPortrait(aspect) || aspect == AspectRatio.Square1x1 ? AspectRatio.Widescreen16x9 : AspectRatio.Vertical9x16);
 
     private static string Ensure(string name, int w, int h, Action<SKCanvas, int, int> draw)
     {
@@ -47,7 +53,7 @@ public static class SamplePictures
     private static void DrawFlower(SKCanvas c, int w, int h)
     {
         var center = new SKPoint(w * 0.5f, h * 0.52f);
-        float r = h * 0.42f;
+        float r = Math.Min(w, h) * 0.42f;
         using (var bg = SKShader.CreateRadialGradient(center, Math.Max(w, h) * 0.75f,
             [new SKColor(0x9C, 0xB8, 0x48), new SKColor(0x46, 0x6E, 0x22), new SKColor(0x1C, 0x34, 0x12)], [0f, 0.55f, 1f], SKShaderTileMode.Clamp))
         using (var p = new SKPaint { Shader = bg })
@@ -113,7 +119,7 @@ public static class SamplePictures
             float depth = (float)rng.NextDouble();
             float y = h * (0.52f + depth * 0.4f);
             float x = w * (float)rng.NextDouble();
-            float r = h * (0.02f + depth * 0.07f);
+            float r = Math.Min(w, h) * (0.02f + depth * 0.07f);
             using var stem = new SKPaint { Color = new SKColor(0x2A, 0x5A, 0x16), StrokeWidth = Math.Max(1, r * 0.12f), IsAntialias = true };
             c.DrawLine(x, y, x + r * 0.2f, Math.Min(h, y + r * 3), stem);
             Petals(c, new SKPoint(x, y), r, 14, 0.24f, new SKColor(0xFF, 0xA8, 0x24), new SKColor(0xE0, 0x62, 0x0C), i);

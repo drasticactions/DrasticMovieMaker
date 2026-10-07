@@ -11,7 +11,7 @@ public sealed record TitleClip
 
     public MediaTime Duration { get; init; }
 
-    public TitleContent Content { get; init; } = new();
+    public TitleContent Content { get; init => field = value ?? new(); } = new();
 
     public MediaTime End => Start + Duration;
 }

@@ -195,7 +195,7 @@ public sealed class ShellTests
         {
             var o = (OptionsViewModel)vm;
             o.OmitMetadata = true;
-            o.IsWidescreen = true;
+            o.Aspect = AvaMovieMaker.Timeline.Model.AspectRatio.Widescreen16x9;
         };
         h.Dialogs.Result = true;
         int saves = h.Store.Saves;

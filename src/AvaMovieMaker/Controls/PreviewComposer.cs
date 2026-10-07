@@ -135,7 +135,17 @@ internal static class PreviewComposer
                 WarmUp(_compositor);
             }
 
-            SKImage next = _compositor.Render(frame);
+            SKImage next;
+            try
+            {
+                next = _compositor.Render(frame);
+            }
+            catch (Exception e)
+            {
+                Log.Error("preview", "Composing a preview frame failed", e);
+                throw;
+            }
+
             slot.Image?.Dispose();
             slot.Image = next;
             slot.CountComposed();

@@ -6,7 +6,7 @@ uniform float progress;
 uniform float maxBlock;
 
 half4 main(float2 p) {
-    float scale = resolution.y / 480.0;
+    float scale = min(resolution.x, resolution.y) / 480.0;
     float peak = 1.0 - abs(progress * 2.0 - 1.0);
     float block = max(1.0, floor(mix(1.0, maxBlock, peak) * scale));
     float2 c = block > 1.0 ? (floor(p / block) + 0.5) * block : p;

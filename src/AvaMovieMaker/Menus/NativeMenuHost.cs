@@ -107,8 +107,9 @@ public sealed class NativeMenuHost : IMenuHost
         KeyGesture? gesture = e.Shortcut?.Gesture;
         var item = new NativeMenuItem(WithoutAccessKey(e.Header))
         {
-            Command = e.Command,
+            // The parameter goes first: setting Command asks CanExecute, which is false for a null value-type parameter.
             CommandParameter = e.CommandParameter,
+            Command = e.Command,
             Gesture = gesture is null || shared.Contains(gesture) || Reserved.Contains(gesture) ? null : gesture,
             ToolTip = e.ToolTip,
             ToggleType = e.Toggle switch
@@ -139,6 +140,7 @@ public sealed class NativeMenuHost : IMenuHost
 
         Bind(item, NativeMenuItem.IsCheckedProperty, e.IsChecked);
         Bind(item, NativeMenuItem.IsVisibleProperty, e.IsVisible);
+        Bind(item, NativeMenuItem.IsEnabledProperty, e.IsEnabledBinding);
         if (e.Items.Count > 0)
         {
             item.Menu = Children(e.Items, shared);

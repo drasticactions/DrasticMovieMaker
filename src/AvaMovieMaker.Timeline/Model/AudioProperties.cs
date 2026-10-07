@@ -6,5 +6,5 @@ public sealed record AudioProperties
 
     public int Channels { get; init; }
 
-    public string Codec { get; init; } = string.Empty;
+    public string Codec { get; init => field = value ?? string.Empty; } = string.Empty;
 }

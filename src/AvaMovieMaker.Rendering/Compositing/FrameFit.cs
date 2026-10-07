@@ -4,7 +4,7 @@ namespace AvaMovieMaker.Rendering.Compositing;
 
 public static class FrameFit
 {
-    public static SKMatrix Matrix(int srcWidth, int srcHeight, double sampleAspect, int rotation, bool flip, int outWidth, int outHeight, double outPixelAspect)
+    public static SKMatrix Matrix(int srcWidth, int srcHeight, double sampleAspect, int rotation, bool flip, int outWidth, int outHeight, double outPixelAspect, bool cover = false)
     {
         double dw = srcWidth * sampleAspect;
         double dh = srcHeight;
@@ -15,7 +15,7 @@ public static class FrameFit
 
         double outDw = outWidth * outPixelAspect;
         double outDh = outHeight;
-        double s = Math.Min(outDw / dw, outDh / dh);
+        double s = cover ? Math.Max(outDw / dw, outDh / dh) : Math.Min(outDw / dw, outDh / dh);
 
         SKMatrix m = SKMatrix.CreateTranslation(-srcWidth / 2f, -srcHeight / 2f);
         m = m.PostConcat(SKMatrix.CreateScale((float)sampleAspect, 1));
@@ -31,9 +31,9 @@ public static class FrameFit
         return m;
     }
 
-    public static SKRect Rect(SKMatrix m, int srcWidth, int srcHeight)
+    public static SKRect Rect(SKMatrix m, int srcWidth, int srcHeight, int outWidth, int outHeight)
     {
         SKRect r = m.MapRect(new SKRect(0, 0, srcWidth, srcHeight));
-        return r;
+        return r.IntersectsWith(new SKRect(0, 0, outWidth, outHeight)) ? SKRect.Intersect(r, new SKRect(0, 0, outWidth, outHeight)) : SKRect.Empty;
     }
 }

@@ -24,11 +24,11 @@ public sealed record VideoClip
 
     public MediaTime StillDuration { get; init; }
 
-    public IReadOnlyList<EffectRef> Effects { get; init; } = [];
+    public IReadOnlyList<EffectRef> Effects { get; init => field = value ?? []; } = [];
 
     public TransitionRef? TransitionIn { get; init; }
 
-    public AudioSettings Audio { get; init; } = AudioSettings.Default;
+    public AudioSettings Audio { get; init => field = value ?? AudioSettings.Default; } = AudioSettings.Default;
 
     public bool VideoFadeIn { get; init; }
 

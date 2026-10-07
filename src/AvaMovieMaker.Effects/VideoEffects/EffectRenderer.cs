@@ -14,12 +14,12 @@ internal static class EffectRenderer
     public static SKImage Apply(RenderContext ctx, SKImage input, EffectInstance e, int seed)
     {
         EffectInfo? info = EffectCatalog.Find(e.EffectId);
-        if (info is null || info.Family == EffectFamily.Speed)
+        if (info is null || info.Family is EffectFamily.Speed or EffectFamily.Framing)
         {
             return input;
         }
 
-        float scale = ctx.Height / 480f;
+        float scale = Math.Min(ctx.Width, ctx.Height) / 480f;
         double t = e.LocalTime;
         double dur = Math.Max(e.ClipDuration, 0.001);
         double progress = Math.Clamp(t / dur, 0, 1);
@@ -134,7 +134,7 @@ internal static class EffectRenderer
 
     private static SKImage Film(RenderContext ctx, SKImage input, EffectInfo info, double t, int seed)
     {
-        float scale = ctx.Height / 480f;
+        float scale = Math.Min(ctx.Width, ctx.Height) / 480f;
         long frame = (long)Math.Floor(t * NoiseRate + 1e-6);
         bool age = info.Operation == "age";
         float[] v = info.Values;

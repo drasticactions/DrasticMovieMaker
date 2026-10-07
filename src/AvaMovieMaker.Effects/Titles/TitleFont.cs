@@ -2,7 +2,7 @@ namespace AvaMovieMaker.Effects.Titles;
 
 public sealed record TitleFont
 {
-    public string Family { get; init; } = TitleFonts.DefaultFamily;
+    public string Family { get; init => field = value ?? TitleFonts.DefaultFamily; } = TitleFonts.DefaultFamily;
 
     public bool Bold { get; init; }
 

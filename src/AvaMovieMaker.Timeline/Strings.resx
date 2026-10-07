@@ -293,4 +293,12 @@
     <value>Untitled</value>
     <comment>The name of a project that has not been saved.</comment>
   </data>
+  <data name="UndoChangeAspectRatio" xml:space="preserve">
+    <value>Change Aspect Ratio</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
+  <data name="UndoChangeFit" xml:space="preserve">
+    <value>Change Fit</value>
+    <comment>Undo/Redo command name in the Edit menu</comment>
+  </data>
 </root>

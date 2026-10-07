@@ -4,13 +4,13 @@ public sealed record TitleContent
 {
     public TitlePlacement Placement { get; init; } = TitlePlacement.AtBeginning;
 
-    public string AnimationId { get; init; } = Catalog.TitleAnimationCatalog.DefaultTitle;
+    public string AnimationId { get; init => field = value ?? Catalog.TitleAnimationCatalog.DefaultTitle; } = Catalog.TitleAnimationCatalog.DefaultTitle;
 
-    public IReadOnlyList<string> Lines { get; init; } = [];
+    public IReadOnlyList<string> Lines { get; init => field = value ?? []; } = [];
 
-    public IReadOnlyList<CreditRow> Credits { get; init; } = [];
+    public IReadOnlyList<CreditRow> Credits { get; init => field = value ?? []; } = [];
 
-    public TitleFont Font { get; init; } = new();
+    public TitleFont Font { get; init => field = value ?? new(); } = new();
 
     public uint TextColor { get; init; } = 0xFFF0F0F0;
 

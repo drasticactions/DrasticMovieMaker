@@ -989,7 +989,7 @@ Change the temporary storage location by choosing Options from the Tools menu, o
     <value>PA_L</value>
   </data>
   <data name="OptionsAspectRatio" xml:space="preserve">
-    <value>Aspect ratio:</value>
+    <value>_Aspect ratio:</value>
   </data>
   <data name="OptionsCompatibility" xml:space="preserve">
     <value>Compatibility</value>
@@ -1990,5 +1990,59 @@ Rendering: {1}</value>
   </data>
   <data name="UnknownRenderer" xml:space="preserve">
     <value>Unknown</value>
+  </data>
+  <data name="AspectStandard" xml:space="preserve">
+    <value>4:3 (Standard)</value>
+  </data>
+  <data name="AspectWidescreen" xml:space="preserve">
+    <value>16:9 (Widescreen)</value>
+  </data>
+  <data name="AspectVertical" xml:space="preserve">
+    <value>9:16 (Vertical)</value>
+  </data>
+  <data name="AspectSquare" xml:space="preserve">
+    <value>1:1 (Square)</value>
+  </data>
+  <data name="AspectPortrait" xml:space="preserve">
+    <value>4:5 (Portrait)</value>
+  </data>
+  <data name="AspectRatioMenu" xml:space="preserve">
+    <value>Asp_ect Ratio</value>
+  </data>
+  <data name="PromptAspectStandard" xml:space="preserve">
+    <value>Changes the project to the 4:3 standard aspect ratio.</value>
+  </data>
+  <data name="PromptAspectWidescreen" xml:space="preserve">
+    <value>Changes the project to the 16:9 widescreen aspect ratio.</value>
+  </data>
+  <data name="PromptAspectVertical" xml:space="preserve">
+    <value>Changes the project to the 9:16 vertical aspect ratio.</value>
+  </data>
+  <data name="PromptAspectSquare" xml:space="preserve">
+    <value>Changes the project to the 1:1 square aspect ratio.</value>
+  </data>
+  <data name="PromptAspectPortrait" xml:space="preserve">
+    <value>Changes the project to the 4:5 portrait aspect ratio.</value>
+  </data>
+  <data name="FitMenu" xml:space="preserve">
+    <value>Fi_t</value>
+  </data>
+  <data name="FitBars" xml:space="preserve">
+    <value>Fit with Black _Bars</value>
+  </data>
+  <data name="FitFill" xml:space="preserve">
+    <value>_Fill Frame</value>
+  </data>
+  <data name="FitBlur" xml:space="preserve">
+    <value>Blurred Back_ground</value>
+  </data>
+  <data name="PromptFitBars" xml:space="preserve">
+    <value>Shows the whole clip with black bars where its shape differs from the project.</value>
+  </data>
+  <data name="PromptFitFill" xml:space="preserve">
+    <value>Enlarges the clip to fill the frame and crops the edges.</value>
+  </data>
+  <data name="PromptFitBlur" xml:space="preserve">
+    <value>Shows the whole clip over a blurred copy that fills the frame.</value>
   </data>
 </root>

@@ -18,7 +18,7 @@ float hash(float2 v) {
 float hash1(float v) { return hash(float2(v, v * 1.31)); }
 
 half4 main(float2 p) {
-    float scale = resolution.y / 480.0;
+    float scale = min(resolution.x, resolution.y) / 480.0;
     float2 q = p + shake;
     float3 rgb = float3(src.eval(q).rgb);
     float grainSize = op == 1 ? 1.5 : 2.0;

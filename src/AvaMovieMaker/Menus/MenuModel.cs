@@ -49,6 +49,8 @@ public sealed record MenuItemEntry(string Header) : MenuEntry
 
     public bool IsEnabled { get; init; } = true;
 
+    public BindingBase? IsEnabledBinding { get; init; }
+
     public string? ToolTip { get; init; }
 
     public string? Prompt { get; init; }

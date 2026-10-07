@@ -20,7 +20,8 @@ public sealed class OptionsTests
         Assert.Equal(7, vm.AutoRecoveryMinutes);
         Assert.False(vm.CreateClips);
         Assert.True(vm.IsPal);
-        Assert.True(vm.IsWidescreen);
+        Assert.Equal(AspectRatio.Widescreen16x9, vm.Aspect);
+        Assert.Equal(AspectRatio.Widescreen16x9, vm.SelectedAspect.Value);
         Assert.Equal(3, vm.PictureSeconds, 6);
         Assert.Equal("(Default)", vm.PlaybackDevice);
         Assert.Equal("(Default)", vm.PlaybackDevices[0]);
@@ -43,7 +44,7 @@ public sealed class OptionsTests
             PictureSeconds = 7,
             TransitionSeconds = 2,
             IsPal = true,
-            IsWidescreen = true,
+            Aspect = AspectRatio.Vertical9x16,
         };
         ProjectSettings p = vm.Apply(new ProjectSettings());
         Assert.True(settings.OmitPublishedMetadata);
@@ -58,18 +59,41 @@ public sealed class OptionsTests
         Assert.Equal(MediaTime.FromSeconds(7), p.PictureDuration);
         Assert.Equal(MediaTime.FromSeconds(2), p.TransitionDuration);
         Assert.Equal(VideoFormat.Pal, p.Format);
-        Assert.Equal(AspectRatio.Widescreen16x9, p.Aspect);
+        Assert.Equal(AspectRatio.Vertical9x16, p.Aspect);
 
         Assert.Equal(7, settings.PictureDurationSeconds);
         Assert.Equal(2, settings.TransitionDurationSeconds);
         Assert.True(settings.PalVideo);
-        Assert.True(settings.WidescreenVideo);
+        Assert.Equal("9:16", settings.DefaultAspect);
+        Assert.False(settings.WidescreenVideo);
         Assert.Equal(p, OptionsViewModel.ForProject(settings));
 
         ProjectSettings opened = OptionsViewModel.ForProject(settings, new ProjectSettings { PictureDuration = MediaTime.FromSeconds(9) });
         Assert.Equal(MediaTime.FromSeconds(7), opened.PictureDuration);
         Assert.Equal(VideoFormat.Ntsc, opened.Format);
         Assert.Equal(AspectRatio.Standard4x3, opened.Aspect);
+    }
+
+    [Fact]
+    public void Aspect_combo_lists_every_ratio_and_tracks_the_selection()
+    {
+        var vm = new OptionsViewModel(new AppSettings(), new ProjectSettings());
+        Assert.Equal(["4:3 (Standard)", "16:9 (Widescreen)", "9:16 (Vertical)", "1:1 (Square)", "4:5 (Portrait)"], vm.Aspects.Select(a => a.Name));
+        var changed = new List<string?>();
+        vm.PropertyChanged += (_, e) => changed.Add(e.PropertyName);
+        vm.SelectedAspect = vm.Aspects[4];
+        Assert.Equal(AspectRatio.Portrait4x5, vm.Aspect);
+        Assert.Contains(nameof(OptionsViewModel.SelectedAspect), changed);
+    }
+
+    [Theory]
+    [InlineData("16:9", AspectRatio.Widescreen16x9)]
+    [InlineData("4:5", AspectRatio.Portrait4x5)]
+    [InlineData("bogus", AspectRatio.Standard4x3)]
+    [InlineData("", AspectRatio.Standard4x3)]
+    public void New_projects_use_the_default_aspect(string id, AspectRatio expected)
+    {
+        Assert.Equal(expected, OptionsViewModel.ForProject(new AppSettings { DefaultAspect = id }).Aspect);
     }
 
     [Fact]
@@ -90,7 +114,7 @@ public sealed class OptionsTests
             PictureSeconds = 9,
             TransitionSeconds = 3,
             IsPal = true,
-            IsWidescreen = true,
+            Aspect = AspectRatio.Square1x1,
             AutoRecovery = false,
             AutoRecoveryMinutes = 30,
             OmitMetadata = true,
@@ -103,7 +127,7 @@ public sealed class OptionsTests
         Assert.Equal(5, vm.PictureSeconds);
         Assert.Equal(1.25, vm.TransitionSeconds);
         Assert.False(vm.IsPal);
-        Assert.False(vm.IsWidescreen);
+        Assert.Equal(AspectRatio.Standard4x3, vm.Aspect);
         Assert.True(vm.AutoRecovery);
         Assert.Equal(10, vm.AutoRecoveryMinutes);
         Assert.False(vm.OmitMetadata);

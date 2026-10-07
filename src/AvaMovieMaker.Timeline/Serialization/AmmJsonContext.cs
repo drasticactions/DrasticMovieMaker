@@ -8,6 +8,6 @@ namespace AvaMovieMaker.Timeline.Serialization;
     PropertyNamingPolicy = JsonKnownNamingPolicy.CamelCase,
     UseStringEnumConverter = true,
     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-    Converters = [typeof(MediaTimeConverter)])]
+    Converters = [typeof(MediaTimeConverter), typeof(AspectRatioConverter)])]
 [JsonSerializable(typeof(Project))]
 public sealed partial class AmmJsonContext : JsonSerializerContext;

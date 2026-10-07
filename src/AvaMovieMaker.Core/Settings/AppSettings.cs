@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace AvaMovieMaker.Settings;
 
-public sealed class AppSettings
+public sealed class AppSettings : IJsonOnDeserialized
 {
     public const int DefaultRecentProjectCount = 4;
     public const int MinRecentProjectCount = 2;
@@ -19,7 +19,18 @@ public sealed class AppSettings
 
     public bool PalVideo { get; set; }
 
+    // Read from older settings files and migrated into DefaultAspect; never written.
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public bool WidescreenVideo { get; set; }
+
+    // A ratio label such as "4:3" or "9:16". Core does not know the ratio type, so it is kept as text.
+    public string DefaultAspect
+    {
+        get => _defaultAspect ?? "4:3";
+        set => _defaultAspect = value;
+    }
+
+    private string? _defaultAspect;
 
     public bool PlayPublishedMovie { get; set; } = true;
 
@@ -87,6 +98,16 @@ public sealed class AppSettings
 
     [JsonExtensionData]
     public Dictionary<string, JsonElement>? Extra { get; set; }
+
+    void IJsonOnDeserialized.OnDeserialized()
+    {
+        if (_defaultAspect is null && WidescreenVideo)
+        {
+            _defaultAspect = "16:9";
+        }
+
+        WidescreenVideo = false;
+    }
 
     public void AddRecent(string path)
     {

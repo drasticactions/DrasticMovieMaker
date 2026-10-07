@@ -22,10 +22,10 @@ public sealed record ProjectSettings
     public Rational FrameRate => Format == VideoFormat.Pal ? Rational.Pal : Rational.Ntsc;
 
     [JsonIgnore]
-    public double DisplayAspect => Aspect == AspectRatio.Widescreen16x9 ? 16.0 / 9.0 : 4.0 / 3.0;
+    public double DisplayAspect => AspectRatios.Value(Aspect);
 
     [JsonIgnore]
-    public (int Width, int Height) PreviewSize => Aspect == AspectRatio.Widescreen16x9 ? (854, 480) : (640, 480);
+    public (int Width, int Height) PreviewSize => AspectRatios.SizeForShortSide(Aspect, 480);
 
     public ProjectSettings Clamped() => this with
     {

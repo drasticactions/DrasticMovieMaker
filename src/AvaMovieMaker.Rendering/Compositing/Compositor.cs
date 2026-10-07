@@ -9,6 +9,13 @@ namespace AvaMovieMaker.Rendering.Compositing;
 public sealed class Compositor : IDisposable
 {
     private const int MaxPictures = 16;
+    private static readonly SKColorFilter Dim = SKColorFilter.CreateColorMatrix(
+    [
+        0.75f, 0, 0, 0, 0,
+        0, 0.75f, 0, 0, 0,
+        0, 0, 0.75f, 0, 0,
+        0, 0, 0, 1, 0,
+    ]);
     private readonly IEffectLibrary _effects;
     private IFrameProvider _frames;
     private readonly Dictionary<string, (SKImage Image, int Rotation, bool Flip, long Use)> _pictures = new(StringComparer.Ordinal);
@@ -115,11 +122,11 @@ public sealed class Compositor : IDisposable
         switch (source)
         {
             case MediaSource { IsPicture: true } pic:
-                return DrawPicture(ctx, pic.Path);
+                return DrawPicture(ctx, pic.Path, pic.Fit);
             case MediaSource video:
                 using (DecodedFrame? f = _frames.GetFrame(video.Path, video.SourceTime))
                 {
-                    return f is null ? ctx.Draw(_ => { }) : DrawFrame(ctx, f);
+                    return f is null ? ctx.Draw(_ => { }) : DrawFrame(ctx, f, video.Fit);
                 }
 
             case TitleSource title:
@@ -129,20 +136,72 @@ public sealed class Compositor : IDisposable
         }
     }
 
-    public SKImage DrawFrame(RenderContext ctx, DecodedFrame f)
+    public SKImage DrawFrame(RenderContext ctx, DecodedFrame f, FrameFitMode mode = FrameFitMode.Fit)
     {
         using YuvUploader.Planes planes = YuvUploader.Upload(Device, f);
-        SKMatrix m = FrameFit.Matrix(f.Width, f.Height, f.SampleAspect, f.Rotation, f.FlipHorizontal, ctx.Width, ctx.Height, ctx.PixelAspect);
-        using SKShader shader = YuvUploader.Shader(planes, m);
-        SKRect rect = FrameFit.Rect(m, f.Width, f.Height);
-        return ctx.Draw(canvas =>
-        {
-            using var paint = new SKPaint { Shader = shader };
-            canvas.DrawRect(rect, paint);
-        });
+        return Framed(
+            ctx,
+            mode,
+            f.Width,
+            f.Height,
+            cover => FrameFit.Matrix(f.Width, f.Height, f.SampleAspect, f.Rotation, f.FlipHorizontal, ctx.Width, ctx.Height, ctx.PixelAspect, cover),
+            m => YuvUploader.Shader(planes, m));
     }
 
-    private SKImage DrawPicture(RenderContext ctx, string path)
+    private SKImage Framed(RenderContext ctx, FrameFitMode mode, int srcWidth, int srcHeight, Func<bool, SKMatrix> matrix, Func<SKMatrix, SKShader> shader)
+    {
+        SKImage? background = mode == FrameFitMode.Blur ? BlurredBackground(ctx, srcWidth, srcHeight, matrix(true), shader) : null;
+        SKMatrix m = matrix(mode == FrameFitMode.Fill);
+        using SKShader sharp = shader(m);
+        SKRect rect = FrameFit.Rect(m, srcWidth, srcHeight, ctx.Width, ctx.Height);
+        try
+        {
+            return ctx.Draw(canvas =>
+            {
+                if (background is not null)
+                {
+                    using var dim = new SKPaint { ColorFilter = Dim };
+                    canvas.DrawImage(background, ctx.Bounds, new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.None), dim);
+                }
+
+                using var paint = new SKPaint { Shader = sharp };
+                canvas.DrawRect(rect, paint);
+            });
+        }
+        finally
+        {
+            background?.Dispose();
+        }
+    }
+
+    // The cover-fitted source drawn at a quarter of the frame size and blurred with a sigma of 2% of the short side.
+    // Clamped edges keep the blur from pulling in black at the borders.
+    private SKImage BlurredBackground(RenderContext ctx, int srcWidth, int srcHeight, SKMatrix cover, Func<SKMatrix, SKShader> shader)
+    {
+        int qw = Math.Max(1, ctx.Width / 4), qh = Math.Max(1, ctx.Height / 4);
+        SKMatrix small = cover.PostConcat(SKMatrix.CreateScale(qw / (float)ctx.Width, qh / (float)ctx.Height));
+        using SKSurface sharpSurface = Device.CreateSurface(qw, qh);
+        sharpSurface.Canvas.Clear(SKColors.Black);
+        using (SKShader sh = shader(small))
+        using (var paint = new SKPaint { Shader = sh })
+        {
+            sharpSurface.Canvas.DrawRect(FrameFit.Rect(small, srcWidth, srcHeight, qw, qh), paint);
+        }
+
+        using SKImage sharp = sharpSurface.Snapshot();
+        float sigma = 0.02f * Math.Min(qw, qh);
+        using SKSurface blurSurface = Device.CreateSurface(qw, qh);
+        blurSurface.Canvas.Clear(SKColors.Black);
+        using (SKImageFilter blur = SKImageFilter.CreateBlur(sigma, sigma, SKShaderTileMode.Clamp))
+        using (var paint = new SKPaint { ImageFilter = blur })
+        {
+            blurSurface.Canvas.DrawImage(sharp, 0, 0, SKSamplingOptions.Default, paint);
+        }
+
+        return blurSurface.Snapshot();
+    }
+
+    private SKImage DrawPicture(RenderContext ctx, string path, FrameFitMode mode)
     {
         if (!_pictures.TryGetValue(path, out var entry))
         {
@@ -164,14 +223,13 @@ public sealed class Compositor : IDisposable
         entry.Use = ++_clock;
         _pictures[path] = entry;
         SKImage image = entry.Image;
-        SKMatrix m = FrameFit.Matrix(image.Width, image.Height, 1.0, entry.Rotation, entry.Flip, ctx.Width, ctx.Height, ctx.PixelAspect);
-        SKRect rect = FrameFit.Rect(m, image.Width, image.Height);
-        return ctx.Draw(canvas =>
-        {
-            using SKShader shader = image.ToShader(SKShaderTileMode.Clamp, SKShaderTileMode.Clamp, new SKSamplingOptions(SKCubicResampler.Mitchell), m);
-            using var paint = new SKPaint { Shader = shader };
-            canvas.DrawRect(rect, paint);
-        });
+        return Framed(
+            ctx,
+            mode,
+            image.Width,
+            image.Height,
+            cover => FrameFit.Matrix(image.Width, image.Height, 1.0, entry.Rotation, entry.Flip, ctx.Width, ctx.Height, ctx.PixelAspect, cover),
+            m => image.ToShader(SKShaderTileMode.Clamp, SKShaderTileMode.Clamp, new SKSamplingOptions(SKCubicResampler.Mitchell), m));
     }
 
     private SKImage UploadRgba(DecodedFrame f)

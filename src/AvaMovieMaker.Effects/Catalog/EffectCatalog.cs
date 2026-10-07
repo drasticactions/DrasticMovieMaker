@@ -1,11 +1,17 @@
+using AvaMovieMaker.Rendering.Compositing;
+
 namespace AvaMovieMaker.Effects.Catalog;
 
 public static class EffectCatalog
 {
+    public const string FillFrame = "fill-frame";
+    public const string BlurredBackground = "blurred-background";
+
     public static readonly IReadOnlyList<EffectInfo> All =
     [
         E("3d-ripple", nameof(Strings.Effect3DRipple), "3D Ripple", EffectFamily.Distort, "ripple"),
         E("blur", nameof(Strings.EffectBlur), "Blur", EffectFamily.Filter, "blur"),
+        new() { Id = BlurredBackground, NameKey = nameof(Strings.EffectBlurredBackground), Family = EffectFamily.Framing, Operation = "frame", Values = [2] },
         E("brightness-decrease", nameof(Strings.EffectBrightnessDecrease), "Brightness, Decrease", EffectFamily.Color, "brightness", -1),
         E("brightness-increase", nameof(Strings.EffectBrightnessIncrease), "Brightness, Increase", EffectFamily.Color, "brightness", 1),
         E("ease-in", nameof(Strings.EffectEaseIn), "Ease In", EffectFamily.Geometry, "ease", 1),
@@ -15,6 +21,7 @@ public static class EffectCatalog
         E("fade-in-from-white", nameof(Strings.EffectFadeInFromWhite), "Fade In, From White", EffectFamily.Color, "fade", 1, 1),
         E("fade-out-to-black", nameof(Strings.EffectFadeOutToBlack), "Fade Out, To Black", EffectFamily.Color, "fade", -1, 0),
         E("fade-out-to-white", nameof(Strings.EffectFadeOutToWhite), "Fade Out, To White", EffectFamily.Color, "fade", -1, 1),
+        new() { Id = FillFrame, NameKey = nameof(Strings.EffectFillFrame), Family = EffectFamily.Framing, Operation = "frame", Values = [1] },
         E("film-age-old", nameof(Strings.EffectFilmAgeOld), "Film Age, Old", EffectFamily.Film, "age", 0.25f, 0.05f, 0.10f, 0.05f, 128, 0.00f, 3),
         E("film-age-older", nameof(Strings.EffectFilmAgeOlder), "Film Age, Older", EffectFamily.Film, "age", 0.40f, 0.10f, 0.20f, 0.15f, 7, 0.05f, 5),
         E("film-age-oldest", nameof(Strings.EffectFilmAgeOldest), "Film Age, Oldest", EffectFamily.Film, "age", 1.00f, 0.20f, 0.30f, 0.40f, 5, 0.20f, 7),
@@ -56,7 +63,7 @@ public static class EffectCatalog
     ];
 
     private static readonly Dictionary<string, EffectInfo> ById = All.ToDictionary(e => e.Id, StringComparer.Ordinal);
-    private static readonly Dictionary<string, EffectInfo> ByMswmmId = All.ToDictionary(e => e.MswmmId, StringComparer.OrdinalIgnoreCase);
+    private static readonly Dictionary<string, EffectInfo> ByMswmmId = All.Where(e => e.MswmmId.Length > 0).ToDictionary(e => e.MswmmId, StringComparer.OrdinalIgnoreCase);
 
     public static EffectInfo? Find(string id) => ById.GetValueOrDefault(id);
 
@@ -74,6 +81,59 @@ public static class EffectCatalog
         }
 
         return speed;
+    }
+
+    public static bool IsFraming(string id) => Find(id) is { Family: EffectFamily.Framing };
+
+    public static FrameFitMode FitOf(IEnumerable<string> effectIds)
+    {
+        FrameFitMode mode = FrameFitMode.Fit;
+        foreach (string id in effectIds)
+        {
+            if (Find(id) is { Family: EffectFamily.Framing } e)
+            {
+                mode = e.Values[0] >= 2 ? FrameFitMode.Blur : FrameFitMode.Fill;
+            }
+        }
+
+        return mode;
+    }
+
+    public static string? EffectFor(FrameFitMode mode) => mode switch
+    {
+        FrameFitMode.Fill => FillFrame,
+        FrameFitMode.Blur => BlurredBackground,
+        _ => null,
+    };
+
+    // A clip has at most one framing effect: adding one replaces any other in place; any other effect is appended.
+    public static List<string> WithEffect(IEnumerable<string> effectIds, string added)
+    {
+        var list = effectIds.ToList();
+        int at = list.FindIndex(IsFraming);
+        if (IsFraming(added) && at >= 0)
+        {
+            list.RemoveAll(IsFraming);
+            list.Insert(at, added);
+            return list;
+        }
+
+        list.Add(added);
+        return list;
+    }
+
+    // Returns the effects with every framing effect removed and the one for the mode (if any) in the first framing slot.
+    public static List<string> WithFit(IEnumerable<string> effectIds, FrameFitMode mode)
+    {
+        var list = effectIds.ToList();
+        int at = list.FindIndex(IsFraming);
+        list.RemoveAll(IsFraming);
+        if (EffectFor(mode) is { } id)
+        {
+            list.Insert(at >= 0 ? at : list.Count, id);
+        }
+
+        return list;
     }
 
     private static EffectInfo E(string id, string nameKey, string mswmmId, EffectFamily family, string op, params float[] values) =>

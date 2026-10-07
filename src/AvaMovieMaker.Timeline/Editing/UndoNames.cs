@@ -37,4 +37,6 @@ public static class UndoNames
     public static string CreateClips => Strings.UndoCreateClips;
     public static string Nudge => Strings.UndoMoveClip;
     public static string AutoMovie => Strings.UndoAutoMovie;
+    public static string ChangeAspectRatio => Strings.UndoChangeAspectRatio;
+    public static string ChangeFit => Strings.UndoChangeFit;
 }

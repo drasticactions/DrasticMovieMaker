@@ -18,7 +18,7 @@ float valueNoise(float2 v) {
 }
 
 half4 main(float2 p) {
-    float scale = resolution.y / 480.0;
+    float scale = min(resolution.x, resolution.y) / 480.0;
     float2 q = p / scale;
     float t;
     if (pattern == 0) {

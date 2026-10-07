@@ -18,5 +18,16 @@ public sealed record VideoProperties
 
     public bool FlipHorizontal { get; init; }
 
-    public string Codec { get; init; } = string.Empty;
+    public string Codec { get; init => field = value ?? string.Empty; } = string.Empty;
+
+    // The size the video is shown at, after the sample aspect and rotation.
+    public (int Width, int Height) DisplaySize
+    {
+        get
+        {
+            double sar = SampleAspectNum > 0 && SampleAspectDen > 0 ? SampleAspectNum / (double)SampleAspectDen : 1.0;
+            int dw = (int)Math.Round(Width * sar);
+            return Rotation is 90 or 270 ? (Height, dw) : (dw, Height);
+        }
+    }
 }

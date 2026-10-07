@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using AvaMovieMaker.Controls;
@@ -17,7 +18,9 @@ public partial class MonitorView : UserControl
         {
             if (e.Property == BoundsProperty || e.Property == PreviewImage.AspectProperty)
             {
-                caption.MaxWidth = preview.VideoRect.Width;
+                // A portrait frame is too narrow for a readable caption; it uses the monitor width instead.
+                Rect video = preview.VideoRect;
+                caption.MaxWidth = video.Width < video.Height ? preview.Bounds.Width : video.Width;
             }
         };
         DataContextChanged += (_, _) =>

@@ -6,7 +6,7 @@ public sealed record SourceClip
 {
     public Guid Id { get; init; } = Guid.NewGuid();
 
-    public string Name { get; init; } = string.Empty;
+    public string Name { get; init => field = value ?? string.Empty; } = string.Empty;
 
     public MediaTime Start { get; init; }
 

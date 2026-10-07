@@ -226,6 +226,22 @@ public sealed class PublishWizardTests
     }
 
     [Fact]
+    public void Portrait_projects_hide_the_dvd_profile_and_show_their_size()
+    {
+        using var h = new Harness();
+        h.AddTitle("Movie");
+        Assert.Contains(Wizard(h).Profiles, p => p.Profile.Id == "dvd");
+        h.Session.Editor.SetAspect(AvaMovieMaker.Timeline.Model.AspectRatio.Vertical9x16);
+        PublishWizardViewModel w = Wizard(h);
+        Assert.DoesNotContain(w.Profiles, p => p.Profile.Anamorphic);
+        Assert.NotNull(w.SelectedProfile);
+        Assert.Contains("Aspect ratio: 9:16", w.MovieSettingsText, StringComparison.Ordinal);
+        w.IsMore = true;
+        w.SelectedProfile = w.MoreProfiles.First(p => p.Profile.Id == "hd1080");
+        Assert.Matches(@"1080\D+1920", w.MovieSettingsText);
+    }
+
+    [Fact]
     public void Settings_and_file_size_boxes_are_filled()
     {
         using var h = new Harness();

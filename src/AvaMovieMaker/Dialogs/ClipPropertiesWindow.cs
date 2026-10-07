@@ -21,7 +21,7 @@ public sealed class ClipPropertiesWindow : UserControl
         WindowSettings.SetWindowStartupLocation(this, WindowStartupLocation.CenterOwner);
         WindowSettings.SetShowInTaskbar(this, false);
 
-        var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("123,253"), RowDefinitions = new RowDefinitions("84,19,*") };
+        var grid = new Grid { ColumnDefinitions = new ColumnDefinitions("123,*"), RowDefinitions = new RowDefinitions("84,19,*") };
         var icon = new Viewbox { Width = 48, Height = 48, Child = new Glyph { Kind = "import" }, HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0, 0, 0, 0) };
         grid.Children.Add(icon);
         var name = new TextBox { Text = vm.Name, IsReadOnly = true, VerticalAlignment = VerticalAlignment.Top, Margin = new Thickness(0, 28, 0, 0) };

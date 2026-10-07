@@ -75,7 +75,7 @@ public static class TitleAnimator
 
             case "ticker":
             {
-                float band = h * 0.12f;
+                float band = s.S * 0.12f;
                 s.Band(h - band * 1.5f, band, 0xC0000000);
                 float total = w + s.MainWidth;
                 s.BlockLeft(s.Main, w - s.Progress * total, h - band, 1);
@@ -84,7 +84,7 @@ public static class TitleAnimator
 
             case "news-banner":
             {
-                float band = h * 0.14f;
+                float band = s.S * 0.14f;
                 float drop = EaseOut(ein);
                 s.Band(h - band * 1.6f, band * drop, 0xE0102A6A);
                 float total = w + s.MainWidth;
@@ -181,7 +181,7 @@ public static class TitleAnimator
             case "scoreboard":
             {
                 float k = EaseOut(ein) * eout;
-                float band = h * 0.11f;
+                float band = s.S * 0.11f;
                 float y = -band + k * band * 1.4f;
                 s.Band(y, band, s.Content.BannerColor ?? 0xE0202020);
                 s.BlockLeft(s.Main, w * 0.05f, y + band * 0.5f, k, 0.6f);
@@ -230,7 +230,7 @@ public static class TitleAnimator
             case "credits-scroll-side":
             {
                 bool side = s.Info.Kind == "credits-scroll-side";
-                float lineH = s.H * 0.09f;
+                float lineH = s.S * 0.09f;
                 float block = rows.Count * lineH * (side ? 1.2f : 2.2f);
                 float areaH = y1 - y0;
                 float top = y0 + areaH * 1.05f - s.Progress * (areaH * 1.1f + block);
@@ -327,6 +327,7 @@ public static class TitleAnimator
             Canvas = canvas;
             W = width;
             H = height;
+            S = Math.Min(width, height);
             Content = content;
             Info = info;
             T = Math.Clamp(t, 0, duration);
@@ -343,7 +344,7 @@ public static class TitleAnimator
             In = e > 0 ? (float)Math.Clamp(T / e, 0, 1) : 1;
             Out = x > 0 ? (float)Math.Clamp((D - T) / x, 0, 1) : 1;
             Alpha = Math.Clamp((100 - content.Transparency) / 100f, 0, 1);
-            float size = TitleLayout.FontSize(content.Font, height);
+            float size = TitleLayout.FontSize(content.Font, (int)S);
             string first = content.Lines.Count > 0 ? content.Lines[0] : string.Empty;
             string second = info.TwoLines && content.Lines.Count > 1 ? content.Lines[1] : string.Empty;
             Main = Lines(first, size);
@@ -366,6 +367,9 @@ public static class TitleAnimator
         public float W { get; }
 
         public float H { get; }
+
+        // Text and stroke sizes follow the short side so portrait frames get text that fits their width.
+        public float S { get; }
 
         public TitleContent Content { get; }
 
@@ -401,11 +405,11 @@ public static class TitleAnimator
             return [.. TitleLayout.Wrap(text, Content.Font, size, W * TitleLayout.WrapWidth)];
         }
 
-        public TextLine[] Heading(string text) => Lines(text, TitleLayout.FontSize(Content.Font, (int)H, 0.6f * 16 / 25));
+        public TextLine[] Heading(string text) => Lines(text, TitleLayout.FontSize(Content.Font, (int)S, 0.6f * 16 / 25));
 
-        public TextLine[] Names(string text) => Lines(text, TitleLayout.FontSize(Content.Font, (int)H, 0.6f));
+        public TextLine[] Names(string text) => Lines(text, TitleLayout.FontSize(Content.Font, (int)S, 0.6f));
 
-        public TextLine[] CreditTitle(string text) => Lines(text, TitleLayout.FontSize(Content.Font, (int)H, 0.6f * 30 / 25));
+        public TextLine[] CreditTitle(string text) => Lines(text, TitleLayout.FontSize(Content.Font, (int)S, 0.6f * 30 / 25));
 
         public TextLine[] HeadingOf(IReadOnlyList<CreditRow> rows, int index) =>
             index == 0 && rows[0].Names.Length == 0 ? CreditTitle(rows[0].Heading) : Heading(rows[index].Heading);
@@ -512,7 +516,7 @@ public static class TitleAnimator
                 return;
             }
 
-            float unit = H * 0.004f;
+            float unit = S * 0.004f;
             if (Info.Shadow)
             {
                 using var shadow = new SKPaint { IsAntialias = true, Color = SKColors.Black.WithAlpha((byte)(150 * alpha * Alpha)) };
@@ -683,7 +687,7 @@ public static class TitleAnimator
             var page = new SKRect(W * 0.075f, H * 0.075f, W * 0.925f, H * 0.925f);
             using var paper = new SKPaint { Color = new SKColor(0xFFF4F1E8) };
             Canvas.DrawRect(page, paper);
-            using var ink = new SKPaint { Color = new SKColor(0xFF505050), StrokeWidth = H * 0.004f };
+            using var ink = new SKPaint { Color = new SKColor(0xFF505050), StrokeWidth = S * 0.004f };
             Canvas.DrawLine(page.Left + W * 0.03f, page.Top + H * 0.22f, page.Right - W * 0.03f, page.Top + H * 0.22f, ink);
             for (int i = 0; i < 9; i++)
             {

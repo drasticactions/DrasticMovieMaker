@@ -54,8 +54,14 @@ public sealed partial class MonitorViewModel : ObservableObject
 
             PlayProjectCommand.NotifyCanExecuteChanged();
             RewindCommand.NotifyCanExecuteChanged();
+            SyncAspect();
         };
-        session.Replaced += (_, _) => ShowProject(seekStart: true);
+        session.Replaced += (_, _) =>
+        {
+            SyncAspect();
+            ShowProject(seekStart: true);
+        };
+        _aspect = DisplayAspect;
         Playback.Plan = session.Plan;
         HasVideo = ProjectHasVideo;
         RenderingDescription = engine.Device.IsGpu ? string.Empty : Strings.SoftwareRendering;
@@ -165,6 +171,17 @@ public sealed partial class MonitorViewModel : ObservableObject
     public MediaTime Duration => Playback.Duration;
 
     public double DisplayAspect => _session.Project.Settings.DisplayAspect;
+
+    private double _aspect;
+
+    private void SyncAspect()
+    {
+        if (DisplayAspect != _aspect)
+        {
+            _aspect = DisplayAspect;
+            OnPropertyChanged(nameof(DisplayAspect));
+        }
+    }
 
     public Func<string>? ProjectCaption { get; set; }
 

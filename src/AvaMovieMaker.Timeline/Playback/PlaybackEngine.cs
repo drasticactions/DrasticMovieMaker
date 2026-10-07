@@ -161,6 +161,8 @@ public sealed class PlaybackEngine : IDisposable
 
     private volatile bool _uiComposes;
 
+    public (int Width, int Height) PreviewSize => (_previewWidth, _previewHeight);
+
     public void SetPreviewSize(int width, int height)
     {
         _previewWidth = Math.Max(16, width);

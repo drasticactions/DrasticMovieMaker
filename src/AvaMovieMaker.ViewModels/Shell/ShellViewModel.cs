@@ -1,10 +1,12 @@
 using System.Collections.ObjectModel;
 using AvaMovieMaker.Diagnostics;
+using AvaMovieMaker.Effects.Catalog;
 using AvaMovieMaker.Effects.Titles;
 using AvaMovieMaker.IO;
 using AvaMovieMaker.Interop.Mswmm;
 using AvaMovieMaker.Media;
 using AvaMovieMaker.Media.Analysis;
+using AvaMovieMaker.Rendering.Compositing;
 using AvaMovieMaker.Settings;
 using AvaMovieMaker.Time;
 using AvaMovieMaker.Timeline.Editing;
@@ -457,6 +459,9 @@ public sealed partial class ShellViewModel : ObservableObject, IDisposable
 
     private void RefreshCommands()
     {
+        OnPropertyChanged(nameof(Aspect));
+        OnPropertyChanged(nameof(SelectedFit));
+        OnPropertyChanged(nameof(CanFit));
         OnPropertyChanged(nameof(IsAudioMuted));
         OnPropertyChanged(nameof(IsAudioFadeIn));
         OnPropertyChanged(nameof(IsAudioFadeOut));
@@ -464,7 +469,7 @@ public sealed partial class ShellViewModel : ObservableObject, IDisposable
         {
             AddToTimelineCommand, RemoveCommand, SplitCommand, CombineCommand, TrimBeginningCommand, TrimEndCommand,
             ClearTrimPointsCommand, NudgeLeftCommand, NudgeRightCommand, CutCommand, CopyCommand, EditTitleCommand,
-            ClipPropertiesCommand, VideoEffectsCommand, RemoveEffectsCommand, VideoFadeInCommand, VideoFadeOutCommand, AudioMuteCommand,
+            ClipPropertiesCommand, VideoEffectsCommand, RemoveEffectsCommand, VideoFadeInCommand, VideoFadeOutCommand, SetFitCommand, AudioMuteCommand,
             AudioFadeInCommand, AudioFadeOutCommand, AudioVolumeCommand, RenameCommand, ClearTimelineCommand,
             PasteCommand, BrowseMissingCommand, CreateClipsCommand, PublishCommand, PublishToComputerCommand, TakePictureCommand,
         })
@@ -1363,7 +1368,7 @@ public sealed partial class ShellViewModel : ObservableObject, IDisposable
 
     public static RenderPlan CatalogSamplePlan(string id, bool transition, ProjectSettings settings)
     {
-        (string first, string second) = SamplePictures.For(settings.Aspect == AspectRatio.Widescreen16x9);
+        (string first, string second) = EffectCatalog.IsFraming(id) ? SamplePictures.Other(settings.Aspect) : SamplePictures.For(settings.Aspect);
         var scratch = new Project { Settings = settings };
         MediaItem Picture(string path) => new() { Kind = MediaKind.Picture, Path = path, Name = Path.GetFileNameWithoutExtension(path) };
         MediaItem a = Picture(first), b = Picture(second);
@@ -1648,6 +1653,23 @@ public sealed partial class ShellViewModel : ObservableObject, IDisposable
 
     private bool HasEffects() =>
         Session.SelectedClips.Any(id => Project.IndexOfVideo(id) is var i and >= 0 && Project.VideoTrack[i].Effects.Count > 0);
+
+    private IEnumerable<VideoClip> SelectedFramable() =>
+        Session.SelectedClips.Select(id => Project.IndexOfVideo(id)).Where(i => i >= 0).Select(i => Project.VideoTrack[i]).Where(TimelineEditor.CanFrame);
+
+    public bool CanFit => SelectedFramable().Any();
+
+    // The fit shared by every selected video or picture clip; null when there are none or they differ.
+    public FrameFitMode? SelectedFit =>
+        SelectedFramable().Select(c => EffectCatalog.FitOf(c.Effects.Select(e => e.EffectId))).Distinct().ToList() is [var only] ? only : null;
+
+    [RelayCommand(CanExecute = nameof(CanFit))]
+    private void SetFit(FrameFitMode mode) => Session.Editor.SetFit([.. SelectedFramable().Select(c => c.Id)], mode);
+
+    public AspectRatio Aspect => Project.Settings.Aspect;
+
+    [RelayCommand]
+    private void SetAspectRatio(AspectRatio aspect) => Session.Editor.SetAspect(aspect);
 
     [RelayCommand(CanExecute = nameof(HasVideoSelection))]
     private void VideoFadeIn() => Session.Editor.ToggleEffect(SelectedVideoClip!.Id, "fade-in-from-black");

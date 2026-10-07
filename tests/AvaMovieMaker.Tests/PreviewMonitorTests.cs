@@ -40,6 +40,27 @@ public sealed class PreviewMonitorTests
     }
 
     [AvaloniaFact]
+    public void Preview_frames_follow_a_change_of_aspect_ratio() => WithTitle(w =>
+    {
+        static double Ratio() => Shell.Monitor.Playback.PreviewSize.Width / (double)Shell.Monitor.Playback.PreviewSize.Height;
+        AspectRatio was = Shell.Aspect;
+        try
+        {
+            foreach (AspectRatio aspect in new[] { AspectRatio.Widescreen16x9, AspectRatio.Vertical9x16, AspectRatio.Standard4x3 })
+            {
+                Shell.SetAspectRatioCommand.Execute(aspect);
+                TestApp.Pump();
+                Assert.Equal(AspectRatios.Value(aspect), Ratio(), 0.02);
+            }
+        }
+        finally
+        {
+            Shell.SetAspectRatioCommand.Execute(was);
+            TestApp.Pump();
+        }
+    });
+
+    [AvaloniaFact]
     public void Board_play_button_becomes_pause_while_the_project_plays() => WithTitle(w =>
     {
         Button play = w.GetVisualDescendants().OfType<Button>().Single(b => AutomationProperties.GetName(b) == "Play Storyboard" && b.IsEffectivelyVisible);

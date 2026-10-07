@@ -23,7 +23,7 @@ public sealed partial class OptionsViewModel : ObservableObject
         PictureSeconds = Math.Clamp(settings.PictureDurationSeconds, ProjectSettings.MinPicture.Seconds, ProjectSettings.MaxPicture.Seconds);
         TransitionSeconds = Math.Clamp(settings.TransitionDurationSeconds, ProjectSettings.MinTransition.Seconds, ProjectSettings.MaxTransition.Seconds);
         IsPal = project.Format == VideoFormat.Pal;
-        IsWidescreen = project.Aspect == AspectRatio.Widescreen16x9;
+        Aspect = project.Aspect;
         HardwareDecode = settings.HardwareDecode;
         HardwareEncode = settings.HardwareEncode;
         PlaybackDevices = [Strings.DefaultDevice, .. AudioSystem.PlaybackDevices.Select(d => d.Name)];
@@ -58,7 +58,23 @@ public sealed partial class OptionsViewModel : ObservableObject
     public partial bool IsPal { get; set; }
 
     [ObservableProperty]
-    public partial bool IsWidescreen { get; set; }
+    public partial AspectRatio Aspect { get; set; }
+
+    public IReadOnlyList<AspectOption> Aspects => AspectOption.All;
+
+    public AspectOption SelectedAspect
+    {
+        get => AspectOption.For(Aspect);
+        set
+        {
+            if (value is not null)
+            {
+                Aspect = value.Value;
+            }
+        }
+    }
+
+    partial void OnAspectChanged(AspectRatio value) => OnPropertyChanged(nameof(SelectedAspect));
 
     [ObservableProperty]
     public partial bool HardwareDecode { get; set; }
@@ -90,7 +106,7 @@ public sealed partial class OptionsViewModel : ObservableObject
         PictureSeconds = 5;
         TransitionSeconds = 1.25;
         IsPal = false;
-        IsWidescreen = false;
+        Aspect = AspectRatio.Standard4x3;
     }
 
     public ProjectSettings Apply(ProjectSettings current)
@@ -114,12 +130,12 @@ public sealed partial class OptionsViewModel : ObservableObject
             PictureDuration = MediaTime.FromSeconds(PictureSeconds),
             TransitionDuration = MediaTime.FromSeconds(TransitionSeconds),
             Format = IsPal ? VideoFormat.Pal : VideoFormat.Ntsc,
-            Aspect = IsWidescreen ? AspectRatio.Widescreen16x9 : AspectRatio.Standard4x3,
+            Aspect = Aspect,
         }).Clamped();
         _settings.PictureDurationSeconds = next.PictureDuration.Seconds;
         _settings.TransitionDurationSeconds = next.TransitionDuration.Seconds;
         _settings.PalVideo = IsPal;
-        _settings.WidescreenVideo = IsWidescreen;
+        _settings.DefaultAspect = AspectRatios.Id(Aspect);
         return next;
     }
 
@@ -128,6 +144,9 @@ public sealed partial class OptionsViewModel : ObservableObject
         PictureDuration = MediaTime.FromSeconds(settings.PictureDurationSeconds),
         TransitionDuration = MediaTime.FromSeconds(settings.TransitionDurationSeconds),
         Format = file?.Format ?? (settings.PalVideo ? VideoFormat.Pal : VideoFormat.Ntsc),
-        Aspect = file?.Aspect ?? (settings.WidescreenVideo ? AspectRatio.Widescreen16x9 : AspectRatio.Standard4x3),
+        Aspect = file?.Aspect ?? DefaultAspect(settings),
     }).Clamped();
+
+    public static AspectRatio DefaultAspect(AppSettings settings) =>
+        AspectRatios.TryParse(settings.DefaultAspect, out AspectRatio aspect) ? aspect : AspectRatio.Standard4x3;
 }

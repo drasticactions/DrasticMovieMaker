@@ -13,11 +13,8 @@ public sealed record PublishProfile
 
     public ContainerFormat Container { get; init; }
 
-    public int Height { get; init; }
-
-    public int Width4x3 { get; init; }
-
-    public int Width16x9 { get; init; }
+    // The frame's short side: the height of landscape frames, the width of portrait ones.
+    public int ShortSide { get; init; }
 
     public int Crf { get; init; }
 
@@ -39,9 +36,14 @@ public sealed record PublishProfile
 
     public (int Width, int Height, Rational PixelAspect) Size(ProjectSettings settings, (int Width, int Height)? largestSource = null)
     {
-        bool wide = settings.Aspect == AspectRatio.Widescreen16x9;
         if (Anamorphic)
         {
+            if (!AspectRatios.HasDvd(settings.Aspect))
+            {
+                throw new InvalidOperationException($"The {Id} profile has no {AspectRatios.Label(settings.Aspect)} frame size.");
+            }
+
+            bool wide = settings.Aspect == AspectRatio.Widescreen16x9;
             int h = settings.Format == VideoFormat.Pal ? 576 : 480;
             Rational par = settings.Format == VideoFormat.Pal
                 ? (wide ? new Rational(64, 45) : new Rational(16, 15))
@@ -49,17 +51,17 @@ public sealed record PublishProfile
             return (720, h, par);
         }
 
-        int height = Height;
+        int shortSide = ShortSide;
         if (MatchSource && largestSource is { } src)
         {
-            height = Math.Clamp(src.Height, 240, 1080);
+            shortSide = Math.Clamp(Math.Min(src.Width, src.Height), 240, 1080);
         }
 
-        int width = wide ? (Width16x9 > 0 && !MatchSource ? Width16x9 : Even(height * 16.0 / 9)) : (Width4x3 > 0 && !MatchSource ? Width4x3 : Even(height * 4.0 / 3));
-        return (width, Even(height), new Rational(1, 1));
+        (int width, int height) = AspectRatios.SizeForShortSide(settings.Aspect, AspectRatios.Even(shortSide));
+        return (width, height, new Rational(1, 1));
     }
 
-    private static int Even(double v) => (int)Math.Round(v / 2) * 2;
+    public bool IsAvailableFor(AspectRatio aspect) => !Anamorphic || AspectRatios.HasDvd(aspect);
 
     public EncoderSettings Encoder(ProjectSettings project, bool hardware, IReadOnlyDictionary<string, string> metadata, (int, int)? largestSource = null, Rational? frameRate = null)
     {
@@ -100,7 +102,7 @@ public sealed record PublishProfile
             AudioBitrate = audio,
             VideoBitrate = video,
             EstimatedVideoBitrate = video,
-            Height = video < 1_500_000 ? 480 : 720,
+            ShortSide = video < 1_500_000 ? 480 : 720,
             MatchSource = false,
         };
     }

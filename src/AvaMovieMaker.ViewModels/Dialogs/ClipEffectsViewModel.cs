@@ -29,11 +29,34 @@ public sealed partial class ClipEffectsViewModel : ObservableObject
     [RelayCommand(CanExecute = nameof(CanAdd))]
     private void Add()
     {
-        Displayed.Add(SelectedAvailable!);
+        EffectListItem added = SelectedAvailable!;
+        int framing = FramingIndex();
+        if (EffectCatalog.IsFraming(added.Id) && framing >= 0)
+        {
+            Displayed[framing] = added;
+            SelectedDisplayed = Displayed[framing];
+            return;
+        }
+
+        Displayed.Add(added);
         SelectedDisplayed = Displayed[^1];
     }
 
-    private bool CanAdd() => SelectedAvailable is not null && Displayed.Count < AvaMovieMaker.Timeline.Editing.TimelineEditor.MaxEffects;
+    private int FramingIndex()
+    {
+        for (int i = 0; i < Displayed.Count; i++)
+        {
+            if (EffectCatalog.IsFraming(Displayed[i].Id))
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private bool CanAdd() => SelectedAvailable is not null
+        && (Displayed.Count < AvaMovieMaker.Timeline.Editing.TimelineEditor.MaxEffects || (EffectCatalog.IsFraming(SelectedAvailable.Id) && FramingIndex() >= 0));
 
     [RelayCommand(CanExecute = nameof(HasDisplayed))]
     private void Remove()
