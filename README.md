@@ -16,19 +16,22 @@ Drastic Movie Maker supports:
 
 The application and in-app icons are from [RemixIcon](https://remixicon.com).
 
+
 ## License
 
 This project is released under the GPL-3.0-or-later license, see [LICENSE.md](LICENSE.md).
 
 This project also includes various third-party libraries and dependencies, see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
-## Implementation
+## How To Run
 
-While I tried to match the features within the later versions of Windows Movie Maker, it's _not_ a "Clean-Room Reimplmentation." It's mostly me eye-balling it and trying to match what the UI and features do. For AutoMovie, I used their descriptions and tried to create a similar algorithm to what their descriptions and generated movies were. 
+Open the [Releases](https://github.com/drasticactions/DrasticMovieMaker/releases) tab and download for your platform. I currently support:
 
-I did try to compare it with running similar clips in Windows Movie Maker to guess what it does, but don't assume it will match it. I'm not strictly trying to match it one-to-one.
+- Windows (10+, x64)
+- macOS (ARM64 only, 15+ _should_ work but I've only tested on 26)
+- Linux (x64, AppImage, requires FUSE to be installed. Tested it on Arch. It _should_ work without other dependencies except for FUSE.)
 
-# macOS Gatekeeper
+## macOS Gatekeeper
 
 The current CI builds are not signed. To use them on macOS, you'll need to remove the quarantine on them.
 
@@ -37,7 +40,13 @@ The current CI builds are not signed. To use them on macOS, you'll need to remov
 
 It should then run.
 
-# LLM Usage
+## Implementation
+
+While I tried to match the features within the later versions of Windows Movie Maker, it's _not_ a "Clean-Room Reimplmentation." It's mostly me eye-balling it and trying to match what the UI and features do. For AutoMovie, I used their descriptions and tried to create a similar algorithm to what their descriptions and generated movies were. 
+
+I did try to compare it with running similar clips in Windows Movie Maker to guess what it does, but don't assume it will match it. I'm not strictly trying to match it one-to-one.
+
+## LLM Usage
 
 I did use LLMs while working on this project.
 
