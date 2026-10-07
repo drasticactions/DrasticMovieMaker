@@ -107,7 +107,6 @@ public sealed class NativeMenuHost : IMenuHost
         KeyGesture? gesture = e.Shortcut?.Gesture;
         var item = new NativeMenuItem(WithoutAccessKey(e.Header))
         {
-            // The parameter goes first: setting Command asks CanExecute, which is false for a null value-type parameter.
             CommandParameter = e.CommandParameter,
             Command = e.Command,
             Gesture = gesture is null || shared.Contains(gesture) || Reserved.Contains(gesture) ? null : gesture,

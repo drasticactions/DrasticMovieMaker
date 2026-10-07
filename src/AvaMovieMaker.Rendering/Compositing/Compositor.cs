@@ -174,8 +174,6 @@ public sealed class Compositor : IDisposable
         }
     }
 
-    // The cover-fitted source drawn at a quarter of the frame size and blurred with a sigma of 2% of the short side.
-    // Clamped edges keep the blur from pulling in black at the borders.
     private SKImage BlurredBackground(RenderContext ctx, int srcWidth, int srcHeight, SKMatrix cover, Func<SKMatrix, SKShader> shader)
     {
         int qw = Math.Max(1, ctx.Width / 4), qh = Math.Max(1, ctx.Height / 4);

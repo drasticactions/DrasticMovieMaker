@@ -12,15 +12,15 @@
     <PackageVersion Include="AvaWpf.Controls" Version="$(AvaWpfVersion)" />
     <PackageVersion Include="AvaWpf.Animations" Version="$(AvaWpfVersion)" />
     <PackageVersion Include="AvaWpf.Fonts" Version="$(AvaWpfVersion)" />
-    <PackageVersion Include="SkiaSharp" Version="4.153.1" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="4.153.1" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.macOS" Version="4.153.1" />
-    <PackageVersion Include="SkiaSharp.NativeAssets.Win32" Version="4.153.1" />
-    <PackageVersion Include="HarfBuzzSharp" Version="14.2.1.301" />
-    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="14.2.1.301" />
-    <PackageVersion Include="HarfBuzzSharp.NativeAssets.macOS" Version="14.2.1.301" />
-    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Win32" Version="14.2.1.301" />
-    <PackageVersion Include="SkiaSharp.HarfBuzz" Version="4.153.1" />
+    <PackageVersion Include="SkiaSharp" Version="3.119.4" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Linux" Version="3.119.4" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.macOS" Version="3.119.4" />
+    <PackageVersion Include="SkiaSharp.NativeAssets.Win32" Version="3.119.4" />
+    <PackageVersion Include="HarfBuzzSharp" Version="8.3.1.5" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Linux" Version="8.3.1.5" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.macOS" Version="8.3.1.5" />
+    <PackageVersion Include="HarfBuzzSharp.NativeAssets.Win32" Version="8.3.1.5" />
+    <PackageVersion Include="SkiaSharp.HarfBuzz" Version="3.119.4" />
     <PackageVersion Include="FFmpeg.AutoGen.Abstractions" Version="9.0.1.1" />
     <PackageVersion Include="FFmpeg.AutoGen.Bindings.DynamicallyLoaded" Version="9.0.1.1" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />

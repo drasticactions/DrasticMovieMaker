@@ -5,7 +5,6 @@ using AvaMovieMaker.Timeline.Model;
 
 namespace AvaMovieMaker.Timeline.Serialization;
 
-// Reads unknown ratios (from newer builds) as 4:3 instead of failing the whole project load.
 public sealed class AspectRatioConverter : JsonConverter<AspectRatio>
 {
     public override AspectRatio Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)

@@ -21,7 +21,7 @@ internal static class ParticleTransitions
             canvas.DrawImage(b, 0, 0, SKSamplingOptions.Default);
             using var paint = new SKPaint { IsAntialias = true };
 
-            using var stillTiles = new SKPathBuilder();
+            using var still = new SKPath();
             var moving = new List<(SKRect Src, float X, float Y, float Rot, float Scale, float Alpha)>();
             for (int j = 0; j < rows; j++)
             {
@@ -51,7 +51,7 @@ internal static class ParticleTransitions
 
                     if (t <= 0f)
                     {
-                        stillTiles.AddRect(new SKRect(i * tw, j * th, (i + 1) * tw, (j + 1) * th));
+                        still.AddRect(new SKRect(i * tw, j * th, (i + 1) * tw, (j + 1) * th));
                         continue;
                     }
 
@@ -92,7 +92,6 @@ internal static class ParticleTransitions
                 }
             }
 
-            using SKPath still = stillTiles.Detach();
             if (!still.IsEmpty)
             {
                 canvas.Save();

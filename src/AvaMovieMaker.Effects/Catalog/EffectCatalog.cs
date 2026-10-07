@@ -106,7 +106,6 @@ public static class EffectCatalog
         _ => null,
     };
 
-    // A clip has at most one framing effect: adding one replaces any other in place; any other effect is appended.
     public static List<string> WithEffect(IEnumerable<string> effectIds, string added)
     {
         var list = effectIds.ToList();
@@ -122,7 +121,6 @@ public static class EffectCatalog
         return list;
     }
 
-    // Returns the effects with every framing effect removed and the one for the mode (if any) in the first framing slot.
     public static List<string> WithFit(IEnumerable<string> effectIds, FrameFitMode mode)
     {
         var list = effectIds.ToList();

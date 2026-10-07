@@ -368,7 +368,6 @@ public static class TitleAnimator
 
         public float H { get; }
 
-        // Text and stroke sizes follow the short side so portrait frames get text that fits their width.
         public float S { get; }
 
         public TitleContent Content { get; }
@@ -594,9 +593,8 @@ public static class TitleAnimator
                 return;
             }
 
-            using var oval = new SKPathBuilder();
-            oval.AddOval(new SKRect(W / 2 - rx, H / 2 - ry, W / 2 + rx, H / 2 + ry));
-            using SKPath path = oval.Detach();
+            using var path = new SKPath();
+            path.AddOval(new SKRect(W / 2 - rx, H / 2 - ry, W / 2 + rx, H / 2 + ry));
             Canvas.Save();
             Canvas.ClipPath(path, antialias: true);
             Block(lines, W / 2, H / 2, eout);
@@ -624,16 +622,15 @@ public static class TitleAnimator
             float total = lines.Sum(l => l.Pitch);
             float top = H / 2 - total / 2;
             float reveal = Math.Clamp(progress * 3, 0, 1);
-            using var columns = new SKPathBuilder();
+            using var clip = new SKPath();
             int cols = 40;
             for (int i = 0; i < cols; i++)
             {
                 float jitter = (float)((Math.Sin(i * 12.9898) * 43758.5453) % 1 + 1) % 1;
                 float colReveal = Math.Clamp(reveal * (1.2f + jitter * 0.6f) - jitter * 0.2f, 0, 1);
-                columns.AddRect(new SKRect(W * i / cols, 0, W * (i + 1) / cols + 1, top + total * colReveal + 2));
+                clip.AddRect(new SKRect(W * i / cols, 0, W * (i + 1) / cols + 1, top + total * colReveal + 2));
             }
 
-            using SKPath clip = columns.Detach();
             Canvas.Save();
             Canvas.ClipPath(clip);
             Block(lines, W / 2, H / 2, eout);
@@ -657,7 +654,7 @@ public static class TitleAnimator
             using var shader = Video.ToShader(SKShaderTileMode.Clamp, SKShaderTileMode.Clamp, Linear);
             float scale = 1.6f;
             TextLine line = Main[0];
-            using var letters = new SKPathBuilder();
+            using var path = new SKPath();
             using SKTextBlob? blob = line.Blob();
             for (int i = 0; i < line.Glyphs.Length; i++)
             {
@@ -665,11 +662,10 @@ public static class TitleAnimator
                 if (g is not null)
                 {
                     g.Transform(SKMatrix.CreateTranslation(line.Positions[i].X, line.Positions[i].Y));
-                    letters.AddPath(g);
+                    path.AddPath(g);
                 }
             }
 
-            using SKPath path = letters.Detach();
             path.Transform(SKMatrix.CreateTranslation(-line.Width / 2, line.Ascent - line.Height / 2).PostConcat(SKMatrix.CreateScale(scale, scale)).PostConcat(SKMatrix.CreateTranslation(W / 2, H / 2)));
             using var paint = new SKPaint { IsAntialias = true, Shader = shader, Color = SKColors.White.WithAlpha((byte)(255 * alpha * Alpha)) };
             Canvas.DrawPath(path, paint);

@@ -20,7 +20,6 @@ public sealed record VideoProperties
 
     public string Codec { get; init => field = value ?? string.Empty; } = string.Empty;
 
-    // The size the video is shown at, after the sample aspect and rotation.
     public (int Width, int Height) DisplaySize
     {
         get

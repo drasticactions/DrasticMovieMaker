@@ -740,7 +740,6 @@ public sealed class TimelineEditor(Project project, UndoStack undo)
     public bool SetEffects(Guid clipId, IReadOnlyList<string> effectIds) =>
         UpdateVideo(clipId, UndoNames.ChangeEffects, c => c with { Effects = OneFraming(effectIds.Where(e => EffectCatalog.Find(e) is not null)).Select(e => new EffectRef(e)).ToList() });
 
-    // Keeps the last framing effect in the list, at the position of the first.
     private static List<string> OneFraming(IEnumerable<string> effectIds)
     {
         var list = new List<string>();

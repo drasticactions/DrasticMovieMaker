@@ -13,7 +13,6 @@ public sealed record PublishProfile
 
     public ContainerFormat Container { get; init; }
 
-    // The frame's short side: the height of landscape frames, the width of portrait ones.
     public int ShortSide { get; init; }
 
     public int Crf { get; init; }

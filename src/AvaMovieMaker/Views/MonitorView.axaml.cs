@@ -18,7 +18,6 @@ public partial class MonitorView : UserControl
         {
             if (e.Property == BoundsProperty || e.Property == PreviewImage.AspectProperty)
             {
-                // A portrait frame is too narrow for a readable caption; it uses the monitor width instead.
                 Rect video = preview.VideoRect;
                 caption.MaxWidth = video.Width < video.Height ? preview.Bounds.Width : video.Width;
             }

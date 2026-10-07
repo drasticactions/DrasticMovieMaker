@@ -27,7 +27,6 @@ public static class MovieExporter
         }
         catch (FFmpegException e) when (settings.HardwareEncode && !cancel.IsCancellationRequested)
         {
-            // Drivers can refuse a frame size or format the software encoder handles, so retry without the hardware.
             Log.Warn("encode", $"Hardware encoding failed ({e.Message}); encoding in software instead.");
             ExportOnce(device, effects, frames, plan, settings with { HardwareEncode = false }, path, progress, cancel, limit);
         }

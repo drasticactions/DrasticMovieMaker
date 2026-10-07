@@ -110,11 +110,10 @@ public sealed class CatalogSample : Control
         SKRect frame = z1 >= z0 ? to : from;
         frame.Inflate(-1, -1);
         using var wash = new SKPaint { Color = new SKColor(255, 255, 255, 110) };
-        using (var builder = new SKPathBuilder { FillType = SKPathFillType.EvenOdd })
+        using (var outside = new SKPath { FillType = SKPathFillType.EvenOdd })
         {
-            builder.AddRect(SKRect.Create(0, 0, W, H));
-            builder.AddRect(frame);
-            using SKPath outside = builder.Detach();
+            outside.AddRect(SKRect.Create(0, 0, W, H));
+            outside.AddRect(frame);
             c.DrawPath(outside, wash);
         }
 
@@ -130,12 +129,11 @@ public sealed class CatalogSample : Control
             float len = MathF.Max(1, d.Length);
             var u = new SKPoint(d.X / len * 7, d.Y / len * 7);
             var n = new SKPoint(-u.Y * 0.6f, u.X * 0.6f);
-            using var outline = new SKPathBuilder();
-            outline.MoveTo(b);
-            outline.LineTo(b - u + n);
-            outline.LineTo(b - u - n);
-            outline.Close();
-            using SKPath head = outline.Detach();
+            using var head = new SKPath();
+            head.MoveTo(b);
+            head.LineTo(b - u + n);
+            head.LineTo(b - u - n);
+            head.Close();
             using var fill = new SKPaint { Color = SKColors.White, IsAntialias = true };
             c.DrawPath(head, fill);
         }

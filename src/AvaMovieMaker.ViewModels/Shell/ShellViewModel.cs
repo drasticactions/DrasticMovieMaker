@@ -1659,7 +1659,6 @@ public sealed partial class ShellViewModel : ObservableObject, IDisposable
 
     public bool CanFit => SelectedFramable().Any();
 
-    // The fit shared by every selected video or picture clip; null when there are none or they differ.
     public FrameFitMode? SelectedFit =>
         SelectedFramable().Select(c => EffectCatalog.FitOf(c.Effects.Select(e => e.EffectId))).Distinct().ToList() is [var only] ? only : null;
 

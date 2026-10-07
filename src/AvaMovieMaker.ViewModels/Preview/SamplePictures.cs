@@ -17,7 +17,6 @@ public static class SamplePictures
         return (Ensure($"flower-{tag}-v{Version}.png", w, h, DrawFlower), Ensure($"daisies-{tag}-v{Version}.png", w, h, DrawDaisies));
     }
 
-    // Pictures of the other orientation, so fitting them to the frame shows a visible difference.
     public static (string First, string Second) Other(AspectRatio aspect) =>
         For(AspectRatios.IsPortrait(aspect) || aspect == AspectRatio.Square1x1 ? AspectRatio.Widescreen16x9 : AspectRatio.Vertical9x16);
 
@@ -102,14 +101,13 @@ public static class SamplePictures
 
         using (var meadow = SKShader.CreateLinearGradient(new SKPoint(0, h * 0.45f), new SKPoint(0, h), [new SKColor(0x7C, 0xB4, 0x3C), new SKColor(0x2E, 0x6A, 0x1E)], SKShaderTileMode.Clamp))
         using (var p = new SKPaint { Shader = meadow, IsAntialias = true })
-        using (var outline = new SKPathBuilder())
+        using (var hill = new SKPath())
         {
-            outline.MoveTo(0, h * 0.5f);
-            outline.CubicTo(w * 0.3f, h * 0.4f, w * 0.6f, h * 0.56f, w, h * 0.46f);
-            outline.LineTo(w, h);
-            outline.LineTo(0, h);
-            outline.Close();
-            using SKPath hill = outline.Detach();
+            hill.MoveTo(0, h * 0.5f);
+            hill.CubicTo(w * 0.3f, h * 0.4f, w * 0.6f, h * 0.56f, w, h * 0.46f);
+            hill.LineTo(w, h);
+            hill.LineTo(0, h);
+            hill.Close();
             c.DrawPath(hill, p);
         }
 

@@ -41,7 +41,6 @@ public sealed class InWindowMenuHost : IMenuHost
         {
             Name = e.Name,
             Header = e.Header,
-            // The parameter goes first: setting Command asks CanExecute, which is false for a null value-type parameter.
             CommandParameter = e.CommandParameter,
             Command = e.Command,
             InputGesture = e.Shortcut?.Gesture,
