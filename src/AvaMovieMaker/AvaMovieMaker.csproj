@@ -52,7 +52,6 @@
 
   <ItemGroup>
     <AvaloniaResource Include="Styles\**\*.axaml" />
-    <AvaloniaResource Include="Assets\Icons\*.png" />
     <EmbeddedResource Include="..\..\THIRD-PARTY-NOTICES.md" LogicalName="THIRD-PARTY-NOTICES.md" />
   </ItemGroup>
 

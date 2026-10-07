@@ -828,10 +828,9 @@ public sealed class TimelineControl : Control
         ctx.DrawText(t, new Point(right - t.Width, row.Top + (row.Height - t.Height) / 2));
         if (row.Track == TimelineTrack.Video)
         {
-            var box = new Glyph { Kind = _vm!.IsVideoExpanded ? "collapse" : "expand" };
             using (ctx.PushTransform(Matrix.CreateTranslation(ExpandBox.X, row.Top + (row.Height - 16) / 2)))
             {
-                box.Render(ctx);
+                Glyph.Draw(ctx, _vm!.IsVideoExpanded ? "collapse" : "expand", this);
             }
         }
     }

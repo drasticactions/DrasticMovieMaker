@@ -47,9 +47,8 @@ public sealed class ThumbnailFrame : Control
         if (Kind == MediaKind.Audio)
         {
             const double size = 48;
-            Bitmap b = Glyph.Picture("audio-music", size * (TopLevel.GetTopLevel(this)?.RenderScaling ?? 1));
-            using DrawingContext.PushedState q = ctx.PushRenderOptions(new RenderOptions { BitmapInterpolationMode = BitmapInterpolationMode.HighQuality });
-            ctx.DrawImage(b, new Rect(b.Size), new Rect(r.Center.X - size / 2, r.Center.Y - size / 2, size, size));
+            using DrawingContext.PushedState t = ctx.PushTransform(Matrix.CreateScale(size / 32, size / 32) * Matrix.CreateTranslation(r.Center.X - size / 2, r.Center.Y - size / 2));
+            Glyph.Draw(ctx, "audio-music", this);
             return;
         }
 

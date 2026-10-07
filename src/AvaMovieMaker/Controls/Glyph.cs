@@ -1,8 +1,7 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Platform;
+using Avalonia.Styling;
 
 namespace AvaMovieMaker.Controls;
 
@@ -10,11 +9,16 @@ public sealed class Glyph : Control
 {
     public static readonly StyledProperty<string> KindProperty = AvaloniaProperty.Register<Glyph, string>(nameof(Kind), string.Empty);
 
+    /// <summary>Set on a container whose background stays dark in both themes, such as the toolbar, so glyphs inside use their light colors.</summary>
+    public static readonly AttachedProperty<bool> OnDarkProperty = AvaloniaProperty.RegisterAttached<Glyph, Control, bool>("OnDark", inherits: true);
+
     static Glyph()
     {
-        AffectsRender<Glyph>(KindProperty, IsEffectivelyEnabledProperty);
+        AffectsRender<Glyph>(KindProperty, IsEffectivelyEnabledProperty, OnDarkProperty);
         AffectsMeasure<Glyph>(KindProperty);
     }
+
+    public Glyph() => ActualThemeVariantChanged += (_, _) => InvalidateVisual();
 
     public string Kind
     {
@@ -22,14 +26,67 @@ public sealed class Glyph : Control
         set => SetValue(KindProperty, value);
     }
 
-    private static readonly HashSet<string> Pictures =
-    [
-        "import", "undo", "redo", "automovie", "publish", "tasks", "collections", "view-options", "split",
-        "audio-from-video", "audio-music", "wizard-back", "computer", "narrate", "audio-levels", "dvd", "cd", "email", "camera", "app",
-    ];
+    public static bool GetOnDark(Control control) => control.GetValue(OnDarkProperty);
 
-    private static readonly int[] PictureSizes = [16, 24, 32, 48, 64];
-    private static readonly Dictionary<(string Kind, int Size), Bitmap> PictureCache = new();
+    public static void SetOnDark(Control control, bool value) => control.SetValue(OnDarkProperty, value);
+
+    private enum Hue
+    {
+        Blue,
+        Green,
+        Orange,
+        Gold,
+        Red,
+        Gray,
+        Purple,
+    }
+
+    // Top and bottom gradient stops for light and dark backgrounds; every stop keeps 3:1 contrast against the
+    // surfaces glyphs sit on in its theme.
+    private static readonly Dictionary<Hue, (uint Top, uint Bottom, uint DarkTop, uint DarkBottom)> Hues = new()
+    {
+        [Hue.Blue] = (0x3272CC, 0x1A4AA8, 0xA4CCFF, 0x74ACF6),
+        [Hue.Green] = (0x2E8424, 0x1D6614, 0xA2E48E, 0x62C44E),
+        [Hue.Orange] = (0xB05E06, 0x844404, 0xFFC878, 0xF2A040),
+        [Hue.Gold] = (0x9A6E00, 0x704E00, 0xFFE27A, 0xEBBE2C),
+        [Hue.Red] = (0xD0483A, 0x992418, 0xFFA698, 0xF6867A),
+        [Hue.Gray] = (0x66728A, 0x3C4658, 0xD6DCE6, 0xA4AEBE),
+        [Hue.Purple] = (0x8656C6, 0x56308C, 0xD2B6F6, 0xB896EA),
+    };
+
+    private static readonly Dictionary<string, (string Icon, Hue Hue)> Icons = new()
+    {
+        ["import"] = ("video-add-line", Hue.Green),
+        ["undo"] = ("arrow-go-back-line", Hue.Blue),
+        ["redo"] = ("arrow-go-forward-line", Hue.Blue),
+        ["automovie"] = ("magic-line", Hue.Gold),
+        ["publish"] = ("share-forward-box-line", Hue.Green),
+        ["tasks"] = ("task-line", Hue.Blue),
+        ["collections"] = ("folder-video-line", Hue.Orange),
+        ["view-options"] = ("layout-grid-line", Hue.Blue),
+        ["split"] = ("scissors-cut-line", Hue.Gray),
+        ["audio-from-video"] = ("film-line", Hue.Blue),
+        ["audio-music"] = ("music-2-line", Hue.Purple),
+        ["wizard-back"] = ("arrow-left-circle-line", Hue.Blue),
+        ["computer"] = ("computer-line", Hue.Gray),
+        ["narrate"] = ("mic-line", Hue.Red),
+        ["audio-levels"] = ("volume-up-line", Hue.Blue),
+        ["dvd"] = ("album-line", Hue.Purple),
+        ["cd"] = ("album-line", Hue.Gray),
+        ["email"] = ("mail-line", Hue.Gold),
+        ["camera"] = ("vidicon-line", Hue.Gray),
+        ["zoom-in"] = ("zoom-in-line", Hue.Blue),
+        ["zoom-out"] = ("zoom-out-line", Hue.Blue),
+        ["align-left"] = ("align-left", Hue.Gray),
+        ["align-center"] = ("align-center", Hue.Gray),
+        ["align-right"] = ("align-right", Hue.Gray),
+        ["expand"] = ("add-box-line", Hue.Blue),
+        ["collapse"] = ("checkbox-indeterminate-line", Hue.Blue),
+        ["transitions"] = ("swap-box-line", Hue.Green),
+        ["app"] = ("movie-2-fill", Hue.Blue),
+    };
+
+    private static readonly Dictionary<string, Geometry> Geometries = new();
 
     private static readonly Color Blue = Color.FromRgb(0x1E, 0x4F, 0xC0);
     private static readonly Color LightBlue = Color.FromRgb(0x5E, 0x9B, 0xF0);
@@ -37,9 +94,11 @@ public sealed class Glyph : Control
     private static IBrush EffectBox => Bands((0, 0x7686A4), (0.4, 0x6C7E9F), (0.6, 0x8A9CBB), (1, 0x8298B9));
     private static Pen EffectBoxPen => new(new SolidColorBrush(Color.FromRgb(0x4C, 0x63, 0x80)));
     private static IBrush EffectStar => Vertical(Colors.White, Color.FromRgb(0xE4, 0xE4, 0xE6));
-    private static Pen EffectStarPen => new(new SolidColorBrush(Color.FromRgb(0x48, 0x5E, 0x7C)), 1);
+    private static Pen EffectStarPen => new(new SolidColorBrush(Color.FromRgb(0x48, 0x5E, 0x7C)), 0.75);
 
-    protected override Size MeasureOverride(Size availableSize) => Kind switch
+    protected override Size MeasureOverride(Size availableSize) => SizeOf(Kind);
+
+    private static Size SizeOf(string kind) => kind switch
     {
         "play-round" or "pause-round" => new Size(35, 43),
         "frame-prev" or "frame-next" => new Size(28, 22),
@@ -69,60 +128,78 @@ public sealed class Glyph : Control
         return b;
     }
 
-    private static Geometry Star(double cx, double cy, double r, double ri, double tilt = 0)
+    private static IBrush Fill(Hue hue, bool dark)
     {
-        var g = new StreamGeometry();
-        using (StreamGeometryContext s = g.Open())
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                double a = (i * 36 + tilt) * Math.PI / 180, d = i % 2 == 0 ? r : ri;
-                var p = new Point(cx + d * Math.Sin(a), cy - d * Math.Cos(a));
-                if (i == 0)
-                {
-                    s.BeginFigure(p, true);
-                }
-                else
-                {
-                    s.LineTo(p);
-                }
-            }
+        (uint top, uint bottom, uint darkTop, uint darkBottom) = Hues[hue];
+        return Vertical(Color.FromUInt32(0xFF000000 | (dark ? darkTop : top)), Color.FromUInt32(0xFF000000 | (dark ? darkBottom : bottom)));
+    }
 
-            s.EndFigure(true);
+    private static Geometry Icon(string name)
+    {
+        if (!Geometries.TryGetValue(name, out Geometry? g))
+        {
+            g = Geometry.Parse(GlyphPaths.Remix[name]);
+            Geometries[name] = g;
         }
 
         return g;
     }
 
-    internal static Bitmap Picture(string kind, double pixels)
+    // Draws a 24-unit icon scaled into the given box.
+    private static void DrawIcon(DrawingContext ctx, string name, Rect box, IBrush fill, IPen? pen = null)
     {
-        int size = PictureSizes.FirstOrDefault(s => s >= pixels, PictureSizes[^1]);
-        if (!PictureCache.TryGetValue((kind, size), out Bitmap? b))
-        {
-            using Stream s = AssetLoader.Open(new Uri($"avares://DrasticMovieMaker/Assets/Icons/{kind}-{size}.png"));
-            b = new Bitmap(s);
-            PictureCache[(kind, size)] = b;
-        }
-
-        return b;
+        using DrawingContext.PushedState t = ctx.PushTransform(Matrix.CreateScale(box.Width / 24, box.Height / 24) * Matrix.CreateTranslation(box.X, box.Y));
+        ctx.DrawGeometry(fill, pen, Icon(name));
     }
+
+    private static bool IsDark(Control host) => GetOnDark(host) || host.ActualThemeVariant == ThemeVariant.Dark;
+
+    /// <summary>Draws a glyph at its natural size for a control that renders glyphs itself, using that control's theme.</summary>
+    internal static void Draw(DrawingContext ctx, string kind, Control host) => DrawKind(ctx, kind, IsDark(host));
 
     public override void Render(DrawingContext ctx)
     {
         double a = IsEffectivelyEnabled ? 1 : 0.4;
         using DrawingContext.PushedState o = ctx.PushOpacity(a);
-        if (Pictures.Contains(Kind))
+        DrawKind(ctx, Kind, IsDark(this));
+    }
+
+    private static void DrawKind(DrawingContext ctx, string kind, bool dark)
+    {
+        if (Icons.TryGetValue(kind, out (string Icon, Hue Hue) icon))
         {
-            Size size = MeasureOverride(default);
-            double scale = TopLevel.GetTopLevel(this)?.RenderScaling ?? 1;
-            Bitmap b = Picture(Kind, Math.Max(size.Width, size.Height) * scale);
-            using DrawingContext.PushedState q = ctx.PushRenderOptions(new RenderOptions { BitmapInterpolationMode = BitmapInterpolationMode.HighQuality });
-            ctx.DrawImage(b, new Rect(b.Size), new Rect(size));
+            DrawIcon(ctx, icon.Icon, new Rect(SizeOf(kind)), Fill(icon.Hue, dark));
             return;
         }
 
-        switch (Kind)
+        switch (kind)
         {
+            case "font-grow":
+            case "font-shrink":
+                DrawIcon(ctx, "text", new Rect(-2.5, 2, 14, 14), Fill(Hue.Blue, dark));
+                DrawIcon(ctx, kind == "font-grow" ? "arrow-up-s-fill" : "arrow-down-s-fill", new Rect(5.5, kind == "font-grow" ? -2 : -3, 12, 12), Fill(Hue.Blue, dark));
+                return;
+
+            case "drop-arrow":
+                DrawIcon(ctx, "arrow-down-s-fill", new Rect(-3, 2, 13, 13), Fill(Hue.Gray, dark));
+                return;
+
+            case "star-multi":
+                ctx.DrawRectangle(EffectBox, EffectBoxPen, new Rect(1.5, 1.5, 22, 22), 1, 1);
+                DrawIcon(ctx, "sparkling-fill", new Rect(2, 2, 21, 21), EffectStar, EffectStarPen);
+                return;
+
+            case "star":
+            case "star-on":
+            {
+                bool on = kind == "star-on";
+                ctx.DrawRectangle(on ? EffectBox : Vertical(Color.FromRgb(0xFC, 0xFC, 0xFC), Color.FromRgb(0xE0, 0xE2, 0xE6)),
+                    on ? EffectBoxPen : new Pen(new SolidColorBrush(Color.FromRgb(0xA8, 0xAC, 0xB4))), new Rect(1.5, 1.5, 22, 22), 1, 1);
+                DrawIcon(ctx, "star-fill", new Rect(2, 2, 21, 21), on ? EffectStar : Vertical(Colors.White, Color.FromRgb(0xF0, 0xF0, 0xF0)),
+                    on ? EffectStarPen : new Pen(new SolidColorBrush(Color.FromRgb(0x9C, 0xA0, 0xA8)), 0.75));
+                return;
+            }
+
             case "play-round":
             case "pause-round":
             {
@@ -137,7 +214,7 @@ public sealed class Glyph : Control
                 }
 
                 var face = Bands((0, 0xFFFFFF), (0.4, 0xFAFAFA), (0.47, 0xF4F4F4), (0.6, 0xDEDEDE), (0.73, 0xC8C8C8), (0.86, 0xB4B4B4), (1, 0xA8A8A8));
-                if (Kind == "play-round")
+                if (kind == "play-round")
                 {
                     ctx.DrawGeometry(face, null, Geometry.Parse("M13,13.8 L26.3,21.5 L13,29.1 Z"));
                 }
@@ -153,7 +230,7 @@ public sealed class Glyph : Control
             case "frame-prev":
             case "frame-next":
             {
-                bool next = Kind == "frame-next";
+                bool next = kind == "frame-next";
                 var fill = Vertical(LightBlue, Blue);
                 ctx.DrawGeometry(fill, null, Geometry.Parse(next ? "M11,6 L18,11 L11,16 Z" : "M17,6 L10,11 L17,16 Z"));
                 ctx.DrawRectangle(fill, null, next ? new Rect(19, 6, 2.5, 10) : new Rect(6.5, 6, 2.5, 10));
@@ -161,105 +238,24 @@ public sealed class Glyph : Control
             }
 
             case "rewind":
-                ctx.DrawRectangle(new SolidColorBrush(Blue), null, new Rect(3, 4, 2, 10));
-                ctx.DrawGeometry(new SolidColorBrush(Blue), null, Geometry.Parse("M14,4 L6,9 L14,14 Z"));
+                ctx.DrawRectangle(Fill(Hue.Blue, dark), null, new Rect(3, 4, 2, 10));
+                ctx.DrawGeometry(Fill(Hue.Blue, dark), null, Geometry.Parse("M14,4 L6,9 L14,14 Z"));
                 break;
             case "play":
-                ctx.DrawGeometry(new SolidColorBrush(Blue), null, Geometry.Parse("M5,3 L15,9 L5,15 Z"));
+                ctx.DrawGeometry(Fill(Hue.Blue, dark), null, Geometry.Parse("M5,3 L15,9 L5,15 Z"));
                 break;
             case "pause":
-                ctx.DrawRectangle(new SolidColorBrush(Blue), null, new Rect(4, 3, 3.5, 12));
-                ctx.DrawRectangle(new SolidColorBrush(Blue), null, new Rect(10.5, 3, 3.5, 12));
+                ctx.DrawRectangle(Fill(Hue.Blue, dark), null, new Rect(4, 3, 3.5, 12));
+                ctx.DrawRectangle(Fill(Hue.Blue, dark), null, new Rect(10.5, 3, 3.5, 12));
                 break;
-            case "zoom-in":
-            case "zoom-out":
-            {
-                var pen = new Pen(new SolidColorBrush(Blue), 2);
-                ctx.DrawEllipse(Brushes.White, pen, new Point(10, 7.5), 5.5, 5.5);
-                ctx.DrawLine(new Pen(new SolidColorBrush(Blue), 3, lineCap: PenLineCap.Round), new Point(5.5, 12), new Point(2, 15.5));
-                ctx.DrawLine(new Pen(new SolidColorBrush(Blue), 1.8), new Point(7.5, 7.5), new Point(12.5, 7.5));
-                if (Kind == "zoom-in")
-                {
-                    ctx.DrawLine(new Pen(new SolidColorBrush(Blue), 1.8), new Point(10, 5), new Point(10, 10));
-                }
-
-                break;
-            }
-
-            case "expand":
-            case "collapse":
-            {
-                ctx.DrawRectangle(Brushes.White, new Pen(new SolidColorBrush(Blue)), new Rect(2.5, 2.5, 10, 10));
-                ctx.DrawLine(new Pen(new SolidColorBrush(Blue), 1.4), new Point(5, 7.5), new Point(10, 7.5));
-                if (Kind == "expand")
-                {
-                    ctx.DrawLine(new Pen(new SolidColorBrush(Blue), 1.4), new Point(7.5, 5), new Point(7.5, 10));
-                }
-
-                break;
-            }
-
-            case "star-multi":
-            {
-                ctx.DrawRectangle(EffectBox, EffectBoxPen, new Rect(1.5, 1.5, 22, 22), 1, 1);
-                ctx.DrawGeometry(EffectStar, EffectStarPen, Star(9.9, 11, 8, 4.1));
-                ctx.DrawGeometry(EffectStar, EffectStarPen, Star(16.3, 16.6, 5.7, 2.9, -6));
-                break;
-            }
-
-            case "star":
-            case "star-on":
-            {
-                bool on = Kind == "star-on";
-                ctx.DrawRectangle(on ? EffectBox : Vertical(Color.FromRgb(0xFC, 0xFC, 0xFC), Color.FromRgb(0xE0, 0xE2, 0xE6)),
-                    on ? EffectBoxPen : new Pen(new SolidColorBrush(Color.FromRgb(0xA8, 0xAC, 0xB4))), new Rect(1.5, 1.5, 22, 22), 1, 1);
-                ctx.DrawGeometry(on ? EffectStar : Vertical(Colors.White, Color.FromRgb(0xF0, 0xF0, 0xF0)),
-                    on ? EffectStarPen : new Pen(new SolidColorBrush(Color.FromRgb(0x9C, 0xA0, 0xA8)), 1), Star(12, 12, 9, 4.6));
-                break;
-            }
-            case "font-grow":
-            case "font-shrink":
-            {
-                bool grow = Kind == "font-grow";
-                var ink = new SolidColorBrush(Color.FromRgb(0x1E, 0x3C, 0x8C));
-                ctx.DrawGeometry(null, new Pen(ink, 1.6), Geometry.Parse(grow ? "M1,14 L5.5,3 L10,14 M3,10 L8,10" : "M2,14 L5.5,6 L9,14 M3.6,11 L7.4,11"));
-                ctx.DrawGeometry(ink, null, Geometry.Parse(grow ? "M11,6 L13.5,2 L16,6 Z" : "M11,2 L16,2 L13.5,6 Z"));
-                break;
-            }
-
-            case "align-left":
-            case "align-center":
-            case "align-right":
-            {
-                var pen = new Pen(new SolidColorBrush(Color.FromRgb(0x30, 0x30, 0x30)));
-                double[] widths = [12, 8, 12, 8, 12];
-                for (int i = 0; i < widths.Length; i++)
-                {
-                    double w = widths[i];
-                    double x = Kind switch { "align-left" => 2, "align-right" => 14 - w, _ => 8 - w / 2 };
-                    ctx.DrawLine(pen, new Point(x, 3.5 + i * 2.5), new Point(x + w, 3.5 + i * 2.5));
-                }
-
-                break;
-            }
-
-            case "drop-arrow":
-                ctx.DrawGeometry(new SolidColorBrush(Color.FromRgb(0xC8, 0xC8, 0xC8)), null, Geometry.Parse("M0,7 L7,7 L3.5,10.5 Z"));
-                break;
-
-            case "transitions":
-                ctx.DrawRectangle(Vertical(Color.FromRgb(0x6C, 0xD4, 0x5C), Color.FromRgb(0x1E, 0x8C, 0x2A)), new Pen(new SolidColorBrush(Color.FromRgb(0x16, 0x5E, 0x1E))), new Rect(1.5, 1.5, 13, 13));
-                ctx.DrawGeometry(Brushes.White, null, Geometry.Parse("M5.5,4 L11.5,8 L5.5,12 Z"));
-                break;
-
             case "menu-play":
             case "menu-stop":
             case "menu-rewind":
             case "menu-prev":
             case "menu-next":
             {
-                IBrush ink = new SolidColorBrush(Color.FromRgb(0x5A, 0x6E, 0x96));
-                string g = Kind switch
+                IBrush ink = new SolidColorBrush(dark ? Color.FromRgb(0xA4, 0xAE, 0xBE) : Color.FromRgb(0x5A, 0x6E, 0x96));
+                string g = kind switch
                 {
                     "menu-play" => "M4,3 L12,8 L4,13 Z",
                     "menu-stop" => "M4,4 L12,4 L12,12 L4,12 Z",
