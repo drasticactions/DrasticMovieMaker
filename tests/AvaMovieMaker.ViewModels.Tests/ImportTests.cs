@@ -72,17 +72,17 @@ public sealed class ImportTests
 
         Assert.Single(items);
         MessageRequest message = Assert.Single(h.Messages.Shown);
-        Assert.Equal("AvaMovieMaker", message.Title);
+        Assert.Equal("Drastic Movie Maker", message.Title);
         Assert.Equal(MessageIcon.Error, message.Icon);
         Assert.Equal(MessageButtons.Ok, message.Buttons);
         Assert.True(message.IsList);
         Assert.Equal(
             [
                 $"The file \"{missing}\" could not be found. Verify that the file has not been deleted, renamed, or moved, and then try again.",
-                "AvaMovieMaker cannot import folders.",
+                "Drastic Movie Maker cannot import folders.",
                 $"The file {empty} is an empty file.",
-                $"The file {text} is not a supported file type, and it cannot be imported into AvaMovieMaker.",
-                $"The file {broken} is not a supported file type, and it cannot be imported into AvaMovieMaker.",
+                $"The file {text} is not a supported file type, and it cannot be imported into Drastic Movie Maker.",
+                $"The file {broken} is not a supported file type, and it cannot be imported into Drastic Movie Maker.",
             ],
             message.Text.Split("\n\n"));
         Assert.DoesNotContain("Windows Movie Maker", message.Text, StringComparison.Ordinal);
@@ -98,7 +98,7 @@ public sealed class ImportTests
             new("/m/c.avi", ImportError.Failed, string.Empty),
         ]);
         Assert.Equal(
-            "The file /m/a.avi cannot be imported because the codec required to play the file is not installed on your computer. If you have already tried to download and install the codec, close and restart AvaMovieMaker, and then try to import the file again."
+            "The file /m/a.avi cannot be imported because the codec required to play the file is not installed on your computer. If you have already tried to download and install the codec, close and restart Drastic Movie Maker, and then try to import the file again."
             + "\n\n/m/b.avi could not be imported. Disk error.\n\n/m/c.avi could not be imported.",
             text);
     }
@@ -171,8 +171,8 @@ public sealed class ImportTests
         Assert.False(h.Shell.CanDropFiles(["/x/notes.txt"]));
         Assert.True(h.Shell.CanDropFiles(["/x/notes.txt", "/x/clip.MP4"]));
         Assert.True(h.Shell.CanDropFiles(["/x/My Movie.MSWMM"]));
-        Assert.True(h.Shell.CanDropFiles(["/x/movie.ammproj"]));
-        Assert.False(h.Shell.CanDropFiles(["/x/a.ammproj", "/x/b.ammproj"]));
+        Assert.True(h.Shell.CanDropFiles(["/x/movie.dmmproj"]));
+        Assert.False(h.Shell.CanDropFiles(["/x/a.dmmproj", "/x/b.dmmproj"]));
     }
 
     [Fact]

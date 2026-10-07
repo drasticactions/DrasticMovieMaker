@@ -3,7 +3,7 @@
   <Styles.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
-        <ResourceInclude Source="avares://AvaMovieMaker/Styles/MovieMakerBrushes.axaml" />
+        <ResourceInclude Source="avares://DrasticMovieMaker/Styles/MovieMakerBrushes.axaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Styles.Resources>

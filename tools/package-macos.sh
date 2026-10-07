@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Packages the desktop macOS app (NativeAOT, osx-arm64, macOS 15+) as AvaMovieMaker.app in
-# <out>/AvaMovieMaker-<version>-arm64.dmg. Run on an Apple silicon Mac with the .NET SDK and the Xcode command line
+# Packages the desktop macOS app (NativeAOT, osx-arm64, macOS 15+) as "Drastic Movie Maker.app" in
+# <out>/DrasticMovieMaker-<version>-arm64.dmg. Run on an Apple silicon Mac with the .NET SDK and the Xcode command line
 # tools. The bundled FFmpeg comes from tools/ffmpeg/out/osx-arm64 (built first when missing) and goes to
 # Contents/Frameworks.
 #
@@ -30,14 +30,14 @@ trap 'rm -rf "$work"' EXIT
 dotnet publish "$root/src/AvaMovieMaker" -c Release -r osx-arm64 -o "$work/publish" -warnaserror \
   -p:AmmFFmpegDir="$work/no-ffmpeg/"
 
-app=$work/AvaMovieMaker.app
+app="$work/Drastic Movie Maker.app"
 contents=$app/Contents
 mkdir -p "$contents/MacOS" "$contents/Frameworks" "$contents/Resources"
 
 # The program and the native libraries it loads from its own folder (symbols and .pdb files stay out).
-cp "$work/publish/AvaMovieMaker" "$work/publish/"*.dylib "$contents/MacOS/"
+cp "$work/publish/DrasticMovieMaker" "$work/publish/"*.dylib "$contents/MacOS/"
 cp "$ffmpeg/"*.dylib "$contents/Frameworks/"
-install_name_tool -add_rpath "@executable_path/../Frameworks" "$contents/MacOS/AvaMovieMaker"
+install_name_tool -add_rpath "@executable_path/../Frameworks" "$contents/MacOS/DrasticMovieMaker"
 
 # Every native library must run on the minimum macOS (Info.plist's LSMinimumSystemVersion), and the Linux GPU paths
 # (EGL, Vulkan) must not be imported: the trimmer drops them on macOS.
@@ -48,7 +48,7 @@ for bin in "$contents/MacOS/"* "$contents/Frameworks/"*.dylib; do
     exit 1
   fi
 done
-if strings "$contents/MacOS/AvaMovieMaker" | grep -E '^lib(EGL|vulkan)\.so'; then
+if strings "$contents/MacOS/DrasticMovieMaker" | grep -E '^lib(EGL|vulkan)\.so'; then
   echo "The macOS executable still imports a Linux GPU library." >&2
   exit 1
 fi
@@ -73,7 +73,7 @@ cp "$root/LICENSE.md" "$root/THIRD-PARTY-NOTICES.md" "$contents/Resources/"
 cp "$ffmpeg/BUILDINFO.txt" "$contents/Resources/FFMPEG-BUILDINFO.txt"
 revision=${GITHUB_SHA:-$(git -C "$root" rev-parse HEAD 2>/dev/null || echo unknown)}
 {
-  echo "AvaMovieMaker $version, licensed under the GNU GPL version 3 or later (LICENSE.md)."
+  echo "Drastic Movie Maker $version, licensed under the GNU GPL version 3 or later (LICENSE.md)."
   echo "Built from revision $revision${GITHUB_REPOSITORY:+ of ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}}."
   echo "FFmpeg build (pinned sources, configure options): tools/ffmpeg (build-desktop.sh) in that revision;"
   echo "its configure line and source revisions are in FFMPEG-BUILDINFO.txt."
@@ -100,9 +100,9 @@ stage=$work/dmg
 mkdir -p "$stage"
 cp -R "$app" "$stage/"
 ln -s /Applications "$stage/Applications"
-dmg=$out/AvaMovieMaker-$version-arm64.dmg
+dmg=$out/DrasticMovieMaker-$version-arm64.dmg
 rm -f "$dmg"
-hdiutil create -volname AvaMovieMaker -srcfolder "$stage" -format UDZO -ov "$dmg"
+hdiutil create -volname "Drastic Movie Maker" -srcfolder "$stage" -format UDZO -ov "$dmg"
 
 if [[ -n ${AMM_NOTARY_PROFILE:-} ]]; then
   [[ -n ${AMM_MACOS_SIGN_IDENTITY:-} ]] || { echo "Notarizing needs AMM_MACOS_SIGN_IDENTITY." >&2; exit 1; }

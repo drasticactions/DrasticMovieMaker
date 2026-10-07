@@ -130,7 +130,7 @@ public class AspectRatioTests
     public void SavedFilesAreVersionTwo()
     {
         using var temp = new TempFolder();
-        string path = temp.File("v.ammproj");
+        string path = temp.File("v.dmmproj");
         Project p = ProjectSerializer.FromJson(Json(1, "widescreen16x9"));
         ProjectSerializer.Save(p, path);
         JsonNode node = JsonNode.Parse(File.ReadAllText(path))!;
@@ -139,5 +139,5 @@ public class AspectRatioTests
     }
 
     private static string Json(int version, string aspect) =>
-        $$"""{ "format": "ammproj", "version": {{version}}, "settings": { "aspect": "{{aspect}}" } }""";
+        $$"""{ "format": "dmmproj", "version": {{version}}, "settings": { "aspect": "{{aspect}}" } }""";
 }

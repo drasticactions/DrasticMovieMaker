@@ -44,8 +44,8 @@ public sealed class PublishWizardTests
 
     [Theory]
     [InlineData("", "", "Movie")]
-    [InlineData("My Holiday", "/x/project.ammproj", "My Holiday")]
-    [InlineData("", "/x/project.ammproj", "project")]
+    [InlineData("My Holiday", "/x/project.dmmproj", "My Holiday")]
+    [InlineData("", "/x/project.dmmproj", "project")]
     [InlineData("  <Best> [cut]: 2006?  ", null, "Best cut 2006")]
     [InlineData("a|b;c+d=e(f)g\"h*i\\j/k", null, "abcdefghijk")]
     public void Default_name_is_title_then_project_name_then_movie(string title, string? file, string expected)

@@ -2,7 +2,7 @@ namespace AvaMovieMaker.IO;
 
 public static class AppPaths
 {
-    public const string AppName = "AvaMovieMaker";
+    public const string AppName = "DrasticMovieMaker";
 
     public static string? RootOverride { get; set; }
 

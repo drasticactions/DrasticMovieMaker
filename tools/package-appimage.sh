@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Packages the desktop Linux app (NativeAOT, linux-x64) as an AppImage: <out>/AvaMovieMaker-<version>-x86_64.AppImage.
+# Packages the desktop Linux app (NativeAOT, linux-x64) as an AppImage: <out>/DrasticMovieMaker-<version>-x86_64.AppImage.
 #
 # Everything is built in Ubuntu 22.04 (tools/linux/container.sh; run directly inside it), so the package needs glibc
 # 2.35 at most. It carries the bundled FFmpeg (tools/ffmpeg/out/linux-x64, built first when missing) with its libva
@@ -48,19 +48,19 @@ trap 'rm -rf "$work"' EXIT
 dotnet publish "$root/src/AvaMovieMaker" -c Release -r linux-x64 -o "$work/publish" -warnaserror \
   --artifacts-path "$work/artifacts" -p:AmmFFmpegDir="$ffmpeg/"
 
-appdir=$work/AvaMovieMaker.AppDir
+appdir=$work/DrasticMovieMaker.AppDir
 bin=$appdir/usr/bin
 share=$appdir/usr/share
-doc=$share/doc/avamoviemaker
+doc=$share/doc/drasticmoviemaker
 mkdir -p "$bin/fallback" "$share/applications" "$share/icons/hicolor/512x512/apps" \
   "$share/mime/packages" "$doc"
 
 # The program and the native libraries it loads from its own folder (symbols and .pdb files stay out).
-cp "$work/publish/AvaMovieMaker" "$work/publish/"*.so "$work/publish/"*.so.* "$bin/"
+cp "$work/publish/DrasticMovieMaker" "$work/publish/"*.so "$work/publish/"*.so.* "$bin/"
 cp "$work/publish/fallback/"* "$bin/fallback/"
 
 # Nothing in the package may need a glibc newer than the baseline.
-newest=$(for f in "$bin"/AvaMovieMaker "$bin"/*.so* "$bin"/fallback/*; do objdump -T "$f"; done \
+newest=$(for f in "$bin"/DrasticMovieMaker "$bin"/*.so* "$bin"/fallback/*; do objdump -T "$f"; done \
   | grep -o 'GLIBC_[0-9.]*' | sort -uV | tail -1)
 if [[ $(printf '%s\n' "$newest" GLIBC_2.35 | sort -V | tail -1) != GLIBC_2.35 ]]; then
   echo "The package needs $newest, newer than glibc 2.35." >&2
@@ -69,8 +69,8 @@ fi
 echo "Newest glibc symbol: $newest"
 
 icons=$root/tools/icons
-cp "$icons/icon-512.png" "$share/icons/hicolor/512x512/apps/avamoviemaker.png"
-cp "$icons/icon-512.png" "$appdir/avamoviemaker.png"
+cp "$icons/icon-512.png" "$share/icons/hicolor/512x512/apps/com.drasticactions.moviemaker.png"
+cp "$icons/icon-512.png" "$appdir/com.drasticactions.moviemaker.png"
 
 # Licenses, the FFmpeg build's configure line and sources, and the exact revision (the GPL source offer).
 cp "$root/LICENSE.md" "$root/THIRD-PARTY-NOTICES.md" "$doc/"
@@ -78,7 +78,7 @@ cp "$ffmpeg/BUILDINFO.txt" "$doc/FFMPEG-BUILDINFO.txt"
 revision=${GITHUB_SHA:-$(git -C "$root" rev-parse HEAD 2>/dev/null || echo unknown)}
 dirty=$([[ -z ${GITHUB_SHA:-} ]] && [[ -n $(git -C "$root" status --porcelain 2>/dev/null) ]] && echo " (with local changes)" || true)
 {
-  echo "AvaMovieMaker $version, licensed under the GNU GPL version 3 or later (LICENSE.md)."
+  echo "Drastic Movie Maker $version, licensed under the GNU GPL version 3 or later (LICENSE.md)."
   echo "Built from revision $revision$dirty${GITHUB_REPOSITORY:+ of ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}}."
   echo "FFmpeg build (pinned sources, configure options): tools/ffmpeg (build-desktop.sh) in that revision;"
   echo "its configure line and source revisions are in FFMPEG-BUILDINFO.txt."
@@ -86,37 +86,37 @@ dirty=$([[ -z ${GITHUB_SHA:-} ]] && [[ -n $(git -C "$root" status --porcelain 2>
 } > "$doc/SOURCE.txt"
 
 # The project and package types (shared-mime-info), so files open in the app once it is integrated.
-cat > "$share/mime/packages/avamoviemaker.xml" <<'EOF'
+cat > "$share/mime/packages/com.drasticactions.moviemaker.xml" <<'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
-  <mime-type type="application/x-avamoviemaker-project">
-    <comment>AvaMovieMaker project</comment>
+  <mime-type type="application/x-drasticmoviemaker-project">
+    <comment>Drastic Movie Maker project</comment>
     <sub-class-of type="application/json"/>
-    <generic-icon name="avamoviemaker"/>
-    <glob pattern="*.ammproj"/>
+    <generic-icon name="com.drasticactions.moviemaker"/>
+    <glob pattern="*.dmmproj"/>
   </mime-type>
-  <mime-type type="application/x-avamoviemaker-package">
-    <comment>AvaMovieMaker project package</comment>
+  <mime-type type="application/x-drasticmoviemaker-package">
+    <comment>Drastic Movie Maker project package</comment>
     <sub-class-of type="application/zip"/>
-    <generic-icon name="avamoviemaker"/>
-    <glob pattern="*.ammpkg"/>
+    <generic-icon name="com.drasticactions.moviemaker"/>
+    <glob pattern="*.dmmpkg"/>
   </mime-type>
 </mime-info>
 EOF
 
-cat > "$share/applications/avamoviemaker.desktop" <<EOF
+cat > "$share/applications/com.drasticactions.moviemaker.desktop" <<EOF
 [Desktop Entry]
 Type=Application
-Name=AvaMovieMaker
+Name=Drastic Movie Maker
 Comment=Make movies from your videos, pictures and music
-Exec=AvaMovieMaker %F
-Icon=avamoviemaker
+Exec=DrasticMovieMaker %F
+Icon=com.drasticactions.moviemaker
 Categories=AudioVideo;Video;AudioVideoEditing;
-MimeType=application/x-avamoviemaker-project;application/x-avamoviemaker-package;video/*;audio/*;image/*;
-StartupWMClass=AvaMovieMaker
+MimeType=application/x-drasticmoviemaker-project;application/x-drasticmoviemaker-package;video/*;audio/*;image/*;
+StartupWMClass=DrasticMovieMaker
 Terminal=false
 EOF
-cp "$share/applications/avamoviemaker.desktop" "$appdir/"
+cp "$share/applications/com.drasticactions.moviemaker.desktop" "$appdir/"
 
 # .NET needs the system's ICU for culture data; where there is none (minimal systems), the app runs with invariant
 # culture data instead of not starting.
@@ -127,12 +127,12 @@ if [ -z "${DOTNET_SYSTEM_GLOBALIZATION_INVARIANT:-}" ] \
     && ! { /sbin/ldconfig -p 2>/dev/null || ldconfig -p 2>/dev/null; } | grep -q 'libicuuc\.so\.[0-9]'; then
   export DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=1
 fi
-exec "$here/usr/bin/AvaMovieMaker" "$@"
+exec "$here/usr/bin/DrasticMovieMaker" "$@"
 EOF
 chmod +x "$appdir/AppRun"
 
 sign=()
 [[ -n ${AMM_APPIMAGE_SIGN_KEY:-} ]] && sign=(--sign --sign-key "$AMM_APPIMAGE_SIGN_KEY")
-image=$out/AvaMovieMaker-$version-x86_64.AppImage
+image=$out/DrasticMovieMaker-$version-x86_64.AppImage
 ARCH=x86_64 APPIMAGE_EXTRACT_AND_RUN=1 "$tool" --no-appstream "${sign[@]}" "$appdir" "$image"
 echo "$image"

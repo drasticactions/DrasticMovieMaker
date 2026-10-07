@@ -13,7 +13,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Version>0.1.0</Version>
     <Authors>drasticactions</Authors>
-    <Product>AvaMovieMaker</Product>
+    <Product>Drastic Movie Maker</Product>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <AmmRepoRoot>$(MSBuildThisFileDirectory)</AmmRepoRoot>
     <AmmSrcDir>$([MSBuild]::NormalizeDirectory('$(MSBuildThisFileDirectory)', 'src'))</AmmSrcDir>

@@ -223,6 +223,10 @@
     <value>Created With</value>
     <comment>Text AutoMovie puts in the movie</comment>
   </data>
+  <data name="AutoMovieProduct" xml:space="preserve">
+    <value>Drastic Movie Maker</value>
+    <comment>Text AutoMovie puts in the movie</comment>
+  </data>
   <data name="AutoMovieScoreboardHome" xml:space="preserve">
     <value>Home          0</value>
     <comment>Text AutoMovie puts in the movie: scoreboard overlay line</comment>
@@ -283,11 +287,11 @@
     <value>The project file is empty.</value>
   </data>
   <data name="NotAProjectFile" xml:space="preserve">
-    <value>{0} is not an AvaMovieMaker project.</value>
+    <value>{0} is not an Drastic Movie Maker project.</value>
     <comment>{0} = file name</comment>
   </data>
   <data name="NotAProjectPackage" xml:space="preserve">
-    <value>This is not an AvaMovieMaker project package.</value>
+    <value>This is not an Drastic Movie Maker project package.</value>
   </data>
   <data name="ProjectUntitled" xml:space="preserve">
     <value>Untitled</value>

@@ -6,7 +6,7 @@ namespace AvaMovieMaker.Timeline.Model;
 
 public sealed class Project
 {
-    public const string FileFormat = "ammproj";
+    public const string FileFormat = "dmmproj";
     public const int FileVersion = 2;
 
     public string Format { get; set; } = FileFormat;

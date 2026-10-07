@@ -15,9 +15,9 @@ public sealed class ShellTests
     public void Window_title_is_the_app_name_only()
     {
         using var h = new Harness();
-        Assert.Equal("AvaMovieMaker", h.Shell.WindowTitle);
+        Assert.Equal("Drastic Movie Maker", h.Shell.WindowTitle);
         h.AddTitle("Hello");
-        Assert.Equal("AvaMovieMaker", h.Shell.WindowTitle);
+        Assert.Equal("Drastic Movie Maker", h.Shell.WindowTitle);
     }
 
     [Fact]
@@ -168,7 +168,7 @@ public sealed class ShellTests
         IReadOnlyList<AvaMovieMaker.Timeline.Model.MediaItem> items = await h.Shell.ImportFilesAsync([bad]);
         Assert.Empty(items);
         Assert.Single(h.Messages.Shown);
-        Assert.Equal($"The file {bad} is not a supported file type, and it cannot be imported into AvaMovieMaker.", h.Messages.Shown[0].Text);
+        Assert.Equal($"The file {bad} is not a supported file type, and it cannot be imported into Drastic Movie Maker.", h.Messages.Shown[0].Text);
     }
 
     [Fact]
@@ -229,7 +229,7 @@ public sealed class ShellTests
     public async Task Opened_project_takes_the_users_durations_and_keeps_its_aspect()
     {
         using var temp = new TempFolder();
-        string path = temp.File("old.ammproj");
+        string path = temp.File("old.dmmproj");
         var old = new AvaMovieMaker.Timeline.Model.Project
         {
             Settings = new AvaMovieMaker.Timeline.Model.ProjectSettings
@@ -278,16 +278,16 @@ public sealed class ShellTests
         var s = new AppSettings();
         for (int i = 0; i < 10; i++)
         {
-            s.AddRecent($"/p/{i}.ammproj");
+            s.AddRecent($"/p/{i}.dmmproj");
         }
 
         Assert.Equal(4, s.RecentProjects.Count);
-        Assert.Equal("/p/9.ammproj", s.RecentProjects[0]);
+        Assert.Equal("/p/9.dmmproj", s.RecentProjects[0]);
         s.RecentProjectCount = 100;
         Assert.Equal(16, s.RecentLimit);
         s.RecentProjectCount = 0;
         Assert.Equal(2, s.RecentLimit);
-        s.AddRecent("/p/x.ammproj");
+        s.AddRecent("/p/x.dmmproj");
         Assert.Equal(2, s.RecentProjects.Count);
     }
 

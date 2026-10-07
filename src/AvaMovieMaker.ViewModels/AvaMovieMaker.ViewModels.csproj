@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <InternalsVisibleTo Include="AvaMovieMaker.ViewModels.Tests" />
-    <InternalsVisibleTo Include="AvaMovieMaker" />
+    <InternalsVisibleTo Include="DrasticMovieMaker" />
   </ItemGroup>
 
 </Project>

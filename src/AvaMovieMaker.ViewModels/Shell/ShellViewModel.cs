@@ -823,11 +823,11 @@ public sealed partial class ShellViewModel : ObservableObject, IDisposable
 
     public static string RecoveryFolder => Path.Combine(IO.AppPaths.StateDir, "recovery");
 
-    public static string RecoveryPath => Path.Combine(RecoveryFolder, "AutoRecover.ammproj");
+    public static string RecoveryPath => Path.Combine(RecoveryFolder, "AutoRecover.dmmproj");
 
     public static string RecoveryOriginPath => Path.Combine(RecoveryFolder, "AutoRecover.origin");
 
-    private static string LegacyRecoveryPath => Path.Combine(RecoveryFolder, "Untitled.ammproj");
+    private static string LegacyRecoveryPath => Path.Combine(RecoveryFolder, "Untitled.dmmproj");
 
     private bool _changedSinceRecovery;
 
@@ -1029,7 +1029,7 @@ public sealed partial class ShellViewModel : ObservableObject, IDisposable
     private static bool IsProjectDrop(IReadOnlyList<string> paths) => paths.Count == 1 && IsProjectFile(paths[0]);
 
     private static bool IsProjectFile(string path) =>
-        path.EndsWith(".ammproj", StringComparison.OrdinalIgnoreCase)
+        path.EndsWith(".dmmproj", StringComparison.OrdinalIgnoreCase)
         || path.EndsWith(ProjectPackage.Extension, StringComparison.OrdinalIgnoreCase)
         || path.EndsWith(".mswmm", StringComparison.OrdinalIgnoreCase);
 

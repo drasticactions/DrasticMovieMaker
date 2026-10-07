@@ -1,5 +1,5 @@
 # Packages the desktop Windows app (NativeAOT, win-x64, Windows 10 1809+) as a portable zip:
-# <out>\AvaMovieMaker-<version>-win-x64.zip, holding the folder AvaMovieMaker-<version>-win-x64.
+# <out>\DrasticMovieMaker-<version>-win-x64.zip, holding the folder DrasticMovieMaker-<version>-win-x64.
 # Run on Windows with the .NET SDK and Visual Studio Build Tools (NativeAOT links with their linker). The bundled
 # FFmpeg comes from tools\ffmpeg\out\win-x64 (tools/ffmpeg/build-desktop.sh win-x64 under MSYS2 UCRT64, or the
 # ffmpeg-desktop workflow's ffmpeg-win-x64-<recipe key> artifact). The zip writes nothing to the registry; README.txt
@@ -31,7 +31,7 @@ if (-not (Get-Command vswhere.exe -ErrorAction SilentlyContinue) -and (Test-Path
 }
 
 $work = Join-Path ([IO.Path]::GetTempPath()) ("amm-package-" + [Guid]::NewGuid().ToString('N'))
-$name = "AvaMovieMaker-$version-win-x64"
+$name = "DrasticMovieMaker-$version-win-x64"
 $folder = Join-Path $work $name
 try {
     # The csproj copies the FFmpeg DLLs next to the executable.
@@ -40,7 +40,7 @@ try {
 
     # The program and its native DLLs (symbols and .pdb files stay out).
     New-Item -ItemType Directory -Force -Path $folder | Out-Null
-    Copy-Item (Join-Path $work 'publish\AvaMovieMaker.exe') $folder
+    Copy-Item (Join-Path $work 'publish\DrasticMovieMaker.exe') $folder
     Copy-Item (Join-Path $work 'publish\*.dll') $folder
 
     # Licenses, the FFmpeg build's configure line and sources, and the exact revision (the GPL source offer).
@@ -50,7 +50,7 @@ try {
     if (-not $revision) { $revision = 'unknown' }
     $repo = if ($env:GITHUB_REPOSITORY) { " of $($env:GITHUB_SERVER_URL)/$($env:GITHUB_REPOSITORY)" } else { '' }
     @(
-        "AvaMovieMaker $version, licensed under the GNU GPL version 3 or later (LICENSE.md)."
+        "Drastic Movie Maker $version, licensed under the GNU GPL version 3 or later (LICENSE.md)."
         "Built from revision $revision$repo."
         "FFmpeg build (pinned sources, configure options): tools/ffmpeg (build-desktop.sh) in that revision;"
         "its configure line and source revisions are in FFMPEG-BUILDINFO.txt."
@@ -58,17 +58,17 @@ try {
     ) | Set-Content -Encoding utf8 (Join-Path $folder 'SOURCE.txt')
 
     @(
-        "AvaMovieMaker $version for Windows 10 (version 1809) and later, 64-bit."
+        "Drastic Movie Maker $version for Windows 10 (version 1809) and later, 64-bit."
         ""
-        "Run AvaMovieMaker.exe from this folder; nothing needs to be installed and nothing is written to the registry."
-        "Settings are kept in %APPDATA%\AvaMovieMaker, caches and logs in %LOCALAPPDATA%\AvaMovieMaker."
+        "Run DrasticMovieMaker.exe from this folder; nothing needs to be installed and nothing is written to the registry."
+        "Settings are kept in %APPDATA%\DrasticMovieMaker, caches and logs in %LOCALAPPDATA%\DrasticMovieMaker."
         ""
-        "To open projects (.ammproj, .ammpkg), videos, music or pictures in AvaMovieMaker by double-clicking them:"
+        "To open projects (.dmmproj, .dmmpkg), videos, music or pictures in Drastic Movie Maker by double-clicking them:"
         "right-click a file, choose Open with > Choose another app, then More apps > Look for another app on this PC,"
-        "and pick AvaMovieMaker.exe in this folder. Windows lists AvaMovieMaker for that type from then on."
-        "You can also drop files on AvaMovieMaker.exe."
+        "and pick DrasticMovieMaker.exe in this folder. Windows lists Drastic Movie Maker for that type from then on."
+        "You can also drop files on DrasticMovieMaker.exe."
         ""
-        "Licenses: LICENSE.md (AvaMovieMaker, GPL 3 or later) and THIRD-PARTY-NOTICES.md; sources: SOURCE.txt."
+        "Licenses: LICENSE.md (Drastic Movie Maker, GPL 3 or later) and THIRD-PARTY-NOTICES.md; sources: SOURCE.txt."
     ) | Set-Content -Encoding utf8 (Join-Path $folder 'README.txt')
 
     if ($env:AMM_WINDOWS_CERT -and $env:AMM_WINDOWS_CERT_PASSWORD) {

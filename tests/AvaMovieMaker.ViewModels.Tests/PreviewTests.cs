@@ -336,7 +336,7 @@ public sealed class PreviewTests
         IReadOnlyDictionary<ushort, string> tags = JpegMetadata.Read(bytes);
         Assert.Equal("shot", tags[0x9C9B]);
         Assert.Equal("Tim", tags[0x9C9D]);
-        Assert.Equal("AvaMovieMaker", tags[0x0131]);
+        Assert.Equal("Drastic Movie Maker", tags[0x0131]);
         Assert.Contains(h.Session.Project.Media, x => x.Path == saved && x.Kind == MediaKind.Picture);
         Assert.Equal(PreviewTarget.Project, m.Target);
 

@@ -201,7 +201,7 @@ public sealed class MenuModelTests
 
             NativeMenu file = bar.Items.OfType<NativeMenuItem>().First().Menu!;
             Assert.Contains(file.Items.OfType<NativeMenuItem>(), i => i.Header == "(Empty)");
-            Shell.RecentProjects.Insert(0, Path.Combine(Path.GetTempPath(), "Holiday.ammproj"));
+            Shell.RecentProjects.Insert(0, Path.Combine(Path.GetTempPath(), "Holiday.dmmproj"));
             NativeMenuItem recent = file.Items.OfType<NativeMenuItem>().Single(i => ReferenceEquals(i.Command, Shell.OpenRecentCommand));
             Assert.StartsWith("1 ", recent.Header, StringComparison.Ordinal);
             Assert.DoesNotContain(file.Items.OfType<NativeMenuItem>(), i => i.Header == "(Empty)");

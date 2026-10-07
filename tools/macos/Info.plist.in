@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
   <key>CFBundleName</key>
-  <string>AvaMovieMaker</string>
+  <string>Drastic Movie Maker</string>
   <key>CFBundleDisplayName</key>
-  <string>AvaMovieMaker</string>
+  <string>Drastic Movie Maker</string>
   <key>CFBundleIdentifier</key>
-  <string>com.avamoviemaker.app</string>
+  <string>com.drasticactions.moviemaker</string>
   <key>CFBundleExecutable</key>
-  <string>AvaMovieMaker</string>
+  <string>DrasticMovieMaker</string>
   <key>CFBundleIconFile</key>
   <string>AppIcon</string>
   <key>CFBundlePackageType</key>
@@ -25,41 +25,41 @@
   <key>NSHighResolutionCapable</key>
   <true/>
   <key>NSMicrophoneUsageDescription</key>
-  <string>AvaMovieMaker records narration from your microphone.</string>
+  <string>Drastic Movie Maker records narration from your microphone.</string>
   <key>UTExportedTypeDeclarations</key>
   <array>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>com.avamoviemaker.project</string>
+      <string>com.drasticactions.moviemaker.project</string>
       <key>UTTypeDescription</key>
-      <string>AvaMovieMaker project</string>
+      <string>Drastic Movie Maker project</string>
       <key>UTTypeConformsTo</key>
       <array><string>public.json</string></array>
       <key>UTTypeTagSpecification</key>
-      <dict><key>public.filename-extension</key><array><string>ammproj</string></array></dict>
+      <dict><key>public.filename-extension</key><array><string>dmmproj</string></array></dict>
     </dict>
     <dict>
       <key>UTTypeIdentifier</key>
-      <string>com.avamoviemaker.package</string>
+      <string>com.drasticactions.moviemaker.package</string>
       <key>UTTypeDescription</key>
-      <string>AvaMovieMaker project package</string>
+      <string>Drastic Movie Maker project package</string>
       <key>UTTypeConformsTo</key>
       <array><string>public.zip-archive</string></array>
       <key>UTTypeTagSpecification</key>
-      <dict><key>public.filename-extension</key><array><string>ammpkg</string></array></dict>
+      <dict><key>public.filename-extension</key><array><string>dmmpkg</string></array></dict>
     </dict>
   </array>
   <key>CFBundleDocumentTypes</key>
   <array>
     <dict>
       <key>CFBundleTypeName</key>
-      <string>AvaMovieMaker project</string>
+      <string>Drastic Movie Maker project</string>
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>LSHandlerRank</key>
       <string>Owner</string>
       <key>LSItemContentTypes</key>
-      <array><string>com.avamoviemaker.project</string><string>com.avamoviemaker.package</string></array>
+      <array><string>com.drasticactions.moviemaker.project</string><string>com.drasticactions.moviemaker.package</string></array>
     </dict>
     <dict>
       <key>CFBundleTypeName</key>

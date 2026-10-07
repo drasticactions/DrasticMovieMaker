@@ -99,7 +99,7 @@ public sealed class Glyph : Control
         int size = PictureSizes.FirstOrDefault(s => s >= pixels, PictureSizes[^1]);
         if (!PictureCache.TryGetValue((kind, size), out Bitmap? b))
         {
-            using Stream s = AssetLoader.Open(new Uri($"avares://AvaMovieMaker/Assets/Icons/{kind}-{size}.png"));
+            using Stream s = AssetLoader.Open(new Uri($"avares://DrasticMovieMaker/Assets/Icons/{kind}-{size}.png"));
             b = new Bitmap(s);
             PictureCache[(kind, size)] = b;
         }

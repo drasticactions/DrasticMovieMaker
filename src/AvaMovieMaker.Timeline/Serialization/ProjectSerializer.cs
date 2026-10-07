@@ -8,7 +8,7 @@ namespace AvaMovieMaker.Timeline.Serialization;
 
 public static class ProjectSerializer
 {
-    public const string Extension = ".ammproj";
+    public const string Extension = ".dmmproj";
 
     public static void Save(Project project, string path)
     {

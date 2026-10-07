@@ -17,17 +17,17 @@
     <comment>FFmpeg version in the About box when FFmpeg is missing</comment>
   </data>
   <data name="FFmpegWrongVersion" xml:space="preserve">
-    <value>lib{0} is version {1}, but AvaMovieMaker needs version {2} (FFmpeg 9). {3}</value>
+    <value>lib{0} is version {1}, but Drastic Movie Maker needs version {2} (FFmpeg 9). {3}</value>
     <comment>{0} = library name, {1} = found major version, {2} = needed major version, {3} = install hint</comment>
   </data>
   <data name="FFmpegInstallHintWindows" xml:space="preserve">
-    <value>Reinstall AvaMovieMaker: its FFmpeg DLLs belong next to AvaMovieMaker.exe.</value>
+    <value>Reinstall Drastic Movie Maker: its FFmpeg DLLs belong next to DrasticMovieMaker.exe.</value>
   </data>
   <data name="FFmpegInstallHintMacOS" xml:space="preserve">
-    <value>Reinstall AvaMovieMaker, or install FFmpeg 9 with Homebrew (brew install ffmpeg).</value>
+    <value>Reinstall Drastic Movie Maker, or install FFmpeg 9 with Homebrew (brew install ffmpeg).</value>
   </data>
   <data name="FFmpegInstallHintLinux" xml:space="preserve">
-    <value>Reinstall AvaMovieMaker, or install your distribution's "ffmpeg" package (FFmpeg 9).</value>
+    <value>Reinstall Drastic Movie Maker, or install your distribution's "ffmpeg" package (FFmpeg 9).</value>
   </data>
   <data name="FFmpegLibraryNotFound" xml:space="preserve">
     <value>The FFmpeg library {0} was not found</value>

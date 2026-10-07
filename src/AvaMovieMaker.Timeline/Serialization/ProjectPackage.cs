@@ -7,7 +7,7 @@ namespace AvaMovieMaker.Timeline.Serialization;
 
 public static class ProjectPackage
 {
-    public const string Extension = ".ammpkg";
+    public const string Extension = ".dmmpkg";
 
     private const string ProjectEntry = "project" + ProjectSerializer.Extension;
 

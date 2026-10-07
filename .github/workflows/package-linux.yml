@@ -57,6 +57,6 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: AvaMovieMaker-linux-x64
+          name: DrasticMovieMaker-linux-x64
           path: out/*.AppImage
           retention-days: 30

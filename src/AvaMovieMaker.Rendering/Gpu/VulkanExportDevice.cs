@@ -45,7 +45,7 @@ internal sealed unsafe class VulkanExportDevice : IDisposable
 
     private static VulkanExportDevice? Create(ReadOnlySpan<byte> uuid, out string? why)
     {
-        byte[] appName = "AvaMovieMaker\0"u8.ToArray();
+        byte[] appName = "Drastic Movie Maker\0"u8.ToArray();
         IntPtr instance;
         fixed (byte* pName = appName)
         {

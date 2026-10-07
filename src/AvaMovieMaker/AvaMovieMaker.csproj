@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <AssemblyName>AvaMovieMaker</AssemblyName>
+    <AssemblyName>DrasticMovieMaker</AssemblyName>
+    <AssemblyTitle>Drastic Movie Maker</AssemblyTitle>
     <RootNamespace>AvaMovieMaker</RootNamespace>
     <PublishAot>true</PublishAot>
     <RuntimeIdentifier Condition="'$(RuntimeIdentifier)' == '' and '$(_IsPublishing)' == 'true'">$(NETCoreSdkPortableRuntimeIdentifier)</RuntimeIdentifier>
@@ -69,7 +70,7 @@
 
   <Target Name="AmmCheckRid" BeforeTargets="Restore;_CheckForInvalidConfigurationAndPlatform">
     <Error Condition="!$([System.String]::Copy(';$(AmmSupportedRids);').Contains(';$(AmmDesktopRid);'))"
-           Text="AvaMovieMaker builds for $(AmmSupportedRids.Replace(';', ', ')), not '$(AmmDesktopRid)'." />
+           Text="Drastic Movie Maker builds for $(AmmSupportedRids.Replace(';', ', ')), not '$(AmmDesktopRid)'." />
   </Target>
 
 </Project>

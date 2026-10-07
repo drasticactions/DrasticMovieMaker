@@ -11,7 +11,7 @@ public class PackageTests
     public async Task Exported_packages_open_as_new_projects_with_their_media_where_the_user_chose()
     {
         using var temp = new TempFolder();
-        string package = temp.File("Trip.ammpkg");
+        string package = temp.File("Trip.dmmpkg");
         using (var first = new Harness())
         {
             MediaItem pic = MediaImporter.FromFile(TestMedia.Picture(64, 48, hue: 10), false, 1);
@@ -42,11 +42,11 @@ public class PackageTests
         using var h = new Harness();
         MediaItem pic = MediaImporter.FromFile(TestMedia.Picture(64, 48, hue: 10), false, 1);
         h.Session.Editor.ImportMedia([pic with { Path = temp.File("gone.png") }]);
-        h.Files.PackageSave = (_, _) => temp.File("out.ammpkg");
+        h.Files.PackageSave = (_, _) => temp.File("out.dmmpkg");
         await h.Shell.ExportPackageCommand.ExecuteAsync(null);
 
         MessageRequest shown = Assert.Single(h.Messages.Shown);
         Assert.Contains(temp.File("gone.png"), shown.Text, StringComparison.Ordinal);
-        Assert.True(File.Exists(temp.File("out.ammpkg")));
+        Assert.True(File.Exists(temp.File("out.dmmpkg")));
     }
 }

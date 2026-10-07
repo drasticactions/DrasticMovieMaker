@@ -33,7 +33,7 @@ public class RecoveryTests
     [Fact]
     public void Deleting_a_file_in_a_missing_folder_does_nothing()
     {
-        string missing = Path.Combine(Path.GetTempPath(), $"amm-missing-{Guid.NewGuid():N}", "AutoRecover.ammproj");
+        string missing = Path.Combine(Path.GetTempPath(), $"amm-missing-{Guid.NewGuid():N}", "AutoRecover.dmmproj");
         new AvaMovieMaker.IO.LocalFileStore().Delete(missing);
         Assert.False(File.Exists(missing));
     }
@@ -53,7 +53,7 @@ public class RecoveryTests
         second.Messages.Answer = MessageResult.Yes;
         await second.Shell.StartAsync((string?)null);
         MessageRequest prompt = Assert.Single(second.Messages.Shown);
-        Assert.Equal("AvaMovieMaker found a project file that was saved automatically. Would you like to recover this file?", prompt.Text);
+        Assert.Equal("Drastic Movie Maker found a project file that was saved automatically. Would you like to recover this file?", prompt.Text);
         Assert.Equal(MessageButtons.YesNo, prompt.Buttons);
         Assert.Single(second.Session.Project.VideoTrack);
         Assert.Null(second.Session.Project.FilePath);
@@ -67,14 +67,14 @@ public class RecoveryTests
     {
         Clear();
         using var temp = new TempFolder();
-        string path = temp.File("mine.ammproj");
+        string path = temp.File("mine.dmmproj");
         var first = new Harness();
         first.AddTitle("one");
         ProjectSerializer.Save(first.Session.Project, path);
         await first.Shell.OpenFileAsync(path);
         first.AddTitle("two");
         first.Shell.WriteRecovery();
-        Assert.Equal(["mine.ammproj"], Directory.GetFiles(temp.Path).Select(Path.GetFileName));
+        Assert.Equal(["mine.dmmproj"], Directory.GetFiles(temp.Path).Select(Path.GetFileName));
         Crash(first);
 
         using var second = new Harness();

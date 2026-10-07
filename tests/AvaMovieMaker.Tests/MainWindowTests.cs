@@ -29,7 +29,7 @@ public sealed class MainWindowTests
         try
         {
             Assert.True(w.IsVisible);
-            Assert.Equal("AvaMovieMaker", w.Title);
+            Assert.Equal("Drastic Movie Maker", w.Title);
             Assert.NotNull(w.View);
             Assert.Same(Shell, w.DataContext);
             Assert.True(w.View!.Bounds.Width > 0);

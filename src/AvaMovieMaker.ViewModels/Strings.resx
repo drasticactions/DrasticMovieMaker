@@ -13,7 +13,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AppName" xml:space="preserve">
-    <value>AvaMovieMaker</value>
+    <value>Drastic Movie Maker</value>
   </data>
   <data name="MenuFile" xml:space="preserve">
     <value>_File</value>
@@ -250,7 +250,7 @@
     <value>_Help Topics</value>
   </data>
   <data name="About" xml:space="preserve">
-    <value>_About AvaMovieMaker</value>
+    <value>_About Drastic Movie Maker</value>
   </data>
   <data name="TaskImport" xml:space="preserve">
     <value>Import</value>
@@ -418,13 +418,13 @@
     <value>Import Media Items</value>
   </data>
   <data name="FilterProjects" xml:space="preserve">
-    <value>AvaMovieMaker Projects</value>
+    <value>Drastic Movie Maker Projects</value>
   </data>
   <data name="FilterMswmm" xml:space="preserve">
     <value>Windows Movie Maker Projects</value>
   </data>
   <data name="FilterPackages" xml:space="preserve">
-    <value>AvaMovieMaker Project Packages</value>
+    <value>Drastic Movie Maker Project Packages</value>
   </data>
   <data name="PackageMissingMedia" xml:space="preserve">
     <value>These files could not be found and were left out of the package:</value>
@@ -437,7 +437,7 @@
     <comment>61499</comment>
   </data>
   <data name="RecoverPrompt" xml:space="preserve">
-    <value>AvaMovieMaker found a project file that was saved automatically. Would you like to recover this file?</value>
+    <value>Drastic Movie Maker found a project file that was saved automatically. Would you like to recover this file?</value>
     <comment>61819</comment>
   </data>
   <data name="DefaultMovieName" xml:space="preserve">
@@ -490,16 +490,16 @@ Are you sure you want to stop publishing your movie?</value>
     <value>The file "{0}" could not be found. Verify that the file has not been deleted, renamed, or moved, and then try again.</value>
   </data>
   <data name="ImportMissingCodec" xml:space="preserve">
-    <value>The file {0} cannot be imported because the codec required to play the file is not installed on your computer. If you have already tried to download and install the codec, close and restart AvaMovieMaker, and then try to import the file again.</value>
+    <value>The file {0} cannot be imported because the codec required to play the file is not installed on your computer. If you have already tried to download and install the codec, close and restart Drastic Movie Maker, and then try to import the file again.</value>
   </data>
   <data name="ImportNotSupported" xml:space="preserve">
-    <value>The file {0} is not a supported file type, and it cannot be imported into AvaMovieMaker.</value>
+    <value>The file {0} is not a supported file type, and it cannot be imported into Drastic Movie Maker.</value>
   </data>
   <data name="ImportEmpty" xml:space="preserve">
     <value>The file {0} is an empty file.</value>
   </data>
   <data name="ImportFolders" xml:space="preserve">
-    <value>AvaMovieMaker cannot import folders.</value>
+    <value>Drastic Movie Maker cannot import folders.</value>
   </data>
   <data name="OverlayNeedsTimeline" xml:space="preserve">
     <value>Overlay titles can only be added in the timeline view. The view has been switched from the storyboard view to the timeline view, and the overlay title has been added.</value>
@@ -623,7 +623,7 @@ Change the temporary storage location by choosing Options from the Tools menu, o
     <value>Displays properties for the current project.</value>
   </data>
   <data name="PromptExit" xml:space="preserve">
-    <value>Saves changes if you want and quits AvaMovieMaker.</value>
+    <value>Saves changes if you want and quits Drastic Movie Maker.</value>
   </data>
   <data name="PromptUndo" xml:space="preserve">
     <value>Undoes the last action.</value>
@@ -746,7 +746,7 @@ Change the temporary storage location by choosing Options from the Tools menu, o
     <value>Displays audio levels.</value>
   </data>
   <data name="PromptOptions" xml:space="preserve">
-    <value>Displays options for AvaMovieMaker.</value>
+    <value>Displays options for Drastic Movie Maker.</value>
   </data>
   <data name="PromptAddToTimeline" xml:space="preserve">
     <value>Adds selection to the timeline or storyboard.</value>
@@ -1945,7 +1945,7 @@ Rendering: {1}</value>
     <value>_No</value>
   </data>
   <data name="MacAbout" xml:space="preserve">
-    <value>About AvaMovieMaker</value>
+    <value>About Drastic Movie Maker</value>
     <comment>The macOS application menu.</comment>
   </data>
   <data name="MacSettings" xml:space="preserve">
@@ -1953,7 +1953,7 @@ Rendering: {1}</value>
     <comment>The macOS application menu.</comment>
   </data>
   <data name="MacQuit" xml:space="preserve">
-    <value>Quit AvaMovieMaker</value>
+    <value>Quit Drastic Movie Maker</value>
     <comment>The macOS application menu.</comment>
   </data>
   <data name="OpenProjectTitle" xml:space="preserve">

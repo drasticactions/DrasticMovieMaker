@@ -49,6 +49,6 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: AvaMovieMaker-win-x64
+          name: DrasticMovieMaker-win-x64
           path: out/*.zip
           retention-days: 30

@@ -217,7 +217,7 @@ public static class AutoMovieBuilder
                 AnimationId = creditsAnimation,
                 Credits = style.Scoreboard
                     ? [new CreditRow(Strings.AutoMovieFinalScore, string.Empty), new CreditRow(Strings.AutoMovieHome, "0"), new CreditRow(Strings.AutoMovieVisitors, "0")]
-                    : [new CreditRow(title, string.Empty), new CreditRow(Strings.AutoMovieDirectedBy, author), new CreditRow(Strings.AutoMovieCreatedWith, "AvaMovieMaker")],
+                    : [new CreditRow(title, string.Empty), new CreditRow(Strings.AutoMovieDirectedBy, author), new CreditRow(Strings.AutoMovieCreatedWith, Strings.AutoMovieProduct)],
                 BackgroundColor = background,
             }) with { StillDuration = T(CreditsSeconds), Effects = Effects() }
             : null;

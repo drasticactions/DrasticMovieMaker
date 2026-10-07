@@ -36,7 +36,7 @@ internal sealed class FileDialogs(Visual owner) : IFileDialogs
         IReadOnlyList<IStorageFile> files = await Storage.OpenFilePickerAsync(new FilePickerOpenOptions
         {
             Title = Strings.OpenProjectTitle,
-            FileTypeFilter = [Type(Strings.FilterProjects, [".ammproj"]), Type(Strings.FilterPackages, [".ammpkg"]), Type(Strings.FilterMswmm, [".MSWMM", ".mswmm"])],
+            FileTypeFilter = [Type(Strings.FilterProjects, [".dmmproj"]), Type(Strings.FilterPackages, [".dmmpkg"]), Type(Strings.FilterMswmm, [".MSWMM", ".mswmm"])],
             SuggestedStartLocation = await Folder(startFolder),
         });
         return files.FirstOrDefault()?.TryGetLocalPath();
@@ -58,9 +58,9 @@ internal sealed class FileDialogs(Visual owner) : IFileDialogs
         IStorageFile? file = await Storage.SaveFilePickerAsync(new FilePickerSaveOptions
         {
             Title = Strings.ExportPackageTitle,
-            SuggestedFileName = suggestedName + ".ammpkg",
-            DefaultExtension = "ammpkg",
-            FileTypeChoices = [Type(Strings.FilterPackages, [".ammpkg"])],
+            SuggestedFileName = suggestedName + ".dmmpkg",
+            DefaultExtension = "dmmpkg",
+            FileTypeChoices = [Type(Strings.FilterPackages, [".dmmpkg"])],
             SuggestedStartLocation = await Folder(startFolder),
         });
         return file?.TryGetLocalPath();
@@ -77,8 +77,8 @@ internal sealed class FileDialogs(Visual owner) : IFileDialogs
         {
             Title = Strings.SaveProjectAsTitle,
             SuggestedFileName = suggestedName,
-            DefaultExtension = "ammproj",
-            FileTypeChoices = [Type(Strings.FilterProjects, [".ammproj"])],
+            DefaultExtension = "dmmproj",
+            FileTypeChoices = [Type(Strings.FilterProjects, [".dmmproj"])],
             SuggestedStartLocation = await Folder(startFolder),
         });
         return file?.TryGetLocalPath();
