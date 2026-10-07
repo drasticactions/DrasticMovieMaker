@@ -13,7 +13,7 @@ While I tried to match the features within the later versions of Windows Movie M
 The current CI builds are not signed. To use them on macOS, you'll need to remove the quarantine on them.
 
 - Extract the app from the DMG, either to `/Applications` or another location.
-- Run `xattr -rd com.apple.quarantine /Applications/DrasticMovieMaker.app`, change the path with the location of the app.
+- Run `xattr -rd com.apple.quarantine /Applications/Drastic\ Movie\ Maker.app`, change the path with the location of the app.
 
 It should then run.
 
