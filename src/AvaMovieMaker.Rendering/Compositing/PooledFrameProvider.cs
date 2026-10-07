@@ -7,6 +7,8 @@ namespace AvaMovieMaker.Rendering.Compositing;
 public sealed class PooledFrameProvider(DecoderPool pool) : IFrameProvider
 {
     private readonly HashSet<string> _failed = new(StringComparer.Ordinal);
+    private static readonly MediaTime PrerollSlack = MediaTime.FromMilliseconds(100);
+    private readonly HashSet<string> _prerolling = new(StringComparer.Ordinal);
 
     public DecoderPool Pool { get; } = pool;
 
@@ -24,7 +26,7 @@ public sealed class PooledFrameProvider(DecoderPool pool) : IFrameProvider
 
         try
         {
-            using DecoderPool.Lease lease = Pool.Acquire(path);
+            using DecoderPool.Lease lease = Pool.Acquire(path, time);
             lease.Decoder.KeepHardwareFrames = KeepHardwareFrames;
             return lease.Decoder.GetFrame(time);
         }
@@ -37,6 +39,47 @@ public sealed class PooledFrameProvider(DecoderPool pool) : IFrameProvider
             }
 
             return null;
+        }
+    }
+
+    public void Preroll(string path, MediaTime time)
+    {
+        time = MediaTime.Max(MediaTime.Zero, time - PrerollSlack);
+        lock (_failed)
+        {
+            if (_failed.Contains(path) || !_prerolling.Add(path))
+            {
+                return;
+            }
+        }
+
+        if (Pool.HasDecoderNear(path, time))
+        {
+            Done();
+            return;
+        }
+
+        ThreadPool.QueueUserWorkItem(_ =>
+        {
+            try
+            {
+                GetFrame(path, time)?.Dispose();
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+            finally
+            {
+                Done();
+            }
+        });
+
+        void Done()
+        {
+            lock (_failed)
+            {
+                _prerolling.Remove(path);
+            }
         }
     }
 

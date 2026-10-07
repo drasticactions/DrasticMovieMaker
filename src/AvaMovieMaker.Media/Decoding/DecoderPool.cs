@@ -1,7 +1,10 @@
+using AvaMovieMaker.Time;
+
 namespace AvaMovieMaker.Media.Decoding;
 
 public sealed class DecoderPool : IDisposable
 {
+    private const int MaxPerPath = 2;
     private readonly Lock _gate = new();
     private readonly List<Entry> _entries = [];
     private long _clock;
@@ -28,19 +31,40 @@ public sealed class DecoderPool : IDisposable
         }
     }
 
-    public Lease Acquire(string path)
+    public Lease Acquire(string path, MediaTime? time = null)
     {
         lock (_gate)
         {
             ObjectDisposedException.ThrowIf(_disposed, this);
+            Entry? idle = null;
+            int open = 0;
             foreach (Entry e in _entries)
             {
-                if (!e.InUse && !e.Evicted && string.Equals(e.Decoder.Path, path, StringComparison.Ordinal))
+                if (e.Evicted || !string.Equals(e.Decoder.Path, path, StringComparison.Ordinal))
                 {
-                    e.InUse = true;
-                    e.LastUse = ++_clock;
-                    return new Lease(this, e);
+                    continue;
                 }
+
+                open++;
+                if (e.InUse)
+                {
+                    continue;
+                }
+
+                if (time is not { } t || e.Decoder.CanReach(t))
+                {
+                    return Take(e);
+                }
+
+                if (idle is null || e.LastUse < idle.LastUse)
+                {
+                    idle = e;
+                }
+            }
+
+            if (idle is not null && open >= MaxPerPath)
+            {
+                return Take(idle);
             }
         }
 
@@ -52,6 +76,29 @@ public sealed class DecoderPool : IDisposable
             Trim();
             return new Lease(this, entry);
         }
+    }
+
+    public bool HasDecoderNear(string path, MediaTime time)
+    {
+        lock (_gate)
+        {
+            foreach (Entry e in _entries)
+            {
+                if (!e.InUse && !e.Evicted && string.Equals(e.Decoder.Path, path, StringComparison.Ordinal) && e.Decoder.CanReach(time))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    }
+
+    private Lease Take(Entry e)
+    {
+        e.InUse = true;
+        e.LastUse = ++_clock;
+        return new Lease(this, e);
     }
 
     private void Release(Entry e)

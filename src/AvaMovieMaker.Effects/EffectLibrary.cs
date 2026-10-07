@@ -1,3 +1,4 @@
+using AvaMovieMaker.Effects.Catalog;
 using AvaMovieMaker.Effects.Titles;
 using AvaMovieMaker.Effects.Transitions;
 using AvaMovieMaker.Effects.VideoEffects;
@@ -30,6 +31,27 @@ public sealed class EffectLibrary : IEffectLibrary
         if (content is TitleContent title)
         {
             TitleFonts.Resolve(title.Font);
+        }
+    }
+
+    public void WarmUp(RenderContext ctx, SKImage input)
+    {
+        foreach (EffectInfo info in EffectCatalog.All)
+        {
+            SKImage image = EffectRenderer.Apply(ctx, input, new EffectInstance(info.Id, 0.5, 1.0), 0);
+            if (!ReferenceEquals(image, input))
+            {
+                image.Dispose();
+            }
+        }
+
+        foreach (TransitionInfo info in TransitionCatalog.All)
+        {
+            SKImage image = TransitionRenderer.Render(ctx, input, input, new TransitionInstance(info.Id, 0.5, 0, 1.0));
+            if (!ReferenceEquals(image, input))
+            {
+                image.Dispose();
+            }
         }
     }
 }

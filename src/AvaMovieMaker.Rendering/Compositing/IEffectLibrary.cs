@@ -14,4 +14,8 @@ public interface IEffectLibrary
     void PrepareTitle(object content)
     {
     }
+
+    void WarmUp(RenderContext ctx, SKImage input)
+    {
+    }
 }

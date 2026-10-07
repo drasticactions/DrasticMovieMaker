@@ -29,6 +29,7 @@ public sealed class PreparedFrame : IFrameProvider
     public static PreparedFrame Prepare(FramePlan plan, int width, int height, IEffectLibrary effects, IFrameProvider source)
     {
         var frames = new Dictionary<(string, MediaTime), DecodedFrame?>();
+        var wanted = new List<(string Path, MediaTime Time)>();
         foreach (OverlayTitle title in plan.Titles)
         {
             effects.PrepareTitle(title.Content);
@@ -43,10 +44,24 @@ public sealed class PreparedFrame : IFrameProvider
             else if (input?.Source is MediaSource m)
             {
                 MediaTime t = m.IsPicture ? MediaTime.Zero : m.SourceTime;
-                if (!frames.ContainsKey((m.Path, t)))
+                if (!wanted.Contains((m.Path, t)))
                 {
-                    frames[(m.Path, t)] = source.GetFrame(m.Path, t);
+                    wanted.Add((m.Path, t));
                 }
+            }
+        }
+
+        if (wanted.Count == 2)
+        {
+            Task<DecodedFrame?> second = Task.Run(() => source.GetFrame(wanted[1].Path, wanted[1].Time));
+            frames[wanted[0]] = source.GetFrame(wanted[0].Path, wanted[0].Time);
+            frames[wanted[1]] = second.GetAwaiter().GetResult();
+        }
+        else
+        {
+            foreach ((string path, MediaTime t) in wanted)
+            {
+                frames[(path, t)] = source.GetFrame(path, t);
             }
         }
 

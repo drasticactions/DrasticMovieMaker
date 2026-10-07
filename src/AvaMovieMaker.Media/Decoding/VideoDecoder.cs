@@ -12,6 +12,8 @@ public sealed unsafe class VideoDecoder : IDisposable
 
     private static readonly MediaTime RoundingTolerance = MediaTime.FromMilliseconds(0.1);
 
+    private static readonly MediaTime SkipMargin = MediaTime.FromSeconds(0.5);
+
     private readonly InputFile _input;
     private readonly int _stream;
     private readonly Rational _timeBase;
@@ -175,6 +177,17 @@ public sealed unsafe class VideoDecoder : IDisposable
 
     private long ToStream(MediaTime t) => t.ToTimeBase(_timeBase) + _startPts;
 
+    public bool CanReach(MediaTime time)
+    {
+        if (IsPicture)
+        {
+            return true;
+        }
+
+        time += RoundingTolerance;
+        return _last is not null && time >= _last.Pts && time - _last.End < ForwardWindow;
+    }
+
     public DecodedFrame? GetFrame(MediaTime time)
     {
         if (time < MediaTime.Zero)
@@ -218,9 +231,10 @@ public sealed unsafe class VideoDecoder : IDisposable
             Seek(time);
         }
 
+        MediaTime? skipBefore = time < Duration - SkipMargin ? time : null;
         while (true)
         {
-            DecodedFrame? next = TakeNext();
+            DecodedFrame? next = TakeNext(skipBefore);
             if (next is null)
             {
                 return _last?.Clone();
@@ -279,7 +293,7 @@ public sealed unsafe class VideoDecoder : IDisposable
         _last = f;
     }
 
-    private DecodedFrame? TakeNext()
+    private DecodedFrame? TakeNext(MediaTime? skipBefore = null)
     {
         if (_pending is not null)
         {
@@ -288,7 +302,7 @@ public sealed unsafe class VideoDecoder : IDisposable
             return p;
         }
 
-        return DecodeOne();
+        return DecodeOne(skipBefore);
     }
 
     private void Seek(MediaTime time)
@@ -328,7 +342,7 @@ public sealed unsafe class VideoDecoder : IDisposable
         }
     }
 
-    private DecodedFrame? DecodeOne()
+    private DecodedFrame? DecodeOne(MediaTime? skipBefore = null)
     {
         while (true)
         {
@@ -340,6 +354,12 @@ public sealed unsafe class VideoDecoder : IDisposable
             int r = ffmpeg.avcodec_receive_frame(_codec, _frame);
             if (r == 0)
             {
+                if (skipBefore is { } s && EndsBefore(_frame, s))
+                {
+                    ffmpeg.av_frame_unref(_frame);
+                    continue;
+                }
+
                 return Wrap();
             }
 
@@ -395,6 +415,18 @@ public sealed unsafe class VideoDecoder : IDisposable
                 break;
             }
         }
+    }
+
+    private bool EndsBefore(AVFrame* f, MediaTime time)
+    {
+        long pts = f->best_effort_timestamp != ffmpeg.AV_NOPTS_VALUE ? f->best_effort_timestamp : f->pts;
+        if (pts == ffmpeg.AV_NOPTS_VALUE)
+        {
+            return false;
+        }
+
+        MediaTime dur = f->duration > 0 ? MediaTime.FromTimeBase(f->duration, _timeBase) : MediaTime.FrameDuration(FrameRate);
+        return ToMedia(pts) + dur <= time;
     }
 
     private DecodedFrame Wrap()

@@ -23,6 +23,14 @@ public sealed class Compositor : IDisposable
 
     public RenderDevice Device { get; }
 
+    public void WarmUp()
+    {
+        var ctx = new RenderContext(Device, 16, 16);
+        using SKImage black = ctx.Draw(_ => { });
+        _effects.WarmUp(ctx, black);
+        Device.Flush();
+    }
+
     public SKImage Render(PreparedFrame prepared)
     {
         IFrameProvider frames = _frames;

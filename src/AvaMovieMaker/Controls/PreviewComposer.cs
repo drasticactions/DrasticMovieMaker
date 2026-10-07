@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Media;
 using Avalonia.Rendering.SceneGraph;
 using Avalonia.Skia;
+using AvaMovieMaker.Diagnostics;
 using AvaMovieMaker.Rendering.Compositing;
 using AvaMovieMaker.Rendering.Gpu;
 using SkiaSharp;
@@ -131,6 +132,7 @@ internal static class PreviewComposer
                 _compositor?.Dispose();
                 _effects = frame.Effects;
                 _compositor = new Compositor(_device!, frame.Effects, NoFrames.Instance);
+                WarmUp(_compositor);
             }
 
             SKImage next = _compositor.Render(frame);
@@ -147,6 +149,20 @@ internal static class PreviewComposer
         {
             var dest = new SKRect((float)bounds.X, (float)bounds.Y, (float)bounds.Right, (float)bounds.Bottom);
             lease.SkCanvas.DrawImage(image, dest, new SKSamplingOptions(SKFilterMode.Linear));
+        }
+    }
+
+    private static void WarmUp(Compositor compositor)
+    {
+        var watch = System.Diagnostics.Stopwatch.StartNew();
+        try
+        {
+            compositor.WarmUp();
+            Log.Info("preview", $"Warmed up effect shaders in {watch.ElapsedMilliseconds} ms");
+        }
+        catch (Exception e)
+        {
+            Log.Warn("preview", $"Effect shader warm-up failed: {e.Message}");
         }
     }
 

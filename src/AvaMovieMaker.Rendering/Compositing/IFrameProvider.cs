@@ -6,4 +6,8 @@ namespace AvaMovieMaker.Rendering.Compositing;
 public interface IFrameProvider
 {
     DecodedFrame? GetFrame(string path, MediaTime time);
+
+    void Preroll(string path, MediaTime time)
+    {
+    }
 }

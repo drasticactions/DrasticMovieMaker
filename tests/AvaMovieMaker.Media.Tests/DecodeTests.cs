@@ -94,6 +94,49 @@ public class DecodeTests
         Assert.True(pool.OpenCount <= 2);
     }
 
+    [Fact]
+    public void PoolKeepsADecoderNearEachPositionInOneFile()
+    {
+        using var pool = new DecoderPool(allowHardware: false);
+        string path = TestMedia.CounterCard(seconds: 6, gop: 250);
+        var rate = Rational.Ntsc;
+        VideoDecoder early, late;
+        using (DecoderPool.Lease l = pool.Acquire(path, MediaTime.FromFrame(10, rate)))
+        {
+            early = l.Decoder;
+            l.Decoder.GetFrame(MediaTime.FromFrame(10, rate))!.Dispose();
+        }
+
+        using (DecoderPool.Lease l = pool.Acquire(path, MediaTime.FromFrame(150, rate)))
+        {
+            late = l.Decoder;
+            l.Decoder.GetFrame(MediaTime.FromFrame(150, rate))!.Dispose();
+        }
+
+        Assert.NotSame(early, late);
+        for (int n = 1; n <= 5; n++)
+        {
+            using (DecoderPool.Lease l = pool.Acquire(path, MediaTime.FromFrame(10 + n, rate)))
+            {
+                Assert.Same(early, l.Decoder);
+                l.Decoder.GetFrame(MediaTime.FromFrame(10 + n, rate))!.Dispose();
+            }
+
+            using (DecoderPool.Lease l = pool.Acquire(path, MediaTime.FromFrame(150 + n, rate)))
+            {
+                Assert.Same(late, l.Decoder);
+                l.Decoder.GetFrame(MediaTime.FromFrame(150 + n, rate))!.Dispose();
+            }
+        }
+
+        using (DecoderPool.Lease l = pool.Acquire(path, MediaTime.FromFrame(80, rate)))
+        {
+            Assert.Same(early, l.Decoder);
+        }
+
+        Assert.Equal(2, pool.OpenCount);
+    }
+
     [Theory]
     [InlineData(".png")]
     [InlineData(".jpg")]

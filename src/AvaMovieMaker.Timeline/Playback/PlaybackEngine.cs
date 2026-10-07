@@ -22,6 +22,8 @@ public sealed class PlaybackEngine : IDisposable
     private readonly Lock _gate = new();
     private RenderPlan _plan = RenderPlan.Empty;
     private Thread? _presenter;
+    private static readonly MediaTime PrerollAhead = MediaTime.FromSeconds(1);
+    private static readonly MediaTime FrameTolerance = MediaTime.FromMilliseconds(0.1);
     private int _presentGeneration;
     private MediaTime _position;
     private long _lastFrame = -1;
@@ -328,10 +330,11 @@ public sealed class PlaybackEngine : IDisposable
                 return;
             }
 
-            long index = t.ToFrameFloor(rate);
+            long index = FrameAt(t, rate);
             if (index != _lastFrame)
             {
                 _lastFrame = index;
+                Preroll(MediaTime.FromFrame(index, rate));
                 RenderAsync(MediaTime.FromFrame(index, rate), generation).Wait();
                 if (Volatile.Read(ref _presentGeneration) != generation)
                 {
@@ -347,7 +350,27 @@ public sealed class PlaybackEngine : IDisposable
         }
     }
 
-    public Task RenderAsync(MediaTime time) => RenderAsync(time, -1);
+    private static long FrameAt(MediaTime time, Rational rate) => (time + FrameTolerance).ToFrameFloor(rate);
+
+    private void Preroll(MediaTime from)
+    {
+        MediaTime until = from + PrerollAhead;
+        foreach (VideoSpan span in _plan.Video)
+        {
+            if (span.Path is { } path && !span.IsPicture && span.Start > from && span.Start <= until)
+            {
+                _frames.Preroll(path, span.SourceIn);
+            }
+        }
+    }
+
+    public Task RenderAsync(MediaTime time)
+    {
+        Rational rate = _plan.FrameRate;
+        time = MediaTime.FromFrame(FrameAt(time, rate), rate);
+        Preroll(time);
+        return RenderAsync(time, -1);
+    }
 
     private Task RenderAsync(MediaTime time, int generation)
     {
