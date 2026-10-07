@@ -1,9 +1,4 @@
 <Project>
-  <!--
-    This file compiles Shaders/*.sksl into a generated SkslSources class of raw string constants. As a result, the
-    shaders ship inside the assembly without manifest resources or reflection. Import this file after you set
-    SkslNamespace.
-  -->
   <ItemGroup>
     <SkslSource Include="Shaders\*.sksl" />
     <None Remove="Shaders\*.sksl" />
