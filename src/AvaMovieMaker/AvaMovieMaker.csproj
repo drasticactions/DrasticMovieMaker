@@ -1,10 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
-  <!--
-    The app: start-up, views, dialogs, services, the smoke check and the natives of each OS. This is the NativeAOT
-    publish target. One project serves every desktop OS. The runtime identifier (the host's when none is given) picks
-    the Skia and HarfBuzz natives and the bundled FFmpeg. The code picks platform services at run time.
-  -->
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <AssemblyName>AvaMovieMaker</AssemblyName>
