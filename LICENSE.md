@@ -1,19 +1,3 @@
-# License
-
-Drastic Movie Maker
-Copyright (C) 2026 Tim Miller
-
-Drastic Movie Maker is free software: you can redistribute it and/or modify it under the terms of the GNU General
-Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option)
-any later version (SPDX: GPL-3.0-or-later).
-
-Drastic Movie Maker is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
-warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
-details. Third-party components keep their own licenses; see THIRD-PARTY-NOTICES.md.
-
----
-
-```
 GNU GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
 
@@ -246,4 +230,3 @@ The hypothetical commands `show w' and `show c' should show the appropriate part
 You should also get your employer (if you work as a programmer) or school, if any, to sign a “copyright disclaimer” for the program, if necessary. For more information on this, and how to apply and follow the GNU GPL, see <https://www.gnu.org/licenses/>.
 
 The GNU General Public License does not permit incorporating your program into proprietary programs. If your program is a subroutine library, you may consider it more useful to permit linking proprietary applications with the library. If this is what you want to do, use the GNU Lesser General Public License instead of this License. But first, please read <https://www.gnu.org/philosophy/why-not-lgpl.html>.
-```
