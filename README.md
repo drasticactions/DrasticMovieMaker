@@ -2,6 +2,12 @@
 
 AvaMovieMaker is an experimental video editor, written in .NET with Avalonia. It's modeled after the Windows Movie Maker for Windows Vista and Windows 7.
 
+![macOS UI Screenshot](assets/screenshot.png)
+
+There are tons of video editing software out there, but they are mostly aimed at "content creators" with tons of features I don't need. Windows Movie Maker let you drag clips into a timeline and make a video, which is all I need. It was also a good way for me to try writing Skia filters and fix issues in [AvaWpf](https://github.com/drasticactions/AvaWpf).
+
+While I tried to match the features within the later versions of Windows Movie Maker, it's _not_ a "Clean-Room Reimplmentation." It's mostly me eye-balling it and trying to match what the UI and features do. I did try to compare it with running similar clips in Windows Movie Maker to guess what it does, but don't assume it will match it. I'm not strictly trying to.
+
 # macOS Gatekeeper
 
 The current CI builds are not signed. To use them on macOS, you'll need to remove the quarantine on them.
