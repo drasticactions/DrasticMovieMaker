@@ -58,17 +58,9 @@ try {
     ) | Set-Content -Encoding utf8 (Join-Path $folder 'SOURCE.txt')
 
     @(
-        "Drastic Movie Maker $version for Windows 10 (version 1809) and later, 64-bit."
+        "Drastic Movie Maker $version"
         ""
-        "Run DrasticMovieMaker.exe from this folder; nothing needs to be installed and nothing is written to the registry."
-        "Settings are kept in %APPDATA%\DrasticMovieMaker, caches and logs in %LOCALAPPDATA%\DrasticMovieMaker."
-        ""
-        "To open projects (.dmmproj, .dmmpkg), videos, music or pictures in Drastic Movie Maker by double-clicking them:"
-        "right-click a file, choose Open with > Choose another app, then More apps > Look for another app on this PC,"
-        "and pick DrasticMovieMaker.exe in this folder. Windows lists Drastic Movie Maker for that type from then on."
-        "You can also drop files on DrasticMovieMaker.exe."
-        ""
-        "Licenses: LICENSE.md (Drastic Movie Maker, GPL 3 or later) and THIRD-PARTY-NOTICES.md; sources: SOURCE.txt."
+        "https://github.com/drasticactions/drasticmoviemaker"
     ) | Set-Content -Encoding utf8 (Join-Path $folder 'README.txt')
 
     if ($env:AMM_WINDOWS_CERT -and $env:AMM_WINDOWS_CERT_PASSWORD) {
