@@ -1,13 +1,13 @@
 # License
 
-AvaMovieMaker
+Drastic Movie Maker
 Copyright (C) 2026 Tim Miller
 
-AvaMovieMaker is free software: you can redistribute it and/or modify it under the terms of the GNU General
+Drastic Movie Maker is free software: you can redistribute it and/or modify it under the terms of the GNU General
 Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option)
 any later version (SPDX: GPL-3.0-or-later).
 
-AvaMovieMaker is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+Drastic Movie Maker is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
 warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
 details. Third-party components keep their own licenses; see THIRD-PARTY-NOTICES.md.
 
