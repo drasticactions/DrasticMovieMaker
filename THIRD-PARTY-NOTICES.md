@@ -545,6 +545,28 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 ```
 
+## Sample photos
+
+The effect and transition samples use these photos from Wikimedia Commons.
+Both are scaled down, cropped and shown with effects and transitions applied.
+
+```text
+"河口湖からの富士山" (Mount Fuji from Lake Kawaguchi)
+by くろふね (https://commons.wikimedia.org/wiki/User:Jranar)
+Source: https://commons.wikimedia.org/wiki/File:河口湖からの富士山.jpg
+Licensed under Creative Commons Attribution-ShareAlike 4.0 International
+(CC BY-SA 4.0): https://creativecommons.org/licenses/by-sa/4.0/
+Modified: scaled down and cropped. The modified pictures are also licensed
+under CC BY-SA 4.0.
+
+"Lake Kawaguchiko Sakura Mount Fuji 3" (Mount Fuji and Cherry Blossoms)
+by Midori (https://commons.wikimedia.org/wiki/User:Midori)
+Source: https://commons.wikimedia.org/wiki/File:Lake_Kawaguchiko_Sakura_Mount_Fuji_3.JPG
+Licensed under Creative Commons Attribution 3.0 Unported (CC BY 3.0):
+https://creativecommons.org/licenses/by/3.0/
+Modified: scaled down and cropped.
+```
+
 ## SIL Open Font License 1.1: Liberation Sans, Liberation Serif, Libre Bodoni, Michroma, Courier Prime, Kalam, Selawik
 
 ```text

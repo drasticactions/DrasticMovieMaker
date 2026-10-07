@@ -260,12 +260,12 @@ public sealed class PreviewTests
     [InlineData(AspectRatio.Vertical9x16, 360, 640, "9x16")]
     [InlineData(AspectRatio.Square1x1, 640, 640, "1x1")]
     [InlineData(AspectRatio.Portrait4x5, 512, 640, "4x5")]
-    public void Sample_pictures_are_our_own_drawings_at_the_project_aspect(AspectRatio aspect, int width, int height, string tag)
+    public void Sample_pictures_are_cropped_to_the_project_aspect(AspectRatio aspect, int width, int height, string tag)
     {
         (string a, string b) = SamplePictures.For(aspect);
         Assert.StartsWith(AppPaths.CacheDir, a, StringComparison.Ordinal);
         Assert.NotEqual(a, b);
-        Assert.Contains($"-{tag}-v1.png", a, StringComparison.Ordinal);
+        Assert.Contains($"-{tag}-v3.png", a, StringComparison.Ordinal);
         foreach (string p in new[] { a, b })
         {
             using SKBitmap bmp = SKBitmap.Decode(p);

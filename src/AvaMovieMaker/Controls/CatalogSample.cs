@@ -10,6 +10,7 @@ using AvaMovieMaker.Effects.Catalog;
 using AvaMovieMaker.Rendering.Compositing;
 using AvaMovieMaker.Rendering.Gpu;
 using AvaMovieMaker.Rendering.Plan;
+using AvaMovieMaker.ViewModels.Preview;
 using SkiaSharp;
 
 namespace AvaMovieMaker.Controls;
@@ -74,7 +75,7 @@ public sealed class CatalogSample : Control
         return await dev.Thread.InvokeAsync(() =>
         {
             var ctx = new RenderContext(dev, W, H);
-            using SKImage a = transition ? Panel(ctx, new SKColor(0xF4, 0xF6, 0xF4), new SKColor(0xD8, 0xDC, 0xD8)) : Landscape(ctx);
+            using SKImage a = transition ? Panel(ctx, new SKColor(0xF4, 0xF6, 0xF4), new SKColor(0xD8, 0xDC, 0xD8)) : ctx.Draw(c => SamplePictures.Dawn.Draw(c, W, H));
             using SKImage b = Panel(ctx, new SKColor(0x7C, 0xD0, 0x6C), new SKColor(0x2E, 0x9A, 0x2E));
             EffectInfo? info = transition ? null : EffectCatalog.Find(id);
             SKImage result = transition
@@ -165,24 +166,6 @@ public sealed class CatalogSample : Control
         using var shader = SKShader.CreateLinearGradient(new SKPoint(0, 0), new SKPoint(0, H), [top, bottom], SKShaderTileMode.Clamp);
         using var p = new SKPaint { Shader = shader };
         c.DrawRect(0, 0, W, H, p);
-    });
-
-    private static SKImage Landscape(RenderContext ctx) => ctx.Draw(c =>
-    {
-        using var sky = SKShader.CreateLinearGradient(new SKPoint(0, 0), new SKPoint(0, H * 0.6f), [new SKColor(0x4A, 0x8C, 0xE0), new SKColor(0xC8, 0xE4, 0xF8)], SKShaderTileMode.Clamp);
-        using var p = new SKPaint { Shader = sky, IsAntialias = true };
-        c.DrawRect(0, 0, W, H, p);
-        p.Shader = null;
-        p.Color = new SKColor(0xFF, 0xD2, 0x40);
-        c.DrawCircle(W * 0.75f, H * 0.25f, H * 0.12f, p);
-        p.Color = new SKColor(0x4C, 0x9A, 0x3A);
-        c.DrawOval(new SKRect(-W * 0.2f, H * 0.55f, W * 0.7f, H * 1.4f), p);
-        p.Color = new SKColor(0x6C, 0xB4, 0x44);
-        c.DrawOval(new SKRect(W * 0.3f, H * 0.62f, W * 1.3f, H * 1.5f), p);
-        p.Color = new SKColor(0x6A, 0x46, 0x2A);
-        c.DrawRect(W * 0.22f, H * 0.42f, W * 0.04f, H * 0.2f, p);
-        p.Color = new SKColor(0x2E, 0x7A, 0x2E);
-        c.DrawCircle(W * 0.24f, H * 0.38f, H * 0.12f, p);
     });
 
     public override void Render(DrawingContext context)
