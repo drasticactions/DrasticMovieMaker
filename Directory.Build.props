@@ -16,7 +16,7 @@
     <Product>AvaMovieMaker</Product>
     <PackageLicenseExpression>GPL-3.0-or-later</PackageLicenseExpression>
     <AmmRepoRoot>$(MSBuildThisFileDirectory)</AmmRepoRoot>
-    <AmmSrcDir>$(MSBuildThisFileDirectory)src/</AmmSrcDir>
+    <AmmSrcDir>$([MSBuild]::NormalizeDirectory('$(MSBuildThisFileDirectory)', 'src'))</AmmSrcDir>
     <NoWarn>$(NoWarn);CS1591;CS8002</NoWarn>
   </PropertyGroup>
 
